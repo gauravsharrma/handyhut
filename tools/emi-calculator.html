@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EMI Calculator | HandyHut</title>
-  <link rel="stylesheet" href="../style.css"/>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="emi-style.css">
 </head>
 <body>
   <header>
     <h1>EMI Calculator</h1>
+    <a href="../index.html" class="back-button">Back</a>
   </header>
 
-  <section>
-    <form id="emiForm">
-      <label>Loan Amount (₹): <input type="number" id="principal" required></label><br><br>
-      <label>Interest Rate (% per annum): <input type="number" id="rate" required></label><br><br>
-      <label>Loan Tenure (months): <input type="number" id="months" required></label><br><br>
-      <button type="submit">Calculate EMI</button>
+  <section class="calculator-section">
+    <form id="emiForm" class="calculator-form">
+      <div class="input-group">
+        <label for="principal">Loan Amount (₹)</label>
+        <input type="number" id="principal" placeholder="e.g., 100000" required>
+      </div>
+      <div class="input-group">
+        <label for="rate">Interest Rate (% per annum)</label>
+        <input type="number" id="rate" placeholder="e.g., 8.5" required>
+      </div>
+      <div class="input-group">
+        <label for="months">Loan Tenure (months)</label>
+        <input type="number" id="months" placeholder="e.g., 24" required>
+      </div>
+      <button type="submit" class="calculate-button">Calculate EMI</button>
+      <button type="button" class="clear-button" id="clearBtn">Clear</button>
     </form>
-
-    <h2 id="result"></h2>
+    <div id="result" class="result-display"></div>
   </section>
 
-  <script>
-    document.getElementById("emiForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const P = parseFloat(document.getElementById("principal").value);
-      const R = parseFloat(document.getElementById("rate").value) / 12 / 100;
-      const N = parseFloat(document.getElementById("months").value);
-
-      const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
-      document.getElementById("result").innerText = `Your EMI is ₹${emi.toFixed(2)}`;
-    });
-  </script>
+  <script src="emi-script.js"></script>
 </body>
 </html>
