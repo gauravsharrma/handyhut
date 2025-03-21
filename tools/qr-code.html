@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator/Scanner | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="qr-code-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <h1>QR Code Generator/Scanner</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <div class="qr-container">
+            <h2>QR Code Generator</h2>
+            <div class="input-group">
+                <label for="qrText">Text/URL:</label>
+                <input type="text" id="qrText" placeholder="Enter text or URL">
+            </div>
+            <button id="generateQR" class="calculate-button">Generate QR Code</button>
+            <div id="qrCodeDisplay"></div>
+
+            <hr>
+
+            <h2>QR Code Scanner</h2>
+            <div id="qrScanner"></div>
+            <div id="scanResult" class="result-display"></div>
+        </div>
+    </section>
+
+    <script src="qr-code-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Calculator | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="date-calculator-style.css">
+</head>
+<body>
+    <header>
+        <h1>Date Calculator</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <div class="date-calculator-container">
+            <div class="input-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="input-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate">
+            </div>
+            <button id="calculateButton" class="calculate-button">Calculate Difference</button>
+            <div id="resultDisplay" class="result-display"></div>
+        </div>
+    </section>
+
+    <script src="date-calculator-script.js"></script>
+</body>
+</html>
