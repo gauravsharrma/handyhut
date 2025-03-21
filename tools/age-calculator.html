@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="emi-style.css"> </head>
+<body>
+    <header>
+        <h1>Age Calculator</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <form id="ageForm" class="calculator-form">
+            <div class="input-group">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" id="birthdate" required>
+            </div>
+            <button type="submit" class="calculate-button">Calculate Age</button>
+            <button type="button" class="clear-button" id="clearBtn">Clear</button>
+        </form>
+        <div id="result" class="result-display"></div>
+    </section>
+
+    <script src="age-script.js"></script>
+</body>
+</html>

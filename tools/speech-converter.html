@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="emi-style.css">
+</head>
+<body>
+    <header>
+        <h1>Text to Speech</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <div class="calculator-form">
+            <div class="input-group">
+                <label for="textToSpeak">Enter Text:</label>
+                <textarea id="textToSpeak" rows="8" required></textarea>
+            </div>
+            <div class="input-group">
+                <label for="voice">Select Voice:</label>
+                <select id="voice"></select>
+            </div>
+            <button type="button" class="calculate-button" id="speakButton">Speak</button>
+            <button type="button" class="clear-button" id="clearBtn">Clear</button>
+        </div>
+    </section>
+
+    <script src="speech-script.js"></script>
+</body>
+</html>

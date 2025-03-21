@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="emi-style.css">
+</head>
+<body>
+    <header>
+        <h1>Word Counter</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <div class="calculator-form">
+            <div class="input-group">
+                <label for="text">Enter Text:</label>
+                <textarea id="text" rows="8" required></textarea>
+            </div>
+            <button type="button" class="calculate-button" id="countButton">Count</button>
+            <button type="button" class="clear-button" id="clearBtn">Clear</button>
+        </div>
+        <div id="result" class="result-display"></div>
+    </section>
+
+    <script src="word-script.js"></script>
+</body>
+</html>
