@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculators | HandyHut</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="emi-style.css">
+</head>
+<body>
+    <header>
+        <h1>Financial Calculators</h1>
+        <a href="../index.html" class="back-button">Back</a>
+    </header>
+
+    <section class="calculator-section">
+        <div class="calculator-form">
+            <select id="calculatorType">
+                <option value="fd">Fixed Deposit</option>
+                <option value="rd">Recurring Deposit</option>
+                <option value="ci">Compound Interest</option>
+            </select>
+            <div id="fdInputs" class="input-group">
+                <label for="fdPrincipal">Principal (₹):</label>
+                <input type="number" id="fdPrincipal" required>
+                <label for="fdRate">Interest Rate (%):</label>
+                <input type="number" id="fdRate" required>
+                <label for="fdYears">Years:</label>
+                <input type="number" id="fdYears" required>
+            </div>
+            <div id="rdInputs" class="input-group" style="display: none;">
+                <label for="rdMonthly">Monthly Deposit (₹):</label>
+                <input type="number" id="rdMonthly" required>
+                <label for="rdRate">Interest Rate (%):</label>
+                <input type="number" id="rdRate" required>
+                <label for="rdMonths">Months:</label>
+                <input type="number" id="rdMonths" required>
+            </div>
+            <div id="ciInputs" class="input-group" style="display: none;">
+                <label for="ciPrincipal">Principal (₹):</label>
+                <input type="number" id="ciPrincipal" required>
+                <label for="ciRate">Interest Rate (%):</label>
+                <input type="number" id="ciRate" required>
+                <label for="ciYears">Years:</label>
+                <input type="number" id="ciYears" required>
+                <label for="ciCompounds">Compounds per Year:</label>
+                <input type="number" id="ciCompounds" value="1" required>
+            </div>
+            <button type="button" class="calculate-button" id="calculateButton">Calculate</button>
+            <button type="button" class="clear-button" id="clearBtn">Clear</button>
+        </div>
+        <div id="result" class="result-display"></div>
+    </section>
+
+    <script src="financial-script.js"></script>
+</body>
+</html>
