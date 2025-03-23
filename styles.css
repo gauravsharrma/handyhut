@@ -1,0 +1,172 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header, footer {
+    background-color: #004a98; /* DIB-like blue */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+footer {
+    margin-top: auto;
+    padding: 15px;
+    font-size: 0.9em;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.search-container {
+    padding: 20px;
+    text-align: center;
+    background-color: #e9ecef;
+}
+
+.search-container input {
+    padding: 10px 15px;
+    width: 400px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1em;
+}
+
+#toolList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tool-card a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 25px;
+}
+
+.tool-icon {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    color: #004a98;
+}
+
+.tool-info h2 {
+    margin-bottom: 8px;
+    font-size: 1.4em;
+    color: #333;
+    text-align: center;
+}
+
+.tool-info p {
+    color: #666;
+    font-size: 0.95em;
+    text-align: center;
+}
+
+/* Common Tool Page Styles */
+.tool-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    padding: 10px 15px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 1em;
+}
+
+/* Common Form Styles for Tools */
+.tool-form-container { /* Reusable container */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.tool-form-container h2 { /* Reusable form title */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.tool-form-container input,
+.tool-form-container select,
+.tool-form-container button { /* Reusable inputs/selects/buttons */
+    display: block;
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.tool-form-container button { /* Reusable button styles */
+    background-color: #004a98;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.tool-form-container button:hover {
+    background-color: #003366;
+}
+
+.tool-form-container p { /* Reusable paragraph */
+    margin-top: 25px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1em;
+}
