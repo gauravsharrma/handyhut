@@ -3,27 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator | HandyHut</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="emi-style.css"> </head>
+    <title>Age Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
 <body>
     <header>
-        <h1>Age Calculator</h1>
-        <a href="../index.html" class="back-button">Back</a>
+        <div class="header-content">
+            <h1>Modern Toolbox</h1>
+        </div>
     </header>
 
-    <section class="calculator-section">
-        <form id="ageForm" class="calculator-form">
-            <div class="input-group">
-                <label for="birthdate">Birthdate:</label>
-                <input type="date" id="birthdate" required>
-            </div>
-            <button type="submit" class="calculate-button">Calculate Age</button>
-            <button type="button" class="clear-button" id="clearBtn">Clear</button>
-        </form>
-        <div id="result" class="result-display"></div>
-    </section>
+    <div class="tool-header">
+        <button class="back-button" onclick="window.location.href='../index.html'">Back</button>
+        <h2>Age Calculator</h2>
+    </div>
 
-    <script src="age-script.js"></script>
+    <div class="tool-form-container">
+        <input type="date" id="birthdate">
+        <button id="calculateButton">Calculate Age</button>
+        <p id="ageResult"></p>
+        <p id="futureYears"></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Modern Toolbox. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const birthdateInput = document.getElementById('birthdate');
+    const calculateButton = document.getElementById('calculateButton');
+    const ageResult = document.getElementById('ageResult');
+    const futureYears = document.getElementById('futureYears');
+
+    calculateButton.addEventListener('click', function() {
+        const birthdateValue = birthdateInput.value;
+
+        if (!birthdateValue) {
+            ageResult.textContent = "Please select a birthdate.";
+            futureYears.textContent = "";
+            return;
+        }
+
+        const birthdate = new Date(birthdateValue);
+        const today = new Date();
+
+        let years = today.getFullYear() - birthdate.getFullYear();
+        let months = today.getMonth() - birthdate.getMonth();
+        let days = today.getDate() - birthdate.getDate();
+
+        if (days < 0) {
+            months--;
+            const lastMonthDate = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += lastMonthDate.getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+        const weeks = Math.floor(days/7);
+        days = days % 7;
+
+        ageResult.textContent = `Your age is ${years} years, ${months} months, ${weeks} weeks, and ${days} days.`;
+
+        const futureYearsString = [];
+        [25, 50, 75, 100].forEach(targetYear => {
+            const targetDate = new Date(birthdate.getFullYear() + targetYear, birthdate.getMonth(), birthdate.getDate());
+            futureYearsString.push(`${targetYear} years in ${targetDate.getFullYear()}`);
+        });
+
+        futureYears.textContent = `You will complete ${futureYearsString.join(", ")}.`;
+    });
+});
+    </script>
 </body>
 </html>

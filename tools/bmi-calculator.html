@@ -3,32 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Calculator | HandyHut</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="emi-style.css">
+    <title>BMI Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <header>
-        <h1>BMI Calculator</h1>
-        <a href="../index.html" class="back-button">Back</a>
+        <div class="header-content">
+            <h1>Modern Toolbox</h1>
+        </div>
     </header>
 
-    <section class="calculator-section">
-        <form id="bmiForm" class="calculator-form">
-            <div class="input-group">
-                <label for="height">Height (cm):</label>
-                <input type="number" id="height" required>
-            </div>
-            <div class="input-group">
-                <label for="weight">Weight (kg):</label>
-                <input type="number" id="weight" required>
-            </div>
-            <button type="submit" class="calculate-button">Calculate BMI</button>
-            <button type="button" class="clear-button" id="clearBtn">Clear</button>
-        </form>
-        <div id="result" class="result-display"></div>
-    </section>
+    <div class="tool-header">
+        <button class="back-button" onclick="window.location.href='../index.html'">Back</button>
+        <h2>BMI Calculator</h2>
+    </div>
 
-    <script src="bmi-script.js"></script>
+    <div class="tool-form-container">
+        <input type="number" id="height" placeholder="Height (cm)">
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <button id="calculateButton">Calculate BMI</button>
+        <p id="bmiResult"></p>
+        <p id="bmiCategory"></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Modern Toolbox. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heightInput = document.getElementById('height');
+            const weightInput = document.getElementById('weight');
+            const calculateButton = document.getElementById('calculateButton');
+            const bmiResult = document.getElementById('bmiResult');
+            const bmiCategory = document.getElementById('bmiCategory');
+
+            calculateButton.addEventListener('click', function() {
+                const height = parseFloat(heightInput.value) / 100; // Convert cm to meters
+                const weight = parseFloat(weightInput.value);
+
+                if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                    bmiResult.textContent = "Please enter valid height and weight.";
+                    bmiCategory.textContent = "";
+                    return;
+                }
+
+                const bmi = weight / (height * height);
+                bmiResult.textContent = 'BMI: ' + bmi.toFixed(2);
+
+                let category = "";
+                if (bmi < 18.5) {
+                    category = "Underweight";
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    category = "Normal weight";
+                } else if (bmi >= 25 && bmi < 30) {
+                    category = "Overweight";
+                } else if (bmi >= 30) {
+                    category = "Obese";
+                }
+
+                bmiCategory.textContent = "Category: " + category;
+            });
+        });
+    </script>
 </body>
 </html>
