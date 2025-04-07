@@ -1,0 +1,338 @@
+[
+  { "question": "Terms", "answer": "reactively scramble" },
+  { 
+    "question": "Financial terms big companies track", 
+    "answer": "revenue recognized based on work completed may not be invoiced or received; revenue leakage - work delivered but not billed due to scope misses, etc.; unbilled revenue - work delivered not yet invoiced due to pending approvals, documentation, or milestone acceptance" 
+  },
+  { 
+    "question": "Costs", 
+    "answer": "CTC fully loaded cost - salary, bench time, and overhead; cost burn rate - Daily/weekly/monthly cost utilization against budgeted plan; operational overheads - travel, licenses, software usage, infrastructure, and admin costs tracked per project; Non-Billable Costs - time spent on project but not charged to the client (e.g., rework, internal handovers, KT sessions); DSO (Days Sales Outstanding) - time taken to collect payment post-invoicing—critical to cash flow health; Invoice-to-Cash Realization Rate - ratio of invoices collected without disputes or delays; Delayed Invoice Backlog - revenue at risk due to delivery team delays in milestone sign-offs." 
+  },
+  { 
+    "question": "Strategic pros", 
+    "answer": "high visibility, critical to client operations, builds credibility leading to upsell and cross sell opportunities, organization priority so faster actions, stakeholders are more engaged and responsive" 
+  },
+  { 
+    "question": "Strategic cons", 
+    "answer": "high stakes, pressure to deliver, high chances of scope creep, coordination and integration more complex, reputational risk" 
+  },
+  { 
+    "question": "Enterprise level pros", 
+    "answer": "defined org structure, clear hierarchies and roles, access to dedicated teams like SMEs, IT support, finance, etc.; likely to follow standard frameworks like ITIL, PMO oversight can be leveraged for smooth governance; can take change management support from internal teams like training, communication, and rollout; potential for long-term partnership" 
+  },
+  { 
+    "question": "Enterprise level cons", 
+    "answer": "bureaucracy and slow decision making - slow approvals due to multiple levels of review; siloed communication leading to integration gaps or conflicting feedback; high expectations; integration with enterprise systems under heavy scrutiny; scope complexity may require more discovery time than estimated" 
+  },
+  { 
+    "question": "How do you manage project speed with enterprise-level bureaucracy?", 
+    "answer": "Preemptively map approval workflows, set decision deadlines, and escalate through the right channels early—especially when time-sensitive milestones are involved." 
+  },
+  { 
+    "question": "What’s your plan for handling multiple stakeholders with competing priorities?", 
+    "answer": "Use a stakeholder influence/interest matrix, set up steering committees, and ensure decisions are documented and agreed upon across departments." 
+  },
+  { 
+    "question": "How do you approach integration in an enterprise environment?", 
+    "answer": "Involve client-side IT early, clarify all system touchpoints, get sandbox access upfront, and plan buffer time for compliance/security reviews." 
+  },
+  { 
+    "question": "How do you keep documentation at enterprise standards?", 
+    "answer": "Use structured templates for BRDs, testing plans, and release notes; maintain version control; and route critical documents through formal sign-off workflows." 
+  },
+  { 
+    "question": "How do you build credibility with enterprise clients early on?", 
+    "answer": "Through preparation, quick wins, responsiveness, and bringing SMEs to meetings. Consistency and professionalism are key." 
+  },
+  { 
+    "question": "High profit margin pros", 
+    "answer": "revenue sweet spots, budget for QA experts and automation, buffer to absorb overruns or reworks" 
+  },
+  { 
+    "question": "High profit margin cons", 
+    "answer": "small changes eat margin, overengineering, gold plating, underused or misassigned resources, avoid unnecessary bells and whistles" 
+  },
+  { 
+    "question": "Contingencies", 
+    "answer": "anticipating and building resilience into the plan, 5-10% reserve, backup resources for critical roles, cross-train team members in overlapping areas to reduce single points of failure; have a plan for rapid escalations, including pre-aligned escalation matrix and stakeholder availability windows; maintain a 'Plan B' for key meetings or demos (e.g., recorded walk-throughs, backup environments)" 
+  },
+  { "question": "Power platform pros", "answer": "faster time to value using low code tools, saves client costs for minor enhancements reduce long term dependency on developers, apps work across devices, " },
+  { "question": "Power platform cons", "answer": "licensing complexity, performance at scale, skill gaps need power platform resources and not .net" },
+  { "question": "Licensing", "answer": "Power Platform licensing is based on: What you build (Power Apps, Power Automate, etc.), How it’s accessed (standard or premium connectors, external data), Who uses it (users inside or outside the organization), Environment and governance setup (Dev/Test/Prod)" },
+    {
+    "question": "What is Power Apps per App Plan?",
+    "answer": "$5–$10/user/app/month. Ideal for light users who just need access to 1–2 specific apps."
+  },
+  {
+    "question": "What is Power Apps per User Plan?",
+    "answer": "$20–$25/user/month. Allows unlimited apps per user—commonly used in enterprise deployments."
+  },
+  {
+    "question": "What is Power Apps Pay-as-you-go?",
+    "answer": "Charges are based on actual app usage and are billed through an Azure subscription. Useful for variable or uncertain user demand."
+  },
+  {
+    "question": "Is Power Apps included with Microsoft 365?",
+    "answer": "Yes, basic Power Apps are included with M365 E3/E5 plans and work with standard connectors like SharePoint, Excel, and Teams. Premium connectors are not included."
+  },
+  {
+    "question": "What is Power Automate per User Plan?",
+    "answer": "$15/user/month. Allows users to run unlimited flows tied to their identity."
+  },
+  {
+    "question": "What is Power Automate per Flow Plan?",
+    "answer": "Starts at $100/flow/month. Designed for shared or unattended flows running at the system or department level."
+  },
+  {
+    "question": "What is Power Automate RPA Add-on?",
+    "answer": "Robotic Process Automation (attended/unattended bots) starts at $40–$150/month depending on usage model."
+  },
+  {
+    "question": "Is Power Automate included with Microsoft 365?",
+    "answer": "Yes, for standard M365 use cases like email approvals and SharePoint flows. Premium connectors require additional licenses."
+  },
+  {
+    "question": "What is Power BI Free?",
+    "answer": "Allows building personal reports but doesn’t support sharing, collaboration, or publishing to the Power BI service."
+  },
+  {
+    "question": "What is Power BI Pro?",
+    "answer": "$10/user/month. Enables sharing, publishing, and collaboration of reports and dashboards within an organization."
+  },
+  {
+    "question": "What is Power BI Premium Per User?",
+    "answer": "$20/user/month. Includes features like paginated reports, larger dataset sizes, and enhanced performance."
+  },
+  {
+    "question": "What is Power BI Premium Per Capacity?",
+    "answer": "Starts around $5,000/month. Offers organization-wide licensing and is suitable for large-scale reporting and embedded scenarios."
+  },
+  {
+    "question": "What is Power Virtual Agents Per Session Plan?",
+    "answer": "Licensing is based on the number of chatbot sessions per month, typically starting with a base number (e.g., 2,000 sessions/month)."
+  },
+  {
+    "question": "What are Power Virtual Agents Add-ons?",
+    "answer": "Additional charges may apply for advanced integrations, voice capabilities, and usage of Azure Bot Services."
+  },
+    {
+    "question": "What is an advantage of a globally distributed remote team?",
+    "answer": "Access to global talent—allows hiring specialized skills from anywhere, improving delivery capability."
+  },
+  {
+    "question": "What is another benefit of a remote team across time zones?",
+    "answer": "Follow-the-sun model—enables work to continue 24/7 by leveraging overlapping shifts, reducing delivery time."
+  },
+  {
+    "question": "How does a remote global team improve cost efficiency?",
+    "answer": "Cost optimization—offshoring or nearshoring helps reduce delivery costs while maintaining output quality."
+  },
+  {
+    "question": "How does team distribution support business continuity?",
+    "answer": "Business continuity—regional disruptions (e.g., outages, holidays) don’t halt progress when teams are distributed."
+  },
+  {
+    "question": "Why is diversity considered an advantage in global teams?",
+    "answer": "Diversity of thought—cross-cultural teams bring creative, inclusive solutions and better user understanding."
+  },
+  {
+    "question": "What is a major challenge of managing global time zones?",
+    "answer": "Time zone gaps—they limit real-time collaboration and require planned handover windows to stay aligned."
+  },
+  {
+    "question": "What communication issues arise in remote teams?",
+    "answer": "Communication gaps—misunderstandings can occur without consistent tools, updates, and protocols."
+  },
+  {
+    "question": "How can cultural differences become a risk?",
+    "answer": "Cultural differences—varying norms and expectations can lead to friction or misinterpreted feedback."
+  },
+  {
+    "question": "What’s a visibility challenge with remote teams?",
+    "answer": "Lack of real-time supervision—it’s harder to track engagement or productivity without clear outcome tracking."
+  },
+  {
+    "question": "How is morale affected in fully remote teams?",
+    "answer": "Team cohesion and morale—without in-person contact, PMs must intentionally build engagement and motivation virtually."
+  },
+    {
+    "question": "How do you manage a team working in multiple time zones?",
+    "answer": "I plan around overlapping working hours, use asynchronous updates, and maintain clear handoff protocols across regions."
+  },
+  {
+    "question": "How do you ensure accountability without physical supervision?",
+    "answer": "I focus on outcome-based tracking using tools like JIRA or Microsoft Planner, and maintain regular progress check-ins."
+  },
+  {
+    "question": "How do you prevent miscommunication in distributed teams?",
+    "answer": "We document all key decisions, use standardized communication tools, and record critical meetings for async review."
+  },
+  {
+    "question": "How do you keep remote teams engaged and motivated?",
+    "answer": "Through virtual culture-building activities, recognitions, check-ins, and clear alignment on team goals and purpose."
+  },
+  {
+    "question": "How do you coordinate critical tasks like testing or deployments across regions?",
+    "answer": "By creating detailed playbooks, pre-scheduling time-zone friendly slots, and assigning local leads for execution."
+  },
+  {
+    "question": "What is the purpose of the project kickoff meeting?",
+    "answer": "To align on the project vision, scope, roles, and success criteria, and to build trust and clarity between the client and delivery team."
+  },
+  {
+    "question": "How do you prepare for a successful project kickoff?",
+    "answer": "By reviewing the contract, understanding key stakeholders, preparing a draft project charter, delivery roadmap, RACI matrix, and setting up collaboration tools like Teams or SharePoint."
+  },
+  {
+    "question": "What key topics should be included in the project kickoff agenda?",
+    "answer": "Introductions, project overview, delivery methodology, roles and responsibilities, communication cadence, escalation paths, key milestones, and invoicing process."
+  },
+  {
+    "question": "What do you do immediately after the kickoff meeting?",
+    "answer": "Send out the minutes of meeting (MOM), confirm all decisions and next steps, launch the shared collaboration workspace, and schedule recurring project status reviews."
+  },
+  {
+    "question": "How do you ensure stakeholder alignment during kickoff?",
+    "answer": "By engaging all key stakeholders in discussions, validating expectations early, clarifying scope boundaries, and encouraging open dialogue to uncover hidden assumptions or concerns."
+  },
+  {
+    "question": "How are invoicing milestones structured in this project?",
+    "answer": "They are based on the completion and client sign-off of key delivery phases like planning, requirements, development, UAT, and hyper-care."
+  },
+  {
+    "question": "When can an invoice be raised during the project?",
+    "answer": "An invoice is raised immediately after a milestone is completed and formally signed off by the client sponsor."
+  },
+  {
+    "question": "What is the typical payment term after invoicing?",
+    "answer": "Payment is expected 60 days after the invoice is raised, as per the agreed contract terms."
+  },
+  {
+    "question": "Why are milestone-based invoicing models preferred?",
+    "answer": "They align payment with value delivery, reduce risk for both parties, and ensure clear tracking of financial progress tied to project execution."
+  },
+  {
+    "question": "How do you ensure timely invoicing and collection?",
+    "answer": "By tracking milestone completion closely, maintaining documentation readiness, and collaborating with finance and client stakeholders to avoid delays."
+  },
+  {
+    "question": "How do you build client confidence early in a project?",
+    "answer": "By delivering quick wins, showing working demos early, and maintaining proactive, transparent communication from day one."
+  },
+  {
+    "question": "What role does communication play in client confidence?",
+    "answer": "Consistent weekly updates, risk visibility, and openness in both good and bad news show maturity and build trust."
+  },
+  {
+    "question": "How can quick wins be identified and delivered?",
+    "answer": "By targeting high-impact, low-complexity workflows first—often those that reduce bottlenecks or manual effort quickly."
+  },
+  {
+    "question": "How does assigning the right people help gain client trust?",
+    "answer": "Having a dedicated SPOC, experienced SMEs, and early involvement from leadership signals competence and commitment."
+  },
+  {
+    "question": "What mindset helps position the project as a partnership?",
+    "answer": "Focusing on the client's 'why' (business goals), not just the 'what' (features), and collaborating on challenges rather than just executing."
+  },
+  {
+    "question": "How do you report overall project health to senior management?",
+    "answer": "Using a dashboard with scope, schedule, risk, and progress indicators—often visualized as traffic lights or completion percentages."
+  },
+  {
+    "question": "What key financial metrics should be reported?",
+    "answer": "Revenue recognized, cost incurred, margin achieved vs planned, and invoice/payment status."
+  },
+  {
+    "question": "How do you track invoicing status effectively?",
+    "answer": "By listing milestones delivered, invoices raised, payments received, and highlighting any overdue collections in a live tracker."
+  },
+  {
+    "question": "How is profitability monitored during the project?",
+    "answer": "Through weekly or monthly variance tracking—comparing planned vs actual costs, burn rates, and revenue realization."
+  },
+  {
+    "question": "What tools or methods are used to represent project health?",
+    "answer": "Dashboards in Power BI, Excel, or project management tools that include sprint progress, risk logs, financial charts, and milestone tracking."
+  },
+  {
+    "question": "How do you bring a delayed project back on track?",
+    "answer": "By reprioritizing features, phasing delivery, accelerating sprints, and adding buffer to absorb future delays."
+  },
+  {
+    "question": "What is your approach to managing scope creep?",
+    "answer": "I split scope into phases, baseline the original BRDs, and route any additions through formal change requests."
+  },
+  {
+    "question": "How do you address project delays caused by integration complexities?",
+    "answer": "Involve technical SMEs early, use mock systems for faster prototyping, and plan additional integration test cycles."
+  },
+  {
+    "question": "What’s your strategy to control budget overrun?",
+    "answer": "Optimize resource allocation, reduce non-billable overhead, and track actual vs planned burn rate weekly."
+  },
+  {
+    "question": "How do you realign a project that is 10% over budget?",
+    "answer": "Reevaluate effort estimates, focus on high-value deliverables, renegotiate low-impact scope, and increase utilization."
+  },
+  {
+    "question": "How do you ensure client satisfaction when quality concerns arise?",
+    "answer": "Tighten QA cycles, shift testing left, involve the client in validation, and set performance benchmarks early."
+  },
+  {
+    "question": "How do you prevent recurring quality issues?",
+    "answer": "Introduce peer code reviews, automated regression testing, and structured UAT in each sprint."
+  },
+  {
+    "question": "How do you manage inconsistent team communication?",
+    "answer": "Standardize on tools like Teams or Slack, enforce daily standups, and document key updates in shared spaces."
+  },
+  {
+    "question": "How do you avoid duplicated efforts in a remote team?",
+    "answer": "Define a clear RACI matrix, assign sprint-level ownership, and maintain centralized task boards."
+  },
+  {
+    "question": "How do you handle BRDs being blocked due to new requirements?",
+    "answer": "Split BRDs into Phase 1 (approved) and Phase 2 (pending), to allow development to start without waiting."
+  },
+  {
+    "question": "How do you mitigate risks from newly introduced critical requirements?",
+    "answer": "Conduct impact analysis, re-baseline timelines, and negotiate delivery through scoped enhancements or CRs."
+  },
+  {
+    "question": "How do you maintain profitability under project stress?",
+    "answer": "Closely monitor margins, eliminate inefficiencies, escalate blockers early, and protect billability."
+  },
+  {
+    "question": "How do you recover trust after early project issues?",
+    "answer": "Be transparent, communicate recovery plans clearly, show quick wins, and involve leadership in resolution."
+  },
+  {
+    "question": "How do you balance delivery speed with quality?",
+    "answer": "Use agile sprints with embedded QA, define DoD (Definition of Done), and stagger test/dev cycles."
+  },
+  {
+    "question": "How do you improve collaboration across a globally distributed team?",
+    "answer": "Use time-zone-friendly standups, async updates, shared dashboards, and real-time collaboration tools."
+  },
+  {
+    "question": "What tools do you use to track recovery progress?",
+    "answer": "Burndown charts, sprint boards, RAID logs, financial dashboards, and milestone trackers."
+  },
+  {
+    "question": "How do you prevent further project slippage once recovered?",
+    "answer": "Lock down scope, tighten review checkpoints, escalate delays early, and monitor progress daily."
+  },
+  {
+    "question": "How do you handle overlapping or unclear responsibilities?",
+    "answer": "Define and enforce a RACI matrix, assign sprint owners, and clarify escalation paths for each team."
+  },
+  {
+    "question": "What’s your approach to managing stakeholder expectations during recovery?",
+    "answer": "Communicate openly, reset timelines based on reality, and keep them engaged with visible progress updates."
+  },
+  {
+    "question": "How do you manage performance risk on the Power Platform?",
+    "answer": "Set performance benchmarks early, test with realistic data volumes, and optimize connectors and queries."
+  }
+]

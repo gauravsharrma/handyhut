@@ -1,0 +1,10 @@
+Task,Start Date,End Date,Duration (weeks),Resources,Depends On
+Project Kickoff & Team Onboarding,2025-04-07,2025-04-14,1,"PM, Tech Lead",
+Requirement Gathering & BRD Finalization,2025-04-15,2025-04-29,2,"BA, PM, Client SME",Project Kickoff & Team Onboarding
+Design System Architecture & Forms Mapping,2025-04-30,2025-05-14,2,"Tech Lead, Architect",Requirement Gathering & BRD Finalization
+MVP Development (Core Forms),2025-05-15,2025-06-05,3,"Dev Team, QA",Design System Architecture & Forms Mapping
+MVP Testing & Feedback,2025-06-06,2025-06-13,1,"QA, PM, Client SME",MVP Development (Core Forms)
+Full Development (Remaining Forms + Integration),2025-06-14,2025-07-12,4,"Dev Team, QA",MVP Testing & Feedback
+Full System Testing & UAT,2025-07-13,2025-07-27,2,"QA, Client SME",Full Development (Remaining Forms + Integration)
+Go-Live Preparation & Training,2025-07-28,2025-08-04,1,"PM, Support, Client SME",Full System Testing & UAT
+Go-Live & Hypercare Support,2025-08-05,2025-08-19,2,"Support Team, PM",Go-Live Preparation & Training

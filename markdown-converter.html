@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown to Word & PDF Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    textarea {
+      width: 45%;
+      height: 500px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    #preview {
+      width: 45%;
+      height: 500px;
+      overflow-y: auto;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      white-space: normal;
+      word-break: break-word;
+      box-sizing: border-box;
+    }
+
+    #preview * {
+      white-space: normal;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    #copy-status {
+      text-align: center;
+      color: green;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Markdown to Word & PDF Converter</h1>
+  <div class="container">
+    <textarea id="markdown-input" placeholder="Enter your Markdown here..."></textarea>
+    <div id="preview"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="exportToWord()">Export to Word (.docx)</button>
+    <button onclick="copyConvertedContent()">Copy Converted Content</button>
+    <button onclick="exportToPDF()">Export to PDF</button>
+  </div>
+  <div id="copy-status"></div>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.3.0/build/index.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Script -->
+  <script>
+    const textarea = document.getElementById('markdown-input');
+    const preview = document.getElementById('preview');
+    const copyStatus = document.getElementById('copy-status');
+
+    textarea.addEventListener('input', () => {
+      preview.innerHTML = marked.parse(textarea.value);
+    });
+
+    function exportToWord() {
+      const { Document, Packer, Paragraph, TextRun } = window.docx;
+      const tempElement = document.createElement("div");
+      tempElement.innerHTML = marked.parse(textarea.value);
+
+      const docElements = [];
+
+      tempElement.childNodes.forEach(node => {
+        if (node.nodeType === 1) {
+          let bold = ['H1','H2','H3'].includes(node.tagName);
+          docElements.push(
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: node.textContent,
+                  bold: bold,
+                })
+              ]
+            })
+          );
+        }
+      });
+
+      const doc = new Document({
+        sections: [{
+          properties: {},
+          children: docElements
+        }]
+      });
+
+      Packer.toBlob(doc).then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "markdown.docx";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function copyConvertedContent() {
+      const htmlContent = preview.innerText;
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = htmlContent;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+      copyStatus.textContent = "Converted content copied to clipboard!";
+      setTimeout(() => copyStatus.textContent = "", 3000);
+    }
+
+    function exportToPDF() {
+      const previewClone = preview.cloneNode(true);
+
+      // Style the clone
+      previewClone.style.width = "100%";
+      previewClone.style.maxWidth = "100%";
+      previewClone.style.height = "auto";
+      previewClone.style.overflow = "visible";
+      previewClone.style.whiteSpace = "normal";
+      previewClone.style.wordBreak = "break-word";
+      previewClone.style.padding = "20px";
+      previewClone.style.backgroundColor = "#fff";
+      previewClone.style.boxSizing = "border-box";
+
+      // Wrap in container
+      const pdfContainer = document.createElement("div");
+      pdfContainer.style.width = "794px"; // A4 size width in px at 96dpi
+      pdfContainer.style.maxWidth = "794px";
+      pdfContainer.style.padding = "20px";
+      pdfContainer.style.boxSizing = "border-box";
+      pdfContainer.style.fontFamily = "sans-serif";
+      pdfContainer.appendChild(previewClone);
+
+      document.body.appendChild(pdfContainer);
+
+      const opt = {
+        margin: 0.5,
+        filename: 'markdown.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          scrollY: 0
+        },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(pdfContainer).save().then(() => {
+        document.body.removeChild(pdfContainer);
+      });
+    }
+  </script>
+</body>
+</html>
