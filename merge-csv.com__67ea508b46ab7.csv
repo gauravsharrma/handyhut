@@ -1,0 +1,97 @@
+# CSV-File created with merge-csv.com
+# -----------------------------------------------------------
+
+Topic,Platform,What to Do,How it Helps
+Workforce Planning,Power Apps,Create forecasting templates for workforce projections,Helps HR and departments estimate headcount needs
+Workforce Planning,Power BI,"Visualize gaps, attrition trends, and what-if scenarios",Supports strategic decisions and risk management
+Workforce Planning,Power Automate,Alert HR when plan vs actual deviates or key roles are vacant,Enables proactive staffing action
+Rewards & Recognition,Power Apps,"Enable employees to nominate peers with category, message, and tags",Promotes culture of appreciation
+Rewards & Recognition,Power Automate,"Route nominations for approvals, generate badges or certificates",Automates recognition and enhances visibility
+Rewards & Recognition,SharePoint,Store recognition records with audit trail and reporting metadata,Maintains records for tracking and insights
+Rewards & Recognition,Power BI,Display dashboards of top performers and participation rates,Supports engagement strategies and transparency
+Grievance Management,Power Apps,Create secure grievance form with anonymity and attachments,Encourages safe and confidential reporting
+Grievance Management,Power Automate,Route grievance to proper HR personnel with SLA-based timers,Ensures fair handling and timely resolution
+Grievance Management,SharePoint,"Store case logs, actions, and closure summaries in restricted libraries",Provides auditability and evidence tracking
+Grievance Management,Power BI,"Report trends in grievance type, resolution time, and department impact",Supports culture improvement and compliance
+Surveys & Feedback,Power Apps,Embed feedback forms with role-based logic and question groups,Tailors feedback collection by audience
+Surveys & Feedback,Power Automate,Distribute surveys based on lifecycle triggers or periodic schedules,Automates continuous listening strategy
+Surveys & Feedback,SharePoint,"Store responses with metadata (e.g., role, department, survey type)",Enables structured data analysis
+Surveys & Feedback,Power BI,"Visualize engagement scores, sentiment trends, and participation",Informs HR strategy and employee experience actions
+AI-Based Resume Screening,Power Apps,Allow resume uploads and override of AI scoring,Keeps recruiters in control of final decisions
+AI-Based Resume Screening,Power Automate,Run AI model to parse resumes and match with job profiles,Speeds up screening and ensures consistency
+AI-Based Resume Screening,.NET,"Develop logic for AI scoring, red flag detection, and retraining","Provides intelligent, scalable shortlisting"
+AI-Based Resume Screening,Power BI,"Track applicant pipeline, average fit scores, and override stats",Enables hiring quality insights
+HR Chatbot Integration,Power Virtual Agents,Build chatbot topics covering common HR FAQs and processes,Provides 24/7 self-service assistance
+HR Chatbot Integration,Power Automate,Trigger backend actions like leave lookup or request submission,Connects chatbot to live systems and workflows
+HR Chatbot Integration,SharePoint,Store chat logs and unresolved queries for review,Supports chatbot improvement and compliance
+HR Chatbot Integration,Power BI,"Analyze usage trends, satisfaction scores, and escalation types",Optimizes bot effectiveness and engagement
+Training & Development Modules,Power Apps,Create a learning dashboard with course browsing and registration,Empowers employees to manage their learning journey
+Training & Development Modules,Power Automate,"Automate nominations, approvals, reminders, and certifications",Streamlines and tracks training lifecycle
+Training & Development Modules,.NET,"Integrate external LMS (e.g., LinkedIn Learning) using APIs",Syncs training progress and attendance across platforms
+Training & Development Modules,Power BI,"Visualize training coverage, gaps, and completion rates",Provides L&D insights for planning and compliance
+Exit Management,Power Apps,Create exit forms with dynamic fields and checklists,Guides HR and employees through structured offboarding
+Exit Management,Power Automate,Assign clearance tasks and deactivate access automatically,"Ensures secure, timely deactivation and task closure"
+Exit Management,.NET,Integrate with AD/payroll to revoke access and update final settlements,Automates backend exit operations securely
+Exit Management,SharePoint,"Store exit feedback, interview data, and clearance documents",Maintains audit logs and insights on attrition
+Document Management,SharePoint,Use libraries with metadata and versioning for secure storage,Centralizes HR document control and access
+Document Management,Power Apps,"Enable secure upload, preview, and download features",Improves document access and compliance
+Document Management,Power Automate,Auto-apply permissions and send alerts for expiring docs,Enforces confidentiality and lifecycle tracking
+Employee Master Data Modeling,Dataverse,"Create a normalized employee schema with role, department, and status",Acts as single source of truth across HR modules
+Employee Master Data Modeling,Power Apps,Use model-driven or canvas apps to read/write master data,Enables accurate and consistent HR transactions
+Employee Master Data Modeling,Power Automate,Sync updates across HR modules and external systems,Ensures real-time consistency across services
+Internal Job Transfers,Power Apps,Create transfer request form with prefilled employee data,Simplifies and standardizes the transfer process
+Internal Job Transfers,Power Automate,Route approvals to current/future managers and HR,Ensures all stakeholders are looped in
+Internal Job Transfers,.NET,"Trigger downstream actions like AD updates, license changes",Maintains access and role accuracy post-transfer
+Internal Job Transfers,SharePoint,Store transfer history logs and approval timestamps,Supports compliance and transfer traceability
+Onboarding Workflow Automation,Power Automate,"Create flows for onboarding emails, system access, and task assignments",Automates cross-departmental onboarding steps
+Onboarding Workflow Automation,Power Apps,Build onboarding form with status tracking for new hire and HR,Enables visibility and ownership of onboarding tasks
+Onboarding Workflow Automation,.NET,"Expose provisioning APIs to trigger external system updates (e.g., AD, payroll)",Ensures accurate and timely provisioning of services
+Onboarding Workflow Automation,SharePoint,Store onboarding templates and checklists,Centralizes task documents and forms
+Data Retention and Archival Policies,SharePoint,Apply retention labels or policies based on status or date,Automatically cleans up expired content and supports compliance
+Data Retention and Archival Policies,.NET,Schedule backend jobs for archiving and deleting with audit logs,Maintains clean database and supports legal defensibility
+Data Retention and Archival Policies,Power Automate,Evaluate date fields and archive/delete records using flows,Automates policy-based cleanup tasks
+Integration with External Systems,Power Automate,Use connectors and HTTP actions to sync data between HRIS and external systems,Automates cross-platform workflows
+Integration with External Systems,.NET,Develop REST APIs and middleware for secure system integration,Handles complex enterprise integration and transformations
+Integration with External Systems,SharePoint,Use lists as staging or mapping layers for integrations,Simplifies structured data exchanges
+Self-Service Configuration for Employees and Managers,Power Apps,"Create intuitive, role-based self-service portal for common HR tasks",Empowers users and reduces HR support dependency
+Self-Service Configuration for Employees and Managers,SharePoint,"Enable secure, user-specific views to restrict data access",Protects privacy and improves user relevance
+Self-Service Configuration for Employees and Managers,Power Automate,Trigger flows from form actions like requests and updates,Executes HR processes without manual coordination
+Performance Management Workflows,Power Apps,"Create forms for self-review, manager input, and final appraisal",Streamlines structured performance evaluations
+Performance Management Workflows,Power Automate,"Orchestrate review stages with reminders, escalations, and status updates",Ensures timely cycle completion
+Performance Management Workflows,SharePoint,"Store review forms, templates, and scoring matrices",Enables secure archival and standardization of feedback data
+Performance Management Workflows,.NET,Expose APIs for performance data analysis and integration,Supports downstream use in compensation planning and analytics
+Mobile Accessibility,Power Apps,Use responsive containers and relative sizing for mobile-friendly design,Ensures smooth HR task access on phones and tablets
+Mobile Accessibility,Power Automate,Send push/email notifications or integrate with Teams mobile,Keeps managers and employees responsive on the go
+Licensing Strategy and Cost Control,Power BI,Build dashboards using usage and licensing data from M365 Admin Center,Enables license optimization and cost forecasting
+Licensing Strategy and Cost Control,Power Automate,Provision licenses during onboarding based on user type,Automates and standardizes license assignment
+Licensing Strategy and Cost Control,.NET,Run PowerShell/Graph API routines for license audits,Detects and reclaims unused licenses
+Analytics and Reporting,Power BI,"Develop dashboards using Dataverse, SharePoint, or external system data","Provides real-time, role-based HR insights"
+Analytics and Reporting,.NET,Expose REST APIs for reporting data feeds,Supports enterprise data lake integration or BI tools
+Analytics and Reporting,Power Automate,Ensure data sync with data warehouses on schedule,Maintains up-to-date reporting across systems
+Compliance Enforcement,Power Apps,Collect policy acknowledgments and store audit logs upon form submission,Ensures legal compliance and traceability
+Compliance Enforcement,SharePoint,"Enable versioning, sensitivity labels, and retention policies",Protects sensitive records and enables audit readiness
+Compliance Enforcement,Power Automate,Insert approval stages and email logs for regulated actions,Supports compliance workflows and evidence tracking
+Compliance Enforcement,.NET,"Validate access roles, input data, and enforce restrictions in APIs",Secures backend operations and prevents policy violations
+Leave & Attendance Integration,Power Apps,Build forms with validations for balance checks and overlap detection,Improves request accuracy and policy compliance
+Leave & Attendance Integration,Power Automate,Route approvals and update attendance calendars dynamically,Automates leave workflows and ledger updates
+Leave & Attendance Integration,.NET,Integrate biometric or time systems with attendance modules,Enables accurate attendance capture and synchronization
+Leave & Attendance Integration,SharePoint,"Store policy references, leave types, and calendar views",Centralizes leave documentation and compliance rules
+Geo Spread: Time Zone Handling,.NET,Use DateTime.UtcNow in all backend API calls and persistence,Standardizes timestamps and ensures global consistency
+Geo Spread: Time Zone Handling,Power Automate,Use convertTimeZone() to convert UTC to local time in notifications,Ensures accurate due dates and event times for users
+Geo Spread: Time Zone Handling,Power Apps,Fetch user time zone from Azure AD/SharePoint and format display fields,Presents time data in user's local time zone
+Role-Based Access Control (RBAC),SharePoint,"Apply role-based permissions at site, list, and item levels",Protects sensitive data and ensures proper visibility
+Role-Based Access Control (RBAC),.NET,Implement role validation middleware using claims-based identity,Prevents unauthorized API access based on role
+Role-Based Access Control (RBAC),Power Apps,Use User().Email and job title to show/hide app content dynamically,Restricts UI features and improves user experience
+Role-Based Access Control (RBAC),Power Automate,Branch flows and route data based on user role,Secures workflow outputs and prevents misuse
+Department Segregation and Workflow Customization,SharePoint,Add department metadata to lists and filter views accordingly,Simplifies access and improves usability for each team
+Department Segregation and Workflow Customization,.NET,Enforce department filters in API based on user claims,Ensures department isolation in backend logic
+Department Segregation and Workflow Customization,Power Apps,Filter galleries and views based on user's department,Customizes UI and secures data by department
+Department Segregation and Workflow Customization,Power Automate,Apply conditional branches in flows by department value,Routes requests through relevant department-specific logic
+Organizational Hierarchy and Approval Routing,SharePoint,Store hierarchy as a reference list and use lookup fields,Supports manager-based approval in SharePoint workflows
+Organizational Hierarchy and Approval Routing,.NET,Pass manager info via JWT or request headers for validation,Enables server-side hierarchy enforcement
+Organizational Hierarchy and Approval Routing,Power Apps,Use Office365Users.ManagerV2 to display and route to manager,"Ensures dynamic, manager-based approvals in forms"
+Organizational Hierarchy and Approval Routing,Power Automate,Query manager at runtime and build approval chains,Automates escalation and avoids hardcoded routes
+Audit Trails and Action Logging,.NET,Log actions using Serilog/Application Insights with user and timestamp,Captures detailed backend activity for compliance
+Audit Trails and Action Logging,Power Automate,Log workflow events to SharePoint or Dataverse tables,Creates traceability for flow activities
+Audit Trails and Action Logging,Power Apps,Use Patch() to write user actions to audit tables,Monitors and records user UI actions
+Audit Trails and Action Logging,SharePoint,Enable version history and configure data retention settings,Preserves change history and supports legal reviews

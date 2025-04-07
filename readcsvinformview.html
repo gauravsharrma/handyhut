@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSV/Excel Row Filter Viewer</title>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      padding: 2rem;
+      color: #2f3640;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .center-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    input[type="file"], select {
+      padding: 0.6rem 1rem;
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      width: 300px;
+    }
+    select {
+      border-style: solid;
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      max-width: 700px;
+      margin: 1rem auto;
+      display: grid;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    input[readonly] {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f0f0f0;
+    }
+    .nav-buttons {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      margin: 0 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #0984e3;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #dfe6e9;
+      color: #636e72;
+      cursor: not-allowed;
+    }
+    .row-indicator {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #636e72;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSV/Excel → Filter & View Rows</h1>
+  <div class="center-box">
+    <input type="file" id="fileInput" accept=".csv, .xls, .xlsx">
+  </div>
+  <div class="center-box" id="dropdownBox" style="display:none;">
+    <select id="valueFilter">
+      <option value="">-- Select value to filter --</option>
+    </select>
+  </div>
+  <div id="formCard" class="form-card" style="display:none;"></div>
+  <div class="nav-buttons" style="display:none;" id="navButtons">
+    <button id="prevBtn">Previous</button>
+    <button id="nextBtn">Next</button>
+  </div>
+  <div class="row-indicator" id="rowIndicator" style="display:none;"></div>
+
+  <script>
+    let fullData = [];
+    let filteredData = [];
+    let currentIndex = 0;
+    let firstColKey = "";
+
+    document.getElementById('fileInput').addEventListener('change', handleFile);
+    document.getElementById('valueFilter').addEventListener('change', filterRows);
+    document.getElementById('prevBtn').addEventListener('click', () => showRow(currentIndex - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => showRow(currentIndex + 1));
+
+    function handleFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const bytes = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(bytes, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        fullData = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+        if (fullData.length > 0) {
+          firstColKey = Object.keys(fullData[0])[0];
+          populateDropdown();
+          document.getElementById('dropdownBox').style.display = 'flex';
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function populateDropdown() {
+      const dropdown = document.getElementById('valueFilter');
+      dropdown.innerHTML = '<option value="">-- Select value to filter --</option>';
+      const uniqueValues = [...new Set(fullData.map(row => row[firstColKey]))];
+
+      uniqueValues.forEach(val => {
+        const option = document.createElement('option');
+        option.value = val;
+        option.textContent = val;
+        dropdown.appendChild(option);
+      });
+    }
+
+    function filterRows() {
+      const selected = document.getElementById('valueFilter').value;
+      if (!selected) {
+        document.getElementById('formCard').style.display = 'none';
+        document.getElementById('navButtons').style.display = 'none';
+        document.getElementById('rowIndicator').style.display = 'none';
+        return;
+      }
+
+      filteredData = fullData.filter(row => row[firstColKey] == selected);
+      if (filteredData.length > 0) {
+        currentIndex = 0;
+        document.getElementById('formCard').style.display = 'grid';
+        document.getElementById('navButtons').style.display = 'block';
+        document.getElementById('rowIndicator').style.display = 'block';
+        showRow(0);
+      }
+    }
+
+    function showRow(index) {
+      if (index < 0 || index >= filteredData.length) return;
+      currentIndex = index;
+
+      const row = filteredData[index];
+      const formCard = document.getElementById('formCard');
+      formCard.innerHTML = '';
+
+      for (const key in row) {
+        const group = document.createElement('div');
+        group.className = 'form-group';
+
+        const label = document.createElement('label');
+        label.textContent = key;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = row[key];
+        input.setAttribute('readonly', true);
+
+        group.appendChild(label);
+        group.appendChild(input);
+        formCard.appendChild(group);
+      }
+
+      document.getElementById('prevBtn').disabled = (index === 0);
+      document.getElementById('nextBtn').disabled = (index === filteredData.length - 1);
+      document.getElementById('rowIndicator').textContent = `Row ${index + 1} of ${filteredData.length}`;
+    }
+  </script>
+</body>
+</html>

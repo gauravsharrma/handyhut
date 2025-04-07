@@ -1,0 +1,19 @@
+Topic,Platform,What to Do,How it Helps
+Training & Development Modules,Power Apps,Create a learning dashboard with course browsing and registration,Empowers employees to manage their learning journey
+Training & Development Modules,Power Automate,"Automate nominations, approvals, reminders, and certifications",Streamlines and tracks training lifecycle
+Training & Development Modules,.NET,"Integrate external LMS (e.g., LinkedIn Learning) using APIs",Syncs training progress and attendance across platforms
+Training & Development Modules,Power BI,"Visualize training coverage, gaps, and completion rates",Provides L&D insights for planning and compliance
+Exit Management,Power Apps,Create exit forms with dynamic fields and checklists,Guides HR and employees through structured offboarding
+Exit Management,Power Automate,Assign clearance tasks and deactivate access automatically,"Ensures secure, timely deactivation and task closure"
+Exit Management,.NET,Integrate with AD/payroll to revoke access and update final settlements,Automates backend exit operations securely
+Exit Management,SharePoint,"Store exit feedback, interview data, and clearance documents",Maintains audit logs and insights on attrition
+Document Management,SharePoint,Use libraries with metadata and versioning for secure storage,Centralizes HR document control and access
+Document Management,Power Apps,"Enable secure upload, preview, and download features",Improves document access and compliance
+Document Management,Power Automate,Auto-apply permissions and send alerts for expiring docs,Enforces confidentiality and lifecycle tracking
+Employee Master Data Modeling,Dataverse,"Create a normalized employee schema with role, department, and status",Acts as single source of truth across HR modules
+Employee Master Data Modeling,Power Apps,Use model-driven or canvas apps to read/write master data,Enables accurate and consistent HR transactions
+Employee Master Data Modeling,Power Automate,Sync updates across HR modules and external systems,Ensures real-time consistency across services
+Internal Job Transfers,Power Apps,Create transfer request form with prefilled employee data,Simplifies and standardizes the transfer process
+Internal Job Transfers,Power Automate,Route approvals to current/future managers and HR,Ensures all stakeholders are looped in
+Internal Job Transfers,.NET,"Trigger downstream actions like AD updates, license changes",Maintains access and role accuracy post-transfer
+Internal Job Transfers,SharePoint,Store transfer history logs and approval timestamps,Supports compliance and transfer traceability

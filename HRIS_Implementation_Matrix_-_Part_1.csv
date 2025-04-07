@@ -1,0 +1,20 @@
+Topic,Platform,What to Do,How it Helps
+Geo Spread: Time Zone Handling,.NET,Use DateTime.UtcNow in all backend API calls and persistence,Standardizes timestamps and ensures global consistency
+Geo Spread: Time Zone Handling,Power Automate,Use convertTimeZone() to convert UTC to local time in notifications,Ensures accurate due dates and event times for users
+Geo Spread: Time Zone Handling,Power Apps,Fetch user time zone from Azure AD/SharePoint and format display fields,Presents time data in user's local time zone
+Role-Based Access Control (RBAC),SharePoint,"Apply role-based permissions at site, list, and item levels",Protects sensitive data and ensures proper visibility
+Role-Based Access Control (RBAC),.NET,Implement role validation middleware using claims-based identity,Prevents unauthorized API access based on role
+Role-Based Access Control (RBAC),Power Apps,Use User().Email and job title to show/hide app content dynamically,Restricts UI features and improves user experience
+Role-Based Access Control (RBAC),Power Automate,Branch flows and route data based on user role,Secures workflow outputs and prevents misuse
+Department Segregation and Workflow Customization,SharePoint,Add department metadata to lists and filter views accordingly,Simplifies access and improves usability for each team
+Department Segregation and Workflow Customization,.NET,Enforce department filters in API based on user claims,Ensures department isolation in backend logic
+Department Segregation and Workflow Customization,Power Apps,Filter galleries and views based on user's department,Customizes UI and secures data by department
+Department Segregation and Workflow Customization,Power Automate,Apply conditional branches in flows by department value,Routes requests through relevant department-specific logic
+Organizational Hierarchy and Approval Routing,SharePoint,Store hierarchy as a reference list and use lookup fields,Supports manager-based approval in SharePoint workflows
+Organizational Hierarchy and Approval Routing,.NET,Pass manager info via JWT or request headers for validation,Enables server-side hierarchy enforcement
+Organizational Hierarchy and Approval Routing,Power Apps,Use Office365Users.ManagerV2 to display and route to manager,"Ensures dynamic, manager-based approvals in forms"
+Organizational Hierarchy and Approval Routing,Power Automate,Query manager at runtime and build approval chains,Automates escalation and avoids hardcoded routes
+Audit Trails and Action Logging,.NET,Log actions using Serilog/Application Insights with user and timestamp,Captures detailed backend activity for compliance
+Audit Trails and Action Logging,Power Automate,Log workflow events to SharePoint or Dataverse tables,Creates traceability for flow activities
+Audit Trails and Action Logging,Power Apps,Use Patch() to write user actions to audit tables,Monitors and records user UI actions
+Audit Trails and Action Logging,SharePoint,Enable version history and configure data retention settings,Preserves change history and supports legal reviews

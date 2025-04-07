@@ -1,0 +1,18 @@
+Topic,Platform,What to Do,How it Helps
+Onboarding Workflow Automation,Power Automate,"Create flows for onboarding emails, system access, and task assignments",Automates cross-departmental onboarding steps
+Onboarding Workflow Automation,Power Apps,Build onboarding form with status tracking for new hire and HR,Enables visibility and ownership of onboarding tasks
+Onboarding Workflow Automation,.NET,"Expose provisioning APIs to trigger external system updates (e.g., AD, payroll)",Ensures accurate and timely provisioning of services
+Onboarding Workflow Automation,SharePoint,Store onboarding templates and checklists,Centralizes task documents and forms
+Data Retention and Archival Policies,SharePoint,Apply retention labels or policies based on status or date,Automatically cleans up expired content and supports compliance
+Data Retention and Archival Policies,.NET,Schedule backend jobs for archiving and deleting with audit logs,Maintains clean database and supports legal defensibility
+Data Retention and Archival Policies,Power Automate,Evaluate date fields and archive/delete records using flows,Automates policy-based cleanup tasks
+Integration with External Systems,Power Automate,Use connectors and HTTP actions to sync data between HRIS and external systems,Automates cross-platform workflows
+Integration with External Systems,.NET,Develop REST APIs and middleware for secure system integration,Handles complex enterprise integration and transformations
+Integration with External Systems,SharePoint,Use lists as staging or mapping layers for integrations,Simplifies structured data exchanges
+Self-Service Configuration for Employees and Managers,Power Apps,"Create intuitive, role-based self-service portal for common HR tasks",Empowers users and reduces HR support dependency
+Self-Service Configuration for Employees and Managers,SharePoint,"Enable secure, user-specific views to restrict data access",Protects privacy and improves user relevance
+Self-Service Configuration for Employees and Managers,Power Automate,Trigger flows from form actions like requests and updates,Executes HR processes without manual coordination
+Performance Management Workflows,Power Apps,"Create forms for self-review, manager input, and final appraisal",Streamlines structured performance evaluations
+Performance Management Workflows,Power Automate,"Orchestrate review stages with reminders, escalations, and status updates",Ensures timely cycle completion
+Performance Management Workflows,SharePoint,"Store review forms, templates, and scoring matrices",Enables secure archival and standardization of feedback data
+Performance Management Workflows,.NET,Expose APIs for performance data analysis and integration,Supports downstream use in compensation planning and analytics

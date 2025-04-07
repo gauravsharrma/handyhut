@@ -1,0 +1,24 @@
+Topic,Platform,What to Do,How it Helps
+Workforce Planning,Power Apps,Create forecasting templates for workforce projections,Helps HR and departments estimate headcount needs
+Workforce Planning,Power BI,"Visualize gaps, attrition trends, and what-if scenarios",Supports strategic decisions and risk management
+Workforce Planning,Power Automate,Alert HR when plan vs actual deviates or key roles are vacant,Enables proactive staffing action
+Rewards & Recognition,Power Apps,"Enable employees to nominate peers with category, message, and tags",Promotes culture of appreciation
+Rewards & Recognition,Power Automate,"Route nominations for approvals, generate badges or certificates",Automates recognition and enhances visibility
+Rewards & Recognition,SharePoint,Store recognition records with audit trail and reporting metadata,Maintains records for tracking and insights
+Rewards & Recognition,Power BI,Display dashboards of top performers and participation rates,Supports engagement strategies and transparency
+Grievance Management,Power Apps,Create secure grievance form with anonymity and attachments,Encourages safe and confidential reporting
+Grievance Management,Power Automate,Route grievance to proper HR personnel with SLA-based timers,Ensures fair handling and timely resolution
+Grievance Management,SharePoint,"Store case logs, actions, and closure summaries in restricted libraries",Provides auditability and evidence tracking
+Grievance Management,Power BI,"Report trends in grievance type, resolution time, and department impact",Supports culture improvement and compliance
+Surveys & Feedback,Power Apps,Embed feedback forms with role-based logic and question groups,Tailors feedback collection by audience
+Surveys & Feedback,Power Automate,Distribute surveys based on lifecycle triggers or periodic schedules,Automates continuous listening strategy
+Surveys & Feedback,SharePoint,"Store responses with metadata (e.g., role, department, survey type)",Enables structured data analysis
+Surveys & Feedback,Power BI,"Visualize engagement scores, sentiment trends, and participation",Informs HR strategy and employee experience actions
+AI-Based Resume Screening,Power Apps,Allow resume uploads and override of AI scoring,Keeps recruiters in control of final decisions
+AI-Based Resume Screening,Power Automate,Run AI model to parse resumes and match with job profiles,Speeds up screening and ensures consistency
+AI-Based Resume Screening,.NET,"Develop logic for AI scoring, red flag detection, and retraining","Provides intelligent, scalable shortlisting"
+AI-Based Resume Screening,Power BI,"Track applicant pipeline, average fit scores, and override stats",Enables hiring quality insights
+HR Chatbot Integration,Power Virtual Agents,Build chatbot topics covering common HR FAQs and processes,Provides 24/7 self-service assistance
+HR Chatbot Integration,Power Automate,Trigger backend actions like leave lookup or request submission,Connects chatbot to live systems and workflows
+HR Chatbot Integration,SharePoint,Store chat logs and unresolved queries for review,Supports chatbot improvement and compliance
+HR Chatbot Integration,Power BI,"Analyze usage trends, satisfaction scores, and escalation types",Optimizes bot effectiveness and engagement

@@ -1,0 +1,17 @@
+Topic,Platform,What to Do,How it Helps
+Mobile Accessibility,Power Apps,Use responsive containers and relative sizing for mobile-friendly design,Ensures smooth HR task access on phones and tablets
+Mobile Accessibility,Power Automate,Send push/email notifications or integrate with Teams mobile,Keeps managers and employees responsive on the go
+Licensing Strategy and Cost Control,Power BI,Build dashboards using usage and licensing data from M365 Admin Center,Enables license optimization and cost forecasting
+Licensing Strategy and Cost Control,Power Automate,Provision licenses during onboarding based on user type,Automates and standardizes license assignment
+Licensing Strategy and Cost Control,.NET,Run PowerShell/Graph API routines for license audits,Detects and reclaims unused licenses
+Analytics and Reporting,Power BI,"Develop dashboards using Dataverse, SharePoint, or external system data","Provides real-time, role-based HR insights"
+Analytics and Reporting,.NET,Expose REST APIs for reporting data feeds,Supports enterprise data lake integration or BI tools
+Analytics and Reporting,Power Automate,Ensure data sync with data warehouses on schedule,Maintains up-to-date reporting across systems
+Compliance Enforcement,Power Apps,Collect policy acknowledgments and store audit logs upon form submission,Ensures legal compliance and traceability
+Compliance Enforcement,SharePoint,"Enable versioning, sensitivity labels, and retention policies",Protects sensitive records and enables audit readiness
+Compliance Enforcement,Power Automate,Insert approval stages and email logs for regulated actions,Supports compliance workflows and evidence tracking
+Compliance Enforcement,.NET,"Validate access roles, input data, and enforce restrictions in APIs",Secures backend operations and prevents policy violations
+Leave & Attendance Integration,Power Apps,Build forms with validations for balance checks and overlap detection,Improves request accuracy and policy compliance
+Leave & Attendance Integration,Power Automate,Route approvals and update attendance calendars dynamically,Automates leave workflows and ledger updates
+Leave & Attendance Integration,.NET,Integrate biometric or time systems with attendance modules,Enables accurate attendance capture and synchronization
+Leave & Attendance Integration,SharePoint,"Store policy references, leave types, and calendar views",Centralizes leave documentation and compliance rules
