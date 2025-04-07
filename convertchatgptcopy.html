@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CopyPasteGPT</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+    }
+    .output {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      min-height: 100px;
+      white-space: pre-wrap;
+    }
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .tab {
+      padding: 0.5rem 1rem;
+      background: #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #333;
+      color: white;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>CopyPasteGPT</h1>
+  <textarea id="input" placeholder="Paste ChatGPT output here..."></textarea>
+  <div class="tabs">
+    <div class="tab active" onclick="showOutput('markdown')">Markdown</div>
+    <div class="tab" onclick="showOutput('html')">HTML</div>
+  </div>
+  <div id="output" class="output"></div>
+  <button onclick="copyOutput()">Copy to Clipboard</button>
+
+  <script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const tabs = document.querySelectorAll('.tab');
+    let currentView = 'markdown';
+
+    input.addEventListener('input', updateOutput);
+
+    function showOutput(view) {
+      currentView = view;
+      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab:nth-child(${view === 'markdown' ? 1 : 2})`).classList.add('active');
+      updateOutput();
+    }
+
+    function updateOutput() {
+      const text = input.value;
+      const markdown = convertToMarkdown(text);
+      const html = convertToHTML(markdown);
+      output.textContent = currentView === 'markdown' ? markdown : html;
+    }
+
+    function convertToMarkdown(text) {
+      return text
+        .replace(/^\*\*(.*?)\*\*/gm, '**$1**') // Bold
+        .replace(/\n- /g, '\n- ') // Lists
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '```$1\n$2```');
+    }
+
+    function convertToHTML(markdown) {
+      return markdown
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n- (.*?)(?=\n|$)/g, '<li>$1</li>')
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function copyOutput() {
+      const temp = document.createElement('textarea');
+      temp.value = output.textContent;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      alert('Output copied to clipboard!');
+    }
+
+    updateOutput();
+  </script>
+</body>
+</html>

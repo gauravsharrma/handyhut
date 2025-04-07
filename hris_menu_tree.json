@@ -1,0 +1,326 @@
+[
+  {
+    "id": "1",
+    "title": "Organization Size Categories",
+    "content": "",
+    "children": [
+      {
+        "id": "org_size",
+        "title": "Organization Size Categories (By Employee Strength)",
+        "content": "<h3>Organization Size Categories (By Employee Strength)</h3>\n<table>\n<tr>\n<th>Category</th>\n<th>People Strength</th>\n<th>Typical Use Case Examples</th>\n</tr>\n<tr>\n<td>Very Small</td>\n<td>1 \u2013 50</td>\n<td>Startups, family businesses</td>\n</tr>\n<tr>\n<td>Small</td>\n<td>51 \u2013 250</td>\n<td>Growing SMEs, small agencies</td>\n</tr>\n<tr>\n<td>Medium</td>\n<td>251 \u2013 1,000</td>\n<td>Regional offices, schools, NGOs</td>\n</tr>\n<tr>\n<td>Large</td>\n<td>1,001 \u2013 10,000</td>\n<td>National enterprises, mid-size firms</td>\n</tr>\n<tr>\n<td>Very Large</td>\n<td>10,001+</td>\n<td>Multinationals, Government, Iarge</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Other Key Characteristics",
+    "content": "",
+    "children": [
+      {
+        "id": "key_characteristics",
+        "title": "\ud83e\udde0 Other Key Characteristics to Consider (Beyond Size)",
+        "content": "<h3>\ud83e\udde0 Other Key Characteristics to Consider (Beyond Size)</h3>\n<table>\n<tr>\n<th>Characteristic</th>\n<th>Why It Matters for Architecture</th>\n</tr>\n<tr>\n<td>Geographical Spread</td>\n<td>Need for multilingual support, regional rules, time zone handling</td>\n</tr>\n<tr>\n<td>Role Complexity</td>\n<td>Impacts RBAC design in Azure AD &amp; Power Apps</td>\n</tr>\n<tr>\n<td>Process Maturity</td>\n<td>Determines automation levels &amp; AI involvement</td>\n</tr>\n<tr>\n<td>Compliance Needs</td>\n<td>Affects data storage (SharePoint config), audit trail requirements</td>\n</tr>\n<tr>\n<td>Integration Needs</td>\n<td>Determines API design, use of Power Automate for connectors</td>\n</tr>\n<tr>\n<td>Data Volume</td>\n<td>Impacts storage strategy (SQL, Cosmos DB, SharePoint limits)</td>\n</tr>\n<tr>\n<td>Self-Service Depth</td>\n<td>Drives Power Apps design (Model-driven vs Canvas), chatbot depth</td>\n</tr>\n<tr>\n<td>AI Readiness</td>\n<td>Impacts use of Azure OpenAI, Power Virtual Agents, insights architecture</td>\n</tr>\n<tr>\n<td>IT Skill Maturity</td>\n<td>Influences customization vs low-code balance</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Architecture Decisions",
+    "content": "",
+    "children": [
+      {
+        "id": "architecture_decisions",
+        "title": "\ud83c\udfd7\ufe0f Architecture Decisions (SharePoint + Power Platform + .NET)",
+        "content": "<h3>\ud83c\udfd7\ufe0f Architecture Decisions (SharePoint + Power Platform + .NET)</h3>\n<table>\n<tr>\n<th>Org Type</th>\n<th>Power Platform Use</th>\n<th>SharePoint Role</th>\n<th>.NET Focus</th>\n</tr>\n<tr>\n<td>Very Small</td>\n<td>Canvas Apps, Templates</td>\n<td>Document storage, basic lists</td>\n<td>Minimal \u2014 focus on Power Automate</td>\n</tr>\n<tr>\n<td>Small</td>\n<td>Canvas + some Model-driven</td>\n<td>Team site + HR doc mgmt</td>\n<td>Simple APIs (.NET minimal APIs)</td>\n</tr>\n<tr>\n<td>Medium</td>\n<td>Model-driven, chatbots</td>\n<td>Department sites, compliance docs</td>\n<td>API-first design, modular services</td>\n</tr>\n<tr>\n<td>Large</td>\n<td>Full Power Platform suite</td>\n<td>Hub sites, metadata-rich libraries</td>\n<td>Microservices, Power Automate + .NET</td>\n</tr>\n<tr>\n<td>Very Large</td>\n<td>Complex app orchestration</td>\n<td>Enterprise content mgmt, versioning</td>\n<td>.NET microservices, Azure Functions</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Core HRIS Modules",
+    "content": "",
+    "children": [
+      {
+        "id": "core_hris_modules",
+        "title": "Core HRIS Modules",
+        "content": "<h3>Core HRIS Modules</h3>\n<ul>\n<li>Employee Master Data (profile, documents)</li>\n<li>Leave &amp; Attendance Management</li>\n<li>Recruitment &amp; Onboarding</li>\n<li>Payroll &amp; Compensation</li>\n<li>Performance Management</li>\n<li>Training &amp; Development (LMS)</li>\n<li>Exit &amp; Offboarding</li>\n<li>Compliance &amp; Audit</li>\n<li>Org Chart &amp; Directory</li>\n<li>Self-Service Portals (ESS/MSS)</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Stakeholders",
+    "content": "",
+    "children": [
+      {
+        "id": "stakeholders",
+        "title": "Stakeholders",
+        "content": "<h3>Stakeholders</h3>\n<ul>\n<li>HR Managers</li>\n<li>Employees (ESS)</li>\n<li>Managers (MSS)</li>\n<li>IT/Admin</li>\n<li>Executives (BI Dashboards)</li>\n<li>External Agencies (via secure APIs)</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Tech Stack",
+    "content": "",
+    "children": [
+      {
+        "id": "tech_stack",
+        "title": "Tech Stack",
+        "content": "<h3>Tech Stack</h3>\n<table>\n<tr>\n<th>Layer</th>\n<th>Tools/Tech</th>\n</tr>\n<tr>\n<td>Frontend</td>\n<td>Power Apps, React (custom UX)</td>\n</tr>\n<tr>\n<td>Backend</td>\n<td>.NET Core 8+, C#, Azure Functions, App Services</td>\n</tr>\n<tr>\n<td>API Management</td>\n<td>Azure API Management, Swagger/OpenAPI, GraphQL</td>\n</tr>\n<tr>\n<td>Database</td>\n<td>Azure SQL, Cosmos DB, Azure Blob/SharePoint</td>\n</tr>\n<tr>\n<td>Messaging/Eventing</td>\n<td>Azure Service Bus, Azure Event Grid</td>\n</tr>\n<tr>\n<td>AI/GenAI</td>\n<td>Azure OpenAI, Semantic Kernel, Power Automate AI</td>\n</tr>\n<tr>\n<td>Authentication</td>\n<td>Azure AD, OAuth2, MSAL</td>\n</tr>\n<tr>\n<td>CI/CD</td>\n<td>GitHub Actions, Azure DevOps Pipelines</td>\n</tr>\n<tr>\n<td>Monitoring</td>\n<td>Azure Monitor, App Insights, Log Analytics</td>\n</tr>\n<tr>\n<td>DevOps &amp; Infra</td>\n<td>ARM/Bicep/Terraform, ACR, Kubernetes (AKS)</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Architectural Principles",
+    "content": "",
+    "children": [
+      {
+        "id": "architectural_principles",
+        "title": "Architectural Principles",
+        "content": "<h3>Architectural Principles</h3>\n<ul>\n<li>Cloud-native: Azure primary cloud provider.</li>\n<li>Microservices-based: Independent modules.</li>\n<li>API-first: REST APIs, future GraphQL.</li>\n<li>Event-driven: Azure Event Grid/Service Bus.</li>\n<li>Composable architecture: Plug-in modules easily.</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Integration Platform",
+    "content": "",
+    "children": [
+      {
+        "id": "integration_platform",
+        "title": "\ud83d\udd17 Integration Platform",
+        "content": "<h3>\ud83d\udd17 Integration Platform</h3>\n<ul>\n<li>Microsoft Power Platform</li>\n<li>SharePoint Online</li>\n<li>Azure API Management</li>\n<li>Azure Logic Apps</li>\n<li>Microsoft Entra ID (formerly Azure AD)</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "AI Use Cases",
+    "content": "",
+    "children": [
+      {
+        "id": "ai_use_cases",
+        "title": "AI Use Cases",
+        "content": "<h3>AI Use Cases</h3>\n<table>\n<tr>\n<th>Area</th>\n<th>AI Use Case</th>\n</tr>\n<tr>\n<td>Recruitment</td>\n<td>Resume parsing, candidate ranking</td>\n</tr>\n<tr>\n<td>Chatbots</td>\n<td>HR self-service bot</td>\n</tr>\n<tr>\n<td>Performance Reviews</td>\n<td>AI-generated summaries</td>\n</tr>\n<tr>\n<td>Training</td>\n<td>Personalized learning paths</td>\n</tr>\n<tr>\n<td>Knowledge Base</td>\n<td>Natural language Q&amp;A</td>\n</tr>\n<tr>\n<td>Document Automation</td>\n<td>AI-assisted onboarding docs</td>\n</tr>\n<tr>\n<td>Leave/PTO Assistant</td>\n<td>Natural language chatbot</td>\n</tr>\n<tr>\n<td>Employee Sentiment</td>\n<td>Analyze surveys for attrition</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Implementation Stages",
+    "content": "",
+    "children": [
+      {
+        "id": "implementation_stages",
+        "title": "Implementation Stages",
+        "content": "<h3>Implementation Stages</h3>\n<table>\n<tr>\n<th>Stage</th>\n<th>Description</th>\n</tr>\n<tr>\n<td>HRIS Modules</td>\n<td>Core modules like employee data, leave</td>\n</tr>\n<tr>\n<td>AI in Recruitment</td>\n<td>Resume Parsing, JD Generation</td>\n</tr>\n<tr>\n<td>HR Chatbot</td>\n<td>Employee FAQs, leave guidance</td>\n</tr>\n<tr>\n<td>Performance Reviews</td>\n<td>AI-Generated Feedback</td>\n</tr>\n<tr>\n<td>LMS AI</td>\n<td>Personalized Learning Paths</td>\n</tr>\n<tr>\n<td>Document Automation</td>\n<td>Offer letters, contracts automation</td>\n</tr>\n<tr>\n<td>Sentiment Analytics</td>\n<td>Feedback and survey analysis</td>\n</tr>\n<tr>\n<td>Insights Dashboard</td>\n<td>Predictive analytics, attrition risk</td>\n</tr>\n<tr>\n<td>Improved HR Outcomes</td>\n<td>Faster hiring, reduced attrition</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "title": "Future Ready Architecture",
+    "content": "",
+    "children": [
+      {
+        "id": "future_ready",
+        "title": "\ud83d\udce6 Future Ready Architecture",
+        "content": "<h3>\ud83d\udce6 Future Ready Architecture</h3>\n<table>\n<tr>\n<th>Composability</th>\n<th>Intelligent Automations</th>\n<th>Extensibility</th>\n<th>Security &amp; Compliance</th>\n<th>Embedded Analytics</th>\n</tr>\n<tr>\n<td>Design services as plug-and-play modules.</td>\n<td>Integrate low-code AI (Power Automate AI Builder, Azure AI).</td>\n<td>Third-party tools integration.</td>\n<td>Role-based access control (RBAC)</td>\n<td>Power BI dashboards</td>\n</tr>\n<tr>\n<td>Standardized APIs for internal/external use.</td>\n<td>Employee digital assistant.</td>\n<td>Marketplace-style plugins.</td>\n<td>Data encryption at rest/transit.</td>\n<td>Predictive analytics with Azure ML.</td>\n</tr>\n<tr>\n<td colspan=\"5\">Compliance: GDPR, HIPAA, SOC 2 readiness.</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "title": "Phases",
+    "content": "",
+    "children": [
+      {
+        "id": "phases",
+        "title": "Implementation Phases",
+        "content": "<h3>Implementation Phases</h3>\n<table>\n<tr>\n<th>Phase</th>\n<th>Modules</th>\n<th>AI/Automation Focus</th>\n</tr>\n<tr>\n<td>Phase 1</td>\n<td>Core HR, Leave, Attendance</td>\n<td>Employee chatbot, doc upload AI</td>\n</tr>\n<tr>\n<td>Phase 2</td>\n<td>Recruitment, Onboarding, Payroll</td>\n<td>Resume AI, onboarding automation</td>\n</tr>\n<tr>\n<td>Phase 3</td>\n<td>Performance, Training, Exit</td>\n<td>AI feedback gen, learning assistant</td>\n</tr>\n<tr>\n<td>Phase 4</td>\n<td>Full analytics, integrations</td>\n<td>Sentiment, attrition AI, smart search</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "title": "Documentation & Governance",
+    "content": "",
+    "children": [
+      {
+        "id": "doc_governance",
+        "title": "\ud83d\udcda Documentation and Governance",
+        "content": "<h3>\ud83d\udcda Documentation and Governance</h3>\n<ul>\n<li>Use Swagger/OpenAPI for all APIs</li>\n<li>Maintain API Gateway with tiered access</li>\n<li>Centralized policy management via Azure</li>\n<li>DevSecOps practices for testing/releases</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "title": "KPIs to Measure Success",
+    "content": "",
+    "children": [
+      {
+        "id": "kpis",
+        "title": "\ud83d\udcca KPIs to Measure Success",
+        "content": "<h3>\ud83d\udcca KPIs to Measure Success</h3>\n<ul>\n<li>Onboarding Time Reduction</li>\n<li>HR Ticket/Query Automation %</li>\n<li>AI Suggestion Accuracy</li>\n<li>Employee NPS/Sentiment</li>\n<li>System Uptime &amp; Latency</li>\n</ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "title": "GenAI & AI-Powered Modules",
+    "content": "",
+    "children": [
+      {
+        "id": "genai_modules",
+        "title": "\ud83d\ude80 GenAI & AI-Powered Modules",
+        "content": "<h3>\ud83d\ude80 GenAI &amp; AI-Powered Modules</h3>\n<table>\n<tr>\n<th>Area</th>\n<th>Use Case</th>\n</tr>\n<tr>\n<td>Recruitment</td>\n<td>Resume parsing, JD generation, candidate scoring</td>\n</tr>\n<tr>\n<td>Chatbot (HR Assistant)</td>\n<td>Azure OpenAI + Power Virtual Agents</td>\n</tr>\n<tr>\n<td>Performance Reviews</td>\n<td>Feedback generation, insights</td>\n</tr>\n<tr>\n<td>LMS</td>\n<td>Personalized learning paths</td>\n</tr>\n<tr>\n<td>Knowledge Base</td>\n<td>Q&amp;A assistant using Azure Cognitive Search + OpenAI</td>\n</tr>\n<tr>\n<td>Document Automation</td>\n<td>AI-generated offer letters, onboarding kits</td>\n</tr>\n<tr>\n<td>Leave &amp; Attendance</td>\n<td>AI assistant for leave booking</td>\n</tr>\n<tr>\n<td>Analytics</td>\n<td>Sentiment analysis, attrition prediction</td>\n</tr>\n</table>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "title": "HRIS Repo Structure",
+    "content": "",
+    "children": [
+      {
+        "id": "repo_structure",
+        "title": "\ud83d\udcc1 HRIS Repo Structure",
+        "content": "<h3>\ud83d\udcc1 HRIS Repo Structure</h3>\n<pre style=\"background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;\">\n/hris-platform/\n\u251c\u2500\u2500 frontend/\n\u2502   \u251c\u2500\u2500 powerapps/\n\u2502   \u2514\u2500\u2500 react-spa/\n\u251c\u2500\u2500 backend/\n\u2502   \u251c\u2500\u2500 employee-service/\n\u2502   \u251c\u2500\u2500 leave-service/\n\u2502   \u251c\u2500\u2500 payroll-service/\n\u2502   \u2514\u2500\u2500 shared-libs/\n\u251c\u2500\u2500 api/\n\u2502   \u251c\u2500\u2500 gateway/\n\u2502   \u2514\u2500\u2500 openapi-specs/\n\u251c\u2500\u2500 ai/\n\u2502   \u251c\u2500\u2500 chatbots/\n\u2502   \u251c\u2500\u2500 prompts/\n\u2502   \u2514\u2500\u2500 models/\n\u251c\u2500\u2500 infrastructure/\n\u2502   \u251c\u2500\u2500 bicep/terraform/\n\u2502   \u2514\u2500\u2500 aks-config/\n\u251c\u2500\u2500 workflows/\n\u2502   \u251c\u2500\u2500 power-automate/\n\u2502   \u2514\u2500\u2500 azure-logic-apps/\n\u251c\u2500\u2500 docs/\n\u2502   \u251c\u2500\u2500 architecture.pdf\n\u2502   \u2514\u2500\u2500 diagrams/\n\u251c\u2500\u2500 .github/\n\u2502   \u2514\u2500\u2500 workflows/\n\u2514\u2500\u2500 README.md\n</pre>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "title": "Phase 1",
+    "content": "",
+    "children": [
+      {
+        "id": "Phase 1.phase1-modules",
+        "title": "Modules in Scope",
+        "content": "<div class=\"sub-tab-content active-content\" id=\"phase1-modules\"><ul><li>Employee Master Data</li><li>Leave &amp; Attendance Management</li><li>Basic Self-Service Portal (ESS)</li><li>Core API Gateway</li><li>SharePoint Integration</li><li>HR Chatbot (basic FAQ + leave queries)</li></ul></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-architecture",
+        "title": "Architecture Stack",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-architecture\"><table><tr><th>Layer</th><th>Tools/Stack</th></tr><tr><td>Frontend</td><td>Power Apps Canvas + optional React SPA</td></tr><tr><td>Backend</td><td>.NET 8 APIs (microservice-based)</td></tr><tr><td>Database</td><td>Azure SQL + SharePoint Lists/Documents</td></tr><tr><td>Integration</td><td>Azure API Management</td></tr><tr><td>Workflows</td><td>Power Automate (for leave request flows)</td></tr><tr><td>Authentication</td><td>Azure AD + MSAL (RBAC, SSO)</td></tr><tr><td>Chatbot</td><td>Power Virtual Agent + Azure OpenAI</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-ai",
+        "title": "\ud83e\udd16 AI/Automation",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-ai\"><h4>\ud83e\udd16 AI/Automation in Phase 1</h4><table><tr><th>Area</th><th>Description</th></tr><tr><td>HR Chatbot</td><td>FAQs, leave policy guidance, leave request initiation</td></tr><tr><td>Doc Uploader</td><td>AI auto-tags documents in SharePoint (optional add-on)</td></tr><tr><td>Leave Assistant</td><td>Conversational UI to check leave balance, apply leave</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-timeline",
+        "title": "\ud83d\udcc5 Timeline",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-timeline\"><h4>\ud83d\udcc5 Timeline (Recommended)</h4><table><tr><th>Week</th><th>Activities</th></tr><tr><td>1</td><td>Requirements gathering, Use case validation</td></tr><tr><td>2</td><td>Data modeling (Employee, Leave), Azure infra setup</td></tr><tr><td>3</td><td>Build core microservices (Employee, Leave), SharePoint structure setup</td></tr><tr><td>4</td><td>Frontend (Power Apps), Leave workflow (Power Automate), Auth integration</td></tr><tr><td>5</td><td>HR Chatbot integration</td></tr><tr><td>6</td><td>Testing (unit + UAT), Documentation, Go-live</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-repo",
+        "title": "\ud83d\udcc1 Repo Structure",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-repo\"><h4>\ud83d\udcc1 Repo Structure (Phase 1)</h4><pre style=\"background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;\">/phase1/\u251c\u2500\u2500 frontend/\u2502   \u2514\u2500\u2500 powerapps/\u251c\u2500\u2500 backend/\u2502   \u251c\u2500\u2500 employee-service/\u2502   \u2514\u2500\u2500 leave-service/\u251c\u2500\u2500 api/\u2502   \u2514\u2500\u2500 gateway/\u251c\u2500\u2500 workflows/\u2502   \u2514\u2500\u2500 leave-request/\u251c\u2500\u2500 ai/\u2502   \u2514\u2500\u2500 hr-chatbot/\u251c\u2500\u2500 infrastructure/\u2502   \u2514\u2500\u2500 azure-setup/    </pre></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-week1-goals",
+        "title": "\ud83d\udcc5 Week 1 Goals",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-week1-goals\"><h4>\ud83d\udcc5 Week 1 \u2014 Requirements Gathering &amp; Use Case Validation</h4><h5>\ud83c\udfaf Goals:</h5><ul><li>Understand core HR processes (employee onboarding, leave, attendance)</li><li>Validate user needs (HR, employees, managers)</li><li>Finalize the MVP scope for Phase 1</li><li>Identify AI/automation fitment (chatbot, workflows)</li></ul></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-week1-activities",
+        "title": "\ud83e\udde9 Activities Breakdown",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-week1-activities\"><h5>\ud83e\udde9 Activities Breakdown:</h5><table><tr><th>Task</th><th>Description</th></tr><tr><td>Stakeholder Interviews</td><td>Meet with HR, IT, and selected employees to capture expectations</td></tr><tr><td>Current Process Mapping</td><td>Document existing leave, attendance, and employee master data workflows</td></tr><tr><td>Pain Point Identification</td><td>List bottlenecks in the current system (manual entries, delayed approvals)</td></tr><tr><td>Define User Roles &amp; Permissions</td><td>HR Admin, Employee (ESS), Manager (MSS), System Admin</td></tr><tr><td>Use Case Workshop (MVP Scope)</td><td>Prioritize features: Employee profile CRUD, Leave apply/approve/view</td></tr><tr><td>AI Fitment Review</td><td>Validate chatbot FAQ needs, document AI use cases for leave assistant</td></tr><tr><td>System Requirements Checklist</td><td>Decide core tech (Azure AD, SharePoint Online, Power Apps, SQL, etc.)</td></tr><tr><td>Documentation Prep</td><td>Create BRD (Business Requirements Doc), Use Case Diagrams, Flowcharts</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "Phase 1.phase1-week1-deliverables",
+        "title": "\ud83d\udcc4 Week 1 Deliverables",
+        "content": "<div class=\"sub-tab-content\" id=\"phase1-week1-deliverables\"><h5>\ud83d\udcc4 Key Deliverables by End of Week 1:</h5><ul><li>\u2705 Business Requirements Document (BRD)</li><li>\u2705 User Journey Map / Personas</li><li>\u2705 Use Case Catalog (Employee Mgmt, Leave Flow)</li><li>\u2705 Stakeholder Matrix</li><li>\u2705 AI Use Case Feasibility Notes</li><li>\u2705 Tooling/Infra Checklist (Azure resources, licenses, connectors)</li></ul></div>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "title": "Critical Org Characteristics",
+    "content": "",
+    "children": [
+      {
+        "id": "critical_org_characteristics.geo-spread",
+        "title": "Geographical Spread",
+        "content": "<div class=\"sub-tab-content active-content\" id=\"geo-spread\"><h4>Geo Spread</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Time Zone Differences</td><td>Leave workflows break without proper time tracking</td><td>Incorrect timestamps impact SLAs</td><td>Use UTC in .NET, convertTimeZone() in Power Automate</td><td>During workflow design</td><td>.NET, Power Automate, SQL</td></tr><tr><td>Holiday Schedule</td><td>Regional public holidays vary</td><td>Invalid leave validation</td><td>Use region-based holiday tables</td><td>Leave request logic</td><td>SharePoint, SQL, Power Automate</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.role-complexity",
+        "title": "Role Complexity",
+        "content": "<div class=\"sub-tab-content\" id=\"role-complexity\"><h4>Role Complexity</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Org Hierarchy</td><td>Too many roles/departments</td><td>Affects access and approvals</td><td>Use metadata in Azure AD and Power Apps</td><td>RBAC definition phase</td><td>Azure AD, Power Apps</td></tr><tr><td>Delegation</td><td>Managers go on leave</td><td>Workflow may halt</td><td>Add delegation rules to workflow logic</td><td>Workflow configuration</td><td>Power Automate, SQL</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.process-maturity",
+        "title": "Process Maturity",
+        "content": "<div class=\"sub-tab-content\" id=\"process-maturity\"><h4>Process Maturity</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Undefined HR Flows</td><td>Inconsistent approvals</td><td>Leads to errors and inefficiencies</td><td>Document and standardize via SOPs</td><td>Initial discovery phase</td><td>Power Automate, Power Apps</td></tr><tr><td>No audit logs</td><td>Cannot track changes</td><td>Non-compliance risk</td><td>Enable audit in SharePoint/.NET</td><td>Design phase</td><td>SharePoint, Azure Monitor</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.compliance-needs",
+        "title": "Compliance Needs",
+        "content": "<div class=\"sub-tab-content\" id=\"compliance-needs\"><h4>Compliance Needs</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Data Location Laws</td><td>Cannot store PII globally</td><td>Legal violation</td><td>Use region-specific Azure data centers</td><td>Data model planning</td><td>Azure, SharePoint</td></tr><tr><td>Retention Policies</td><td>Sensitive data not deleted</td><td>Audit risk</td><td>Enable SharePoint retention labels</td><td>Data lifecycle design</td><td>SharePoint, Compliance Center</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.integration-needs",
+        "title": "Integration Needs",
+        "content": "<div class=\"sub-tab-content\" id=\"integration-needs\"><h4>Integration Needs</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Payroll/ERP Sync</td><td>Manual data duplication</td><td>Data inconsistency</td><td>Use Power Automate connectors</td><td>Post-MVP planning</td><td>Power Automate, API Mgmt</td></tr><tr><td>No API Standards</td><td>Incompatible systems</td><td>Hard to scale</td><td>Enforce Swagger/OpenAPI</td><td>During API dev</td><td>.NET, API Management</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.data-volume",
+        "title": "Data Volume",
+        "content": "<div class=\"sub-tab-content\" id=\"data-volume\"><h4>Data Volume</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Large lists</td><td>Performance issues</td><td>Sluggish Power Apps</td><td>Paginate &amp; filter data</td><td>UI Design</td><td>Power Apps, SQL</td></tr><tr><td>Upload overload</td><td>Files exceed limits</td><td>Storage errors</td><td>Use SharePoint + Azure Blob for offloading</td><td>Infra planning</td><td>SharePoint, Azure Storage</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.self-service-depth",
+        "title": "Self-Service Depth",
+        "content": "<div class=\"sub-tab-content\" id=\"self-service-depth\"><h4>Self Service Depth</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>Low ESS adoption</td><td>HR burdened with manual tasks</td><td>Scalability issue</td><td>Empower users via Power Apps</td><td>UX Design</td><td>Power Apps, Power Virtual Agents</td></tr><tr><td>Unclear statuses</td><td>Users raise repeated queries</td><td>Frustration</td><td>Add real-time status tracking</td><td>Feature design</td><td>Power Apps, .NET</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.ai-readiness",
+        "title": "AI Readiness",
+        "content": "<div class=\"sub-tab-content\" id=\"ai-readiness\"><h4>Ai Readiness</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>No data for training</td><td>AI models underperform</td><td>Poor recommendations</td><td>Structure historical data</td><td>Before AI build</td><td>Azure SQL, Power BI</td></tr><tr><td>Trust issues</td><td>Users fear AI bias</td><td>Resistance to adoption</td><td>Explainability + guardrails</td><td>AI pilot phase</td><td>Azure OpenAI, Policy Design</td></tr></table></div>",
+        "children": []
+      },
+      {
+        "id": "critical_org_characteristics.it-skill-maturity",
+        "title": "IT Skill Maturity",
+        "content": "<div class=\"sub-tab-content\" id=\"it-skill-maturity\"><h4>It Skill Maturity</h4><table border=\"1\" style=\"border-collapse: collapse; width: 100%;\"><tr><th>Aspect</th><th>What (Problem)</th><th>Why (Importance)</th><th>How (Solution)</th><th>When (Trigger Point)</th><th>Where (Tech Involvement)</th></tr><tr><td>No in-house devs</td><td>Can't maintain custom code</td><td>System rot risk</td><td>Use low-code Power Platform</td><td>Early architecture</td><td>Power Apps, Power Automate</td></tr><tr><td>Overcustomization</td><td>Hard to manage upgrades</td><td>Technical debt</td><td>Keep core in Power Platform, APIs in .NET</td><td>Scaling stage</td><td>Power Platform, .NET</td></tr></table></div>",
+        "children": []
+      }
+    ]
+  }
+]

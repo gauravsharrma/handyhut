@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Introduction",
+    "content": "<b>Welcome</b><br>This is the introduction section.",
+    "children": [
+      {
+        "title": "Overview",
+        "content": "<ul><li>Point 1</li><li>Point 2</li></ul>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "Features",
+    "content": "<p>These are the <b>features</b> of our app.</p>",
+    "children": []
+  }
+]

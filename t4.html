@@ -1,0 +1,21 @@
+let SHEET_NAME = 'Sheet1';
+
+function doGet() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const data = sheet.getDataRange().getValues();
+  const faqs = data.slice(1).map(row => ({ question: row[0], answer: row[1] }));
+  return ContentService.createTextOutput(JSON.stringify(faqs)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const payload = JSON.parse(e.postData.contents);
+
+  sheet.clear(); // Optional: clears all old data
+  sheet.appendRow(['Question', 'Answer']);
+  payload.forEach(faq => {
+    sheet.appendRow([faq.question, faq.answer]);
+  });
+
+  return ContentService.createTextOutput('Saved');
+}

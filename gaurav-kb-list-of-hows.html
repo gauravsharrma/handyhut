@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern FAQ</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    #faq-search, #clear-search {
+      font-size: 1rem;
+    }
+
+    .faq-container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faq-question {
+      background: #f9f9f9;
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: #eef1f5;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background: #fff;
+    }
+
+    .faq-answer.open {
+      padding: 1rem 1.5rem;
+      max-height: none;
+    }
+
+    mark {
+      background: yellow;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .faq-question, .faq-answer {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Search Bar + Clear -->
+  <div style="max-width: 600px; display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+    <input type="text" id="faq-search" placeholder="Search FAQs..." style="flex: 1; padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px;">
+    <button id="clear-search" style="padding: 0.75rem 1rem; border: none; background: #eee; border-radius: 8px; cursor: pointer;">Clear</button>
+  </div>
+
+  <!-- Title Only Toggle -->
+  <label style="max-width: 600px; display: block; font-size: 0.9rem; margin-bottom: 1rem;">
+    <input type="checkbox" id="title-only" style="margin-right: 0.5rem;">
+    Search only in questions (titles)
+  </label>
+
+  <!-- Summary + No Results -->
+  <div id="search-summary" style="max-width: 600px; margin: 0 0 1rem; font-size: 0.9rem; color: #333;"></div>
+  <div id="no-results" style="display: none; max-width: 600px; font-size: 1rem; font-weight: bold; color: #c00;">No matching results found.</div>
+
+<button id="toggle-all" style="max-width: 600px; width: 100%; padding: 0.6rem 1rem; background: #6c63ff; color: white; border: none; border-radius: 8px; margin-bottom: 1rem; cursor: pointer;">
+  Open All
+</button>
+<div class="faq-container">
+<div class="faq-item"> 
+  <div class="faq-question">Time Zone Handling</div>
+  <div class="faq-answer">Use DateTime.UtcNow in all .NET-based API calls and data layers. Use convertTimeZone() in Power Automate flows for time conversion. Reference user profile time zone metadata from Azure AD or SharePoint. Store all time-sensitive data in UTC in Dataverse or SQL Server. Convert to local time zone at the presentation layer in Power Apps.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Role-Based Access Control (RBAC)</div>
+  <div class="faq-answer">Define an RBAC matrix mapping roles to permissions. Assign SharePoint permissions using SharePoint or Microsoft 365 groups. Use User().Email and Office365Users.MyProfile().JobTitle in Power Apps for role detection. In Power Automate, branch approval flows based on user roles. In .NET backend, implement claims-based role checks via middleware.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Department Segregation</div>
+  <div class="faq-answer">Capture department metadata in all core entities. Use conditional filters in Power Apps galleries based on user’s department. Branch workflows in Power Automate using department-specific logic. Filter SharePoint lists/libraries with views or folders based on department metadata. Apply department-based filtering in .NET API queries.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Organizational Hierarchy & Approval Routing</div>
+  <div class="faq-answer">Capture org hierarchy from Azure AD or upload to SharePoint/Dataverse. Query direct manager via Office 365 Users connector in Power Automate. Display and control form routing in Power Apps using manager info. Use SharePoint lookup fields or calculated columns to resolve hierarchy. Pass hierarchy metadata in JWT tokens or API parameters in .NET.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Audit Trails & Action Logging</div>
+  <div class="faq-answer">Use Serilog or Application Insights in .NET for logging actions. Write audit logs in Power Automate to SharePoint/Dataverse with metadata. Use Patch() in Power Apps to record form actions to audit tables. Enable version history in SharePoint; set retention settings accordingly.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Onboarding Workflow Automation</div>
+  <div class="faq-answer">Define onboarding checklists in SharePoint/Dataverse. Trigger multi-department tasks in Power Automate flows. Display onboarding status in Power Apps using dynamic views. Use .NET APIs to provision external systems during onboarding.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Data Retention & Archival</div>
+  <div class="faq-answer">Use retention labels or policies in SharePoint to archive/delete based on metadata. Use isArchived/retentionEndDate fields in Dataverse; evaluate with Power Automate. Schedule SQL/.NET jobs for archival with audit logging. Store archived data in Azure Blob or restricted SharePoint sites.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Integration with External Systems</div>
+  <div class="faq-answer">Define integration specs: endpoints, payloads, auth, schedule. Use Power Automate or Azure Logic Apps for syncing with external systems. Use .NET APIs for robust integrations (e.g., AD, payroll). Create mapping tables to align reference codes.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Self-Service Configuration</div>
+  <div class="faq-answer">Build role-sensitive UI in Power Apps with prefilled forms. Use conditional display logic based on role. Secure views and data in SharePoint/Dataverse per user/manager access. Include reusable UI components for navigation and tracking.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Performance Management Workflows</div>
+  <div class="faq-answer">Configure templates and metadata tables in SharePoint/Dataverse. Design conditional forms in Power Apps for self/manager evaluation. Trigger and track workflow status using Power Automate. Use .NET APIs to extract performance data for reporting.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Mobile Accessibility</div>
+  <div class="faq-answer">Use responsive containers and relative sizing in Power Apps. Optimize user journeys for touch input and minimal typing. Trigger mobile-friendly notifications via Teams or Power Apps. Preview app layout using device simulation tools in Power Apps.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Licensing Strategy & Cost Control</div>
+  <div class="faq-answer">Define licensing matrix by user persona. Reassign licenses via PowerShell or Graph API. Create automated provisioning workflows in Power Automate. Track license usage in Power BI using Admin Center data.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Analytics & Reporting</div>
+  <div class="faq-answer">Define KPIs and map to SharePoint/Dataverse fields. Create calculated columns/views for simplified reporting logic. Build Power BI dashboards with row-level security. Expose REST APIs in .NET to share data externally.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Compliance Enforcement</div>
+  <div class="faq-answer">Include consent fields and mandatory acknowledgments in Power Apps. Apply retention labels, sensitivity settings in SharePoint/Dataverse. Insert traceable stages in Power Automate for approvals. Implement access validations in .NET APIs based on policy.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Leave & Attendance Integration</div>
+  <div class="faq-answer">Configure leave policy matrix in a reference table. Validate entitlements and overlapping dates in Power Apps. Route approvals via Power Automate based on leave type. Sync biometric attendance via .NET API with HRIS data models.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Training & Development</div>
+  <div class="faq-answer">Create structured course catalog in Dataverse/SharePoint. Build training dashboards and enrollment logic in Power Apps. Manage nominations and certifications in Power Automate. Integrate external LMS platforms via connectors or custom APIs.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Exit Management</div>
+  <div class="faq-answer">Trigger workflow via form or external system integration. Generate exit checklist using Power Automate based on role/department. Integrate AD and M365 deactivation using Power Automate or .NET APIs. Log feedback, assets, and approvals in SharePoint or Dataverse.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Document Management</div>
+  <div class="faq-answer">Set up SharePoint libraries with metadata tagging. Use Power Apps for document upload and secure access. Apply item-level permissions via Power Automate. Trigger alerts for expiring documents; generate letters using templates.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Employee Master Data Modeling</div>
+  <div class="faq-answer">Create a centralized schema in Dataverse/SharePoint. Enforce referential integrity using lookups/foreign keys. Interact with data via Power Apps forms with prefilled logic. Sync and validate data using Power Automate/.NET integrations.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Internal Job Transfers</div>
+  <div class="faq-answer">Use Power Apps form for transfer initiation and approvals. Update master records post-approval in Dataverse/SharePoint. Trigger downstream changes (e.g., AD, payroll) via Power Automate/.NET. Store historical transfer records for audit.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Workforce Planning</div>
+  <div class="faq-answer">Capture current baseline data in structured Dataverse tables. Build forecasting templates in Power Apps. Visualize gaps and scenarios in Power BI. Trigger alerts for deviation using Power Automate.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Rewards & Recognition</div>
+  <div class="faq-answer">Design nomination flows in Power Apps. Route approvals and generate rewards via Power Automate. Store recognition data in SharePoint/Dataverse. Display dashboards in Power BI with team and category filters.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Grievance Management</div>
+  <div class="faq-answer">Build a secure Power Apps submission portal. Route grievances confidentially in Power Automate. Track case progress, attach evidence, log actions. Trigger escalations and monitor resolution times via dashboards.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">Surveys & Feedback</div>
+  <div class="faq-answer">Use Microsoft Forms or Power Apps to collect survey responses. Automate distribution, reminders, and storage via Power Automate. Display insights in Power BI segmented by role/tenure/location. Monitor critical responses and trend patterns for intervention.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">AI-Based Resume Screening</div>
+  <div class="faq-answer">Extract data from resumes using Azure Cognitive Services or AI Builder. Compare structured data with job templates using logic or ML scoring. Route high matches for review; archive low-fit. Display and override scores in Power Apps; visualize pipeline in Power BI.</div>
+</div>
+
+<div class="faq-item"> 
+  <div class="faq-question">HR Chatbot Integration</div>
+  <div class="faq-answer">Use Power Virtual Agents for chatbot flow design. Integrate backend data access using Power Automate. Enable live escalation or ticket creation for unresolved queries. Log interactions and integrate with Teams for seamless access.</div>
+</div>
+
+</div>
+
+
+
+  <!-- Script -->
+  <script>
+    const searchInput = document.getElementById('faq-search');
+    const clearBtn = document.getElementById('clear-search');
+    const titleOnlyToggle = document.getElementById('title-only');
+    const summary = document.getElementById('search-summary');
+    const noResults = document.getElementById('no-results');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const questions = document.querySelectorAll('.faq-question');
+    const answers = document.querySelectorAll('.faq-answer');
+
+    // Collapse all answers initially
+    answers.forEach(ans => ans.classList.remove('open'));
+
+    // Toggle behavior
+    questions.forEach((question, index) => {
+      question.addEventListener('click', () => {
+        answers.forEach((ans, i) => {
+          if (i === index) {
+            ans.classList.toggle('open');
+          } else {
+            ans.classList.remove('open');
+          }
+        });
+      });
+    });
+
+    // Highlight utility
+    function highlight(text, query) {
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, `<mark>$1</mark>`);
+    }
+
+    // Search logic
+    function filterFAQs() {
+      const query = searchInput.value.trim().toLowerCase();
+      const titleOnly = titleOnlyToggle.checked;
+      let visibleCount = 0;
+
+      faqItems.forEach(item => {
+        const questionEl = item.querySelector('.faq-question');
+        const answerEl = item.querySelector('.faq-answer');
+
+        const questionText = questionEl.textContent;
+        const answerText = answerEl.textContent;
+
+        const searchTarget = titleOnly ? questionText.toLowerCase() : (questionText + " " + answerText).toLowerCase();
+        const matchFound = searchTarget.includes(query);
+
+        if (matchFound) {
+          item.style.display = 'block';
+          visibleCount++;
+
+          // Highlight matched text
+          if (query.length > 0) {
+            questionEl.innerHTML = highlight(questionText, query);
+            if (!titleOnly) {
+              answerEl.innerHTML = highlight(answerText, query);
+            } else {
+              answerEl.innerHTML = answerText;
+            }
+          } else {
+            questionEl.innerHTML = questionText;
+            answerEl.innerHTML = answerText;
+          }
+
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      summary.textContent = query
+        ? `🔎 Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''} for "${query}"${titleOnly ? ' (titles only)' : ''}`
+        : '';
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Trigger on typing or checkbox toggle
+    searchInput.addEventListener('input', filterFAQs);
+    titleOnlyToggle.addEventListener('change', filterFAQs);
+
+    // Clear/reset function
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      titleOnlyToggle.checked = false;
+      summary.textContent = '';
+      noResults.style.display = 'none';
+
+      faqItems.forEach(item => {
+        item.style.display = 'block';
+      });
+
+      questions.forEach(q => q.innerHTML = q.textContent);
+      answers.forEach(a => {
+        a.innerHTML = a.textContent;
+        a.classList.remove('open');
+      });
+    });
+	
+	  const toggleAllBtn = document.getElementById('toggle-all');
+
+  toggleAllBtn.addEventListener('click', () => {
+    const anyClosed = Array.from(answers).some(a => !a.classList.contains('open'));
+
+    answers.forEach(a => {
+      a.classList.toggle('open', anyClosed);
+    });
+
+    toggleAllBtn.textContent = anyClosed ? 'Close All' : 'Open All';
+  });
+
+  </script>
+
+</body>
+</html>

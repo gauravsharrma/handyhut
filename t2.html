@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Post-it Notes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: sans-serif;
+      background: #f0f0f0;
+    }
+
+    .notes-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .note {
+      display: inline-block;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff9ae;
+      font-size: 1rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+      max-width: 100%;
+      min-width: 180px;
+    }
+
+    .note-title {
+      font-weight: bold;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="notes-container">
+    <div class="note" style="background-color: #fff9ae;"><span class="note-title">Organization Size categories: </span>Very Small,1 – 50,Startups, family businesses | Small,51 – 250,Growing SMEs, small agencies | Medium,251 – 1,000,Regional offices, schools, NGOs | Large,1,001 – 10,000,National enterprises, mid-size firms | Very Large,10,001+,Multinationals, Government, Iarge</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Organization key characteristics: </span><strong>Geographical Spread</strong> - Need for multilingual support, regional rules, time zone handling |
+<strong>Role Complexity</strong> - Impacts RBAC design in Azure AD & Power Apps |
+<strong>Process Maturity</strong> - Determines automation levels & AI involvement |
+<strong>Compliance Needs</strong> - Affects data storage (SharePoint config), audit trail requirements |
+<strong>Integration Needs</strong> - Determines API design, use of Power Automate for connectors |
+<strong>Data Volume</strong> - Impacts storage strategy (SQL, Cosmos DB, SharePoint limits) |
+<strong>Self-Service Depth</strong> - Drives Power Apps design (Model-driven vs Canvas), chatbot depth |
+<strong>AI Readiness</strong> - Impacts use of Azure OpenAI, Power Virtual Agents, insights architecture |
+<strong>IT Skill Maturity</strong> - Influences customization vs low-code balance
+
+
+</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Power platform vs org type: </span><strong>Very Small</strong> - Canvas Apps, Templates, Document storage, basic lists, Minimal — focus on Power Automate |
+<strong>Small</strong> - Canvas + some Model-driven, Team site + HR doc mgmt, Simple APIs (.NET minimal APIs) |
+<strong>Medium</strong> - Model-driven, chatbots, Department sites, compliance docs, API-first design, modular services |
+<strong>Large</strong> - Full Power Platform suite, Hub sites, metadata-rich libraries, Microservices, Power Automate + .NET |
+<strong>Very Large</strong> - Complex app orchestration, Enterprise content mgmt, versioning, .NET microservices, Azure Functions
+</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Layer vs Tech: </span><strong>Frontend</strong> - Power Apps, React (custom UX) |
+<strong>Backend</strong> - .NET Core 8+, C#, Azure Functions, App Services |
+<strong>API Management</strong> - Azure API Management, Swagger/OpenAPI, GraphQL |
+<strong>Database</strong> - Azure SQL, Cosmos DB, Azure Blob/SharePoint |
+<strong>Messaging/Eventing</strong> - Azure Service Bus, Azure Event Grid |
+<strong>AI/GenAI</strong> - Azure OpenAI, Semantic Kernel, Power Automate AI |
+<strong>Authentication</strong> - Azure AD, OAuth2, MSAL |
+<strong>CI/CD</strong> - GitHub Actions, Azure DevOps Pipelines |
+<strong>Monitoring</strong> - Azure Monitor, App Insights, Log Analytics |
+<strong>DevOps & Infra</strong> - ARM/Bicep/Terraform, ACR, Kubernetes (AKS)
+</div>
+	
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Key Inputs: </span>
+	<strong>Basic Information</strong> – Number of Employees, HR Staff Managing the System, Departments, Business Units | <strong>Countries to be Deployed</strong> – [List] | <strong>Organization Structure</strong> – [Describe] | <strong>Current Systems & Challenges</strong> – Current HR Systems/Tools, Pain Points or Inefficiencies, Where HR Data is Stored | <strong>Objectives & Priorities</strong> – Top 5 HRIS Priorities, Business Outcomes or KPIs | <strong>Looking For</strong> – Automation, Employee Self-Service, Analytics, Mobile Access | <strong>Functional Modules</strong> – Employee Master Data, Leave Management, Attendance/Timesheet, Recruitment & Onboarding, Performance Management, Learning & Development, Document Management (Policies, Contracts), Exit Management, Reporting & Dashboards, Integration with Payroll or 3rd Party Tools | <strong>Other Modules?</strong> – [Specify if any] | <strong>Integration Needs</strong> – Active Directory, Outlook, Microsoft Teams, ERP, Payroll, Third-party Systems | <strong>Data Sync</strong> – Between SharePoint, Power Apps, External Systems | <strong>Security & Access Control</strong> – Role-Based Access (HR, Manager, Employee), Audit Logs or Approval Workflows | <strong>Future Readiness</strong> – Growth in Users/Features (3–5 years), Openness to AI Features (Resume Screening, Chatbots) | <strong>Reporting & Analytics</strong> – HR KPIs Tracked, Preferred Dashboard Tool: Power BI, In-App Dashboard | <strong>Technical Considerations</strong> – On-Premise vs. Cloud, Preference for Microsoft 365 Solutions (SharePoint, Power Platform), Internal IT/DevOps Support | <strong>Timeline & Budget</strong> – Preferred Go-Live Timeline, Budget Range or Phased Approach
+
+	
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Key Inputs: </span><p><strong>Geo Spread – Time Zone Differences</strong>: Leave workflows break without proper time tracking (<em>What</em>), Incorrect timestamps impact SLAs (<em>Why</em>), Use UTC in .NET, convertTimeZone() in Power Automate (<em>How</em>), During workflow design (<em>When</em>), .NET, Power Automate, SQL (<em>Where</em>)</p>
+
+<p><strong>Geo Spread – Holiday Schedule</strong>: Regional public holidays vary (<em>What</em>), Invalid leave validation (<em>Why</em>), Use region-based holiday tables (<em>How</em>), Leave request logic (<em>When</em>), SharePoint, SQL, Power Automate (<em>Where</em>)</p>
+
+<p><strong>Role Complexity – Org Hierarchy</strong>: Too many roles/departments (<em>What</em>), Affects access and approvals (<em>Why</em>), Use metadata in Azure AD and Power Apps (<em>How</em>), RBAC definition phase (<em>When</em>), Azure AD, Power Apps (<em>Where</em>)</p>
+
+<p><strong>Role Complexity – Delegation</strong>: Managers go on leave (<em>What</em>), Workflow may halt (<em>Why</em>), Add delegation rules to workflow logic (<em>How</em>), Workflow configuration (<em>When</em>), Power Automate, SQL (<em>Where</em>)</p>
+
+<p><strong>Process Maturity – Undefined HR Flows</strong>: Inconsistent approvals (<em>What</em>), Leads to errors and inefficiencies (<em>Why</em>), Document and standardize via SOPs (<em>How</em>), Initial discovery phase (<em>When</em>), Power Automate, Power Apps (<em>Where</em>)</p>
+
+<p><strong>Process Maturity – No audit logs</strong>: Cannot track changes (<em>What</em>), Non-compliance risk (<em>Why</em>), Enable audit in SharePoint/.NET (<em>How</em>), Design phase (<em>When</em>), SharePoint, Azure Monitor (<em>Where</em>)</p>
+
+<p><strong>Compliance Needs – Data Location Laws</strong>: Cannot store PII globally (<em>What</em>), Legal violation (<em>Why</em>), Use region-specific Azure data centers (<em>How</em>), Data model planning (<em>When</em>), Azure, SharePoint (<em>Where</em>)</p>
+
+<p><strong>Compliance Needs – Retention Policies</strong>: Sensitive data not deleted (<em>What</em>), Audit risk (<em>Why</em>), Enable SharePoint retention labels (<em>How</em>), Data lifecycle design (<em>When</em>), SharePoint, Compliance Center (<em>Where</em>)</p>
+
+<p><strong>Integration Needs – Payroll/ERP Sync</strong>: Manual data duplication (<em>What</em>), Data inconsistency (<em>Why</em>), Use Power Automate connectors (<em>How</em>), Post-MVP planning (<em>When</em>), Power Automate, API Mgmt (<em>Where</em>)</p>
+
+<p><strong>Integration Needs – No API Standards</strong>: Incompatible systems (<em>What</em>), Hard to scale (<em>Why</em>), Enforce Swagger/OpenAPI (<em>How</em>), During API dev (<em>When</em>), .NET, API Management (<em>Where</em>)</p>
+
+<p><strong>Data Volume – Large lists</strong>: Performance issues (<em>What</em>), Sluggish Power Apps (<em>Why</em>), Paginate & filter data (<em>How</em>), UI Design (<em>When</em>), Power Apps, SQL (<em>Where</em>)</p>
+
+<p><strong>Data Volume – Upload overload</strong>: Files exceed limits (<em>What</em>), Storage errors (<em>Why</em>), Use SharePoint + Azure Blob for offloading (<em>How</em>), Infra planning (<em>When</em>), SharePoint, Azure Storage (<em>Where</em>)</p>
+
+<p><strong>Self Service Depth – Low ESS adoption</strong>: HR burdened with manual tasks (<em>What</em>), Scalability issue (<em>Why</em>), Empower users via Power Apps (<em>How</em>), UX Design (<em>When</em>), Power Apps, Power Virtual Agents (<em>Where</em>)</p>
+
+<p><strong>Self Service Depth – Unclear statuses</strong>: Users raise repeated queries (<em>What</em>), Frustration (<em>Why</em>), Add real-time status tracking (<em>How</em>), Feature design (<em>When</em>), Power Apps, .NET (<em>Where</em>)</p>
+
+<p><strong>AI Readiness – No data for training</strong>: AI models underperform (<em>What</em>), Poor recommendations (<em>Why</em>), Structure historical data (<em>How</em>), Before AI build (<em>When</em>), Azure SQL, Power BI (<em>Where</em>)</p>
+
+<p><strong>AI Readiness – Trust issues</strong>: Users fear AI bias (<em>What</em>), Resistance to adoption (<em>Why</em>), Explainability + guardrails (<em>How</em>), AI pilot phase (<em>When</em>), Azure OpenAI, Policy Design (<em>Where</em>)</p>
+
+<p><strong>IT Skill Maturity – No in-house devs</strong>: Can't maintain custom code (<em>What</em>), System rot risk (<em>Why</em>), Use low-code Power Platform (<em>How</em>), Early architecture (<em>When</em>), Power Apps, Power Automate (<em>Where</em>)</p>
+
+<p><strong>IT Skill Maturity – Overcustomization</strong>: Hard to manage upgrades (<em>What</em>), Technical debt (<em>Why</em>), Keep core in Power Platform, APIs in .NET (<em>How</em>), Scaling stage (<em>When</em>), Power Platform, .NET (<em>Where</em>)</p>
+</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Inputs: </span>
+	<strong>Handle peak usage</strong> – size infra, define concurrent user load, ensure system availability under pressure |  
+<strong>Per user licensing</strong> – estimate user roles, negotiate volume licensing, properly budget to avoid cost overrun |  
+<strong>Department mapping</strong> – assign users to departments, enable departmental dashboards and data segregation |  
+<strong>Hierarchy definition</strong> – setup reporting lines, enable escalations, approvals, and vertical workflows |  
+<strong>Role-based access (RBAC)</strong> – define permissions per role (view/edit/approve), enforce least privilege, avoid data leakage |  
+<strong>Admin roles</strong> – determine who configures forms, manages users, modifies workflows, and needs audit tracking |  
+<strong>Employee population</strong> – influences data volume, indexing needs, search performance, and UI load time |  
+<strong>Departmental workflow variations</strong> – allow for custom forms, approval steps, and logic based on department needs |  
+<strong>Access control layers</strong> – enable multi-level security (employee, manager, HR, exec), reduce risk of unauthorized data access |  
+<strong>Data visibility rules</strong> – who sees what (e.g., only finance sees payroll), controls data exposure |  
+<strong>Audit trail requirements</strong> – log actions (who changed what), required for compliance, incident response, and accountability |  
+<strong>Compliance enforcement</strong> – adhere to GDPR, HIPAA, labor laws, embed retention rules and data minimization |  
+<strong>Self-service enablement</strong> – define actions employees/managers can perform (e.g., view payslip, apply leave) |  
+<strong>Process automation</strong> – auto-trigger onboarding, reminders, performance cycles, contract renewals |  
+<strong>Approval chains</strong> – configure multi-step approvals (e.g., leave → manager → HR), add conditional logic |  
+<strong>Custom notifications</strong> – setup rule-based alerts for deadlines, inactivity, HR tasks, escalations |  
+<strong>Scalability planning</strong> – ensure architecture supports org growth (users, departments, modules) |  
+<strong>Multi-country support</strong> – configure localization (language, currency, policy) based on geography |  
+<strong>User interface customization</strong> – tailor dashboards/forms by role or department to reduce clutter and increase usability |  
+<strong>Dashboard design</strong> – build personalized dashboards with relevant KPIs and tasks for each user type |  
+<strong>Reporting structure</strong> – enable filtered, role-specific, or department-specific reports |  
+<strong>Data segmentation</strong> – restrict access and report scope based on role, region, business unit, or function |  
+<strong>Retention policies</strong> – define lifecycle for different data types (e.g., 7 years for payroll), set purge schedules |  
+<strong>Workflow versioning</strong> – track changes to forms and flows over time, allow rollback if needed |  
+<strong>Delegation rules</strong> – support task reassignment when users are unavailable or on leave |  
+<strong>Login & authentication</strong> – support SSO, enforce MFA, restrict by IP/location/device |  
+<strong>Integration points</strong> – identify systems to connect (ERP, payroll, LMS, AD), define sync rules and frequency |  
+<strong>Data sync strategy</strong> – push/pull logic, conflict resolution rules, sync triggers and audit logs |  
+<strong>Custom module requirements</strong> – support unique business needs (e.g., shift scheduling, compliance tracker) |  
+<strong>Mobile readiness</strong> – ensure responsive design or native apps for on-the-go HR actions |  
+<strong>IT support roles</strong> – identify DevOps/IT admins for user provisioning, integration setup, and escalated issue resolution |  
+<strong>Training requirements</strong> – plan onboarding sessions for HR admins, department heads, and end users |  
+<strong>Change management</strong> – support communication, feedback, version control, and governance approval cycles |  
+<strong>Monitoring & alerts</strong> – setup real-time monitoring (e.g., failed workflows, API errors), alert relevant admins |  
+<strong>Data import capability</strong> – define format and rules to import existing employee, leave, and payroll data |  
+<strong>Termination handling</strong> – automate exit checklists, document generation, account deactivation, and offboarding workflows |  
+<strong>Document storage</strong> – store contracts, policies, and letters securely with role-based access |  
+<strong>Policy enforcement</strong> – attach relevant company policies to forms and automate policy acknowledgements |  
+<strong>KPI tracking</strong> – define metrics to track efficiency, HR performance, employee satisfaction, system usage |  
+<strong>Future readiness</strong> – accommodate AI features (e.g., resume screening, chatbots), modular feature addition, analytics |  
+
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Geo Spread: Time Zone Handling: </span>
+	
+The solution architect has to set up consistent time zone handling logic in the .NET backend, Power Automate workflows, and Power Apps interface to standardize time capture and presentation across geographies. This is required to ensure that HR events such as leave requests, approvals, interviews, and onboarding steps are recorded and displayed accurately irrespective of the user's local time zone. During the workflow design and integration phase, the architect must use DateTime.UtcNow in all .NET-based API calls and data persistence layers to ensure that system timestamps are always stored in UTC. In Power Automate flows, the developer must use the convertTimeZone() function to dynamically convert UTC timestamps into each user’s local time zone for email notifications, approvals, or task due dates. In Power Apps, user profile metadata such as time zone must be referenced from either Azure AD or SharePoint user profiles and used to format date-time fields before displaying them on the UI. All time-sensitive data must be stored in UTC format within Dataverse or SQL Server to maintain consistency, and only converted at the presentation layer. This approach helps eliminate workflow misfires, incorrect deadline calculations, and SLA violations that typically occur when timestamps are interpreted in different time zones without normalization. The time zone handling logic must be planned and tested early during the workflow and data model design phase to avoid inconsistencies in later modules such as attendance, leave tracking, and performance evaluations.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">Role-Based Access Control (RBAC): </span>
+	
+The solution architect and security lead have to implement granular role-based access control (RBAC) in SharePoint, Power Apps, and the .NET service layer to ensure that each user only accesses the data, pages, workflows, and records relevant to their role. This is required to protect sensitive HR data such as compensation details, performance records, and exit information from unauthorized users while enabling seamless access for employees, managers, HR staff, and administrators based on their responsibilities.
+
+During the security and authorization design phase, the architect must define a clear RBAC matrix that maps user roles (such as Employee, Manager, HR Executive, HR Admin, Finance, IT Admin, Super Admin) to specific permissions (e.g., View Only, Edit Own Records, Approve, Full Admin Rights). In SharePoint, permission levels must be assigned at the site, list, and item level using SharePoint groups or Microsoft 365 security groups. In Power Apps, app-level role-based rules should be enforced using User().Email, Office365Users.MyProfile().JobTitle, and conditional logic within visible/display/editable properties to show or hide content dynamically. In Power Automate, approval flows should branch based on role, and sensitive data must only be routed to authorized users. The .NET backend must implement middleware to check user roles on API requests, using claims-based identity and token-based authorization, typically via Azure AD or OAuth tokens.
+
+This approach ensures regulatory compliance, preserves data confidentiality, and creates a secure, trust-driven environment where users interact only with relevant and authorized components of the HRIS. RBAC must be fully defined and implemented during the system configuration and workflow development phase to avoid rework, data breaches, or access violations in production.
+
+
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Department Segregation and Workflow Customization
+	: </span>
+	The business analyst and solution architect have to define the organizational department structure and implement logic in SharePoint, Power Apps, and Power Automate to segregate data, personalize workflows, and enable department-specific operations within the HRIS. This is essential to ensure that users from different departments, such as Finance, IT, Sales, and HR, view only their relevant data, follow workflows tailored to their functions, and operate within access boundaries appropriate to their roles.
+
+During the early design and requirements gathering phase, departments must be captured as metadata fields in all core data entities such as employee profiles, requests, and forms. This metadata should then be used in Power Apps to filter gallery views and limit visibility of records using conditional expressions tied to the user’s department. In Power Automate, conditional branching logic must be applied based on department values to route workflows through department-specific approval chains, notifications, or document templates. SharePoint lists and libraries should be structured with folders or views filtered by department metadata to simplify document access and content management. The .NET backend should enforce department-based filtering in API queries using the authenticated user's claims or roles.
+
+This setup ensures that departments can operate semi-independently within the same system, improves performance by reducing data noise, and enhances user experience by showing only relevant information. It also supports the design of modular workflows, which are easier to maintain and scale. Department segregation and workflow logic must be implemented during the workflow and UI design phase to avoid reengineering when department-level customizations emerge post-launch.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Organizational Hierarchy and Approval Routing
+	: </span>
+	The business analyst, HR lead, and solution architect have to define the complete organizational hierarchy and integrate it with workflow routing logic in Power Automate, user profile lookups in Power Apps, and access validations in .NET APIs to support manager-based approvals and escalations. This is critical for enabling automated decision flows such as leave approvals, performance reviews, onboarding checklists, and resignation processing, where each task must flow through the appropriate chain of command.
+
+During the planning and configuration phase, the full org structure must be captured either from Active Directory, Azure AD, or uploaded as a reference list into SharePoint or Dataverse. Each employee record must include a direct manager ID or email, and this relationship should be queried dynamically in Power Automate using the Office 365 Users connector to resolve current manager details at runtime. In Power Apps, the manager information should be displayed contextually and used to control form routing and approval buttons. In SharePoint-based scenarios, workflows should resolve manager hierarchy using lookup fields or calculated columns linked to an authoritative source. For .NET-based services, hierarchy metadata must be embedded into JWT tokens or passed as API parameters to ensure that server-side validations respect reporting structures.
+
+This setup ensures that all tasks are routed appropriately without hardcoded assignments, prevents misdirected approvals, and supports escalations to alternate reviewers or higher authorities when managers are unavailable. It also allows HR teams to dynamically adjust workflows when organizational changes occur. Approval routing logic tied to hierarchy must be implemented during the workflow design and employee profile modeling phase to ensure routing logic is scalable, traceable, and audit-compliant across all HR modules.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Audit Trails and Action Logging
+	: </span>
+	The system architect and compliance analyst have to design and implement comprehensive audit trails and action logging mechanisms across all layers of the HRIS, including SharePoint, Power Automate, Power Apps, and .NET APIs, to ensure accountability, traceability, and regulatory compliance. This is necessary to track sensitive operations such as data updates, approvals, deletions, login attempts, and configuration changes in order to support internal audits, legal investigations, and operational reviews.
+
+During the workflow and service architecture phase, the .NET backend must implement logging frameworks such as Serilog or Application Insights to record API calls, payloads, user IDs, timestamps, and IP addresses for every action performed. Power Automate flows should include audit log steps that write critical events (e.g., approval completed, document uploaded) to a SharePoint log list or Dataverse audit table, capturing details like user email, action type, record ID, and time. In Power Apps, key user actions such as form submissions, edits, and deletions should be recorded using Patch() functions that also log metadata into a parallel audit table. SharePoint itself must have version history enabled on key lists and libraries, and data retention settings must be aligned with organizational compliance policies.
+
+This system-wide audit mechanism helps detect anomalies, trace data changes, and produce legally defensible reports when required. It also deters unauthorized behavior by increasing system transparency. The audit framework must be planned and embedded from the start of development to ensure consistency, avoid gaps in visibility, and meet audit-readiness expectations from the HR, legal, and IT security teams.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Onboarding Workflow Automation
+	: </span>
+	The HR lead, process analyst, and Power Platform developer have to design and implement automated onboarding workflows in Power Automate and Power Apps that coordinate tasks, forms, and notifications across departments to streamline the new hire process. This is critical to ensure that new employees are provisioned correctly, documents are completed on time, and relevant stakeholders are notified without manual tracking or coordination.
+
+During the process automation phase, onboarding checklists must be defined and converted into dynamic workflows that assign tasks to HR, IT, Finance, and reporting managers upon the creation of a new employee record in Dataverse or SharePoint. In Power Automate, flows should generate templated emails for welcome messages, policy acknowledgements, and system credential requests. They must also create task items for IT provisioning (e.g., laptop, email), HR (e.g., ID card, bank details), and the hiring manager (e.g., first-week plan, mentor assignment). In Power Apps, onboarding forms should display personalized status tracking for the new joiner and HR, showing what has been completed and what's pending. The .NET backend, if used for provisioning or integration with external systems (e.g., Active Directory, payroll), must expose APIs to trigger those actions based on onboarding state.
+
+This approach accelerates readiness, reduces the risk of human error, and ensures consistent experiences across roles and locations. Onboarding workflows must be designed, tested, and deployed during the employee lifecycle planning phase and aligned with data structures that support downstream modules like attendance, payroll, and performance.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Data Retention and Archival Policies
+	: </span>
+	The compliance officer, architect, and database administrator have to define and implement data retention and archival policies in SharePoint, Dataverse, and backend databases to ensure the HRIS complies with regulatory mandates and organizational policies. This is necessary to prevent the buildup of stale data, reduce legal exposure from retaining records beyond their required lifespan, and maintain system performance over time.
+
+During the data governance and infrastructure planning phase, rules must be established for how long different types of HR data should be retained (e.g., 7 years for payroll, 3 years for rejected applications, 1 year for temporary workers) and where archived data should be stored. SharePoint should use information management policies or retention labels to automatically delete or move records to an archive library based on metadata such as status or modified date. In Dataverse, tables should include isArchived or retentionEndDate fields, and Power Automate flows must periodically evaluate these fields to relocate or purge data. In .NET or SQL Server environments, scheduled jobs should perform data archiving and deletion with proper audit logging. Archived data can be stored in Azure Blob Storage or separate SharePoint sites with restricted access.
+
+Properly implemented retention ensures compliance with laws like GDPR, reduces unnecessary storage costs, and improves query performance by reducing table and list size. Retention logic must be embedded into the core data model and lifecycle flows from the outset to avoid future retrofitting and data compliance risks.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	 Integration with External Systems
+	: </span>
+	The integration architect and technical lead have to configure data synchronization pipelines and API-based connectors between the HRIS and external systems such as Active Directory, ERP, Payroll, LMS, and third-party benefits platforms. This is essential to avoid duplicate data entry, enable end-to-end automation, and ensure consistency of employee information across enterprise systems.
+
+During the integration design phase, system interfaces must be defined in terms of endpoints, authentication, payload structure, and update frequency. Power Automate should be used to create scheduled or trigger-based flows that exchange data between SharePoint/Dataverse and external systems via prebuilt connectors or custom HTTP actions. For complex enterprise-grade integrations, Azure Logic Apps or custom .NET APIs must be developed to handle authentication, retries, and transformations. For example, when an employee is onboarded, a flow should trigger to provision credentials in Active Directory, enroll them in an LMS, and sync salary data with Payroll. Mapping tables must be created for reference codes (e.g., job titles, grades) to ensure data alignment.
+
+Reliable, real-time or near-real-time integrations ensure smooth interdepartmental coordination and reduce HR effort in manual updates. All integrations must be defined, tested, and validated during the pre-UAT phase with sandbox and production environments and monitored post-launch for data quality issues.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Self-Service Configuration for Employees and Managers
+	: </span>
+	The UX designer and Power Apps developer have to build intuitive self-service portals using Power Apps that enable employees and managers to perform common HR tasks without depending on the HR team. This is vital for improving operational efficiency, reducing ticket volumes, and giving end-users real-time access to their own records and requests.
+
+During the user experience and capability scoping phase, common use cases should be identified—such as updating personal information, viewing leave balances, requesting time off, submitting reimbursements, accessing policy documents, and downloading payslips. In Power Apps, the UI must be role-sensitive, conditionally displaying sections and actions based on the logged-in user’s role (Employee vs Manager). Forms must be pre-filled using Office365Users and Dataverse connectors, and only editable where permitted. Reusable components like tabbed layouts, progress bars, or filterable lists should be developed to streamline navigation. In SharePoint or Dataverse, role-based views and security must restrict access to only the user’s own data, or their team’s data if they are a manager.
+
+These self-service portals improve data accuracy, lower the burden on HR operations, and create a consistent user experience across devices. They should be rolled out during the go-live phase with user guides and training support to maximize adoption and reduce transition friction.
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Title
+	: </span>
+	Content
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Title
+	: </span>
+	Content
+	</div>
+	<div class="note" style="background-color: #fff9ae;"><span class="note-title">
+	Title
+	: </span>
+	Content
+	</div>
+  </div>
+</body>
+</html>

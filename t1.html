@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Menu App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #f4f4f4;
+      border-right: 1px solid #ccc;
+      padding: 1rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .menu-item {
+      cursor: pointer;
+      padding: 8px;
+      margin: 4px 0;
+      background: #ddd;
+      border-radius: 4px;
+    }
+
+    .menu-item:hover {
+      background: #bbb;
+    }
+
+    .main {
+      flex-grow: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .form {
+      margin-top: 1rem;
+    }
+
+    .form input, .form textarea, .form button {
+      display: block;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h3>Menu</h3>
+    <div id="menuList"></div>
+
+    <div class="form">
+      <input type="text" id="menuTitle" placeholder="Menu title">
+      <textarea id="menuHtml" placeholder="Enter HTML content here..."></textarea>
+      <button onclick="addMenuItem()">Add Menu Item</button>
+    </div>
+  </div>
+
+  <div class="main" id="contentArea">
+    <h2>Welcome!</h2>
+    <p>Select a menu item to view content.</p>
+  </div>
+
+  <script>
+    const menuList = document.getElementById('menuList');
+    const contentArea = document.getElementById('contentArea');
+    const menuItems = [];
+
+    function addMenuItem() {
+      const title = document.getElementById('menuTitle').value.trim();
+      const html = document.getElementById('menuHtml').value.trim();
+
+      if (title && html) {
+        const index = menuItems.length;
+        menuItems.push({ title, html });
+
+        const item = document.createElement('div');
+        item.className = 'menu-item';
+        item.textContent = title;
+        item.onclick = () => {
+          contentArea.innerHTML = menuItems[index].html;
+        };
+
+        menuList.appendChild(item);
+
+        // Save HTML to a file
+        const fileName = `${title.replace(/\s+/g, '_').toLowerCase()}.html`;
+        downloadHtmlFile(fileName, html);
+
+        // Clear inputs
+        document.getElementById('menuTitle').value = '';
+        document.getElementById('menuHtml').value = '';
+      } else {
+        alert('Please enter both a title and HTML content.');
+      }
+    }
+
+    function downloadHtmlFile(filename, htmlContent) {
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

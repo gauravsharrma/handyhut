@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRIS Information Tabs</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fafc; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .tabs { overflow: hidden; border-bottom: 2px solid #4299e1; }
+        .tab-button {
+            background-color: #edf2f7; border: none; cursor: pointer; padding: 10px 15px; margin-right: 5px;
+            border-radius: 8px 8px 0 0; font-size: 14px; font-weight: 600; transition: 0.3s;
+        }
+        .tab-button.active, .tab-button:hover { background-color: #4299e1; color: white; }
+        .tab-content { display: none; padding-top: 15px; }
+        .active-content { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #ebf8ff; }
+        tr:nth-child(even) { background-color: #f9fafb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <!-- All your tab buttons here -->
+        <button class="tab-button active" onclick="openTab(event, 'modules_in_scope')">Modules in Scope</button>
+        <!-- Add other buttons here if needed -->
+    </div>
+
+    <!-- Modules in Scope with Architecture Stack -->
+    <div id="modules_in_scope" class="tab-content active-content">
+        <h3>🧩 Modules in Scope:</h3>
+        <ul>
+            <li>Employee Master Data</li>
+            <li>Leave & Attendance Management</li>
+            <li>Basic Self-Service Portal (ESS)</li>
+            <li>Core API Gateway</li>
+            <li>SharePoint Integration</li>
+            <li>HR Chatbot (basic FAQ + leave queries)</li>
+        </ul>
+
+        <h3>📐 Architecture Stack for Phase 1</h3>
+        <table>
+            <tr><th>Layer</th><th>Tools/Stack</th></tr>
+            <tr><td>Frontend</td><td>Power Apps Canvas + optional React SPA</td></tr>
+            <tr><td>Backend</td><td>.NET 8 APIs (microservice-based)</td></tr>
+            <tr><td>Database</td><td>Azure SQL + SharePoint Lists/Documents</td></tr>
+            <tr><td>Integration</td><td>Azure API Management</td></tr>
+            <tr><td>Workflows</td><td>Power Automate (for leave request flows)</td></tr>
+            <tr><td>Authentication</td><td>Azure AD + MSAL (RBAC, SSO)</td></tr>
+            <tr><td>Chatbot</td><td>Power Virtual Agent + Azure OpenAI</td></tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        const tabcontent = document.querySelectorAll(".tab-content");
+        const tabbuttons = document.querySelectorAll(".tab-button");
+        tabcontent.forEach(tc => tc.style.display = "none");
+        tabbuttons.forEach(tb => tb.classList.remove("active"));
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+    document.getElementById('modules_in_scope').style.display = "block";
+</script>
+
+</body>
+</html>

@@ -1,66 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Toolbox</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Menu Viewer - JSON Upload with IDs</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      margin: 0;
+      height: 100vh;
+    }
+    #sidebar {
+      width: 300px;
+      background: #f4f4f4;
+      padding: 10px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+    }
+    #editor {
+      flex: 1;
+      padding: 20px;
+    }
+    .menu-item {
+      cursor: pointer;
+      padding: 5px;
+      margin-bottom: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+    }
+    .menu-item.active {
+      background: #dbeafe;
+    }
+    .submenu {
+      margin-left: 20px;
+    }
+    #content {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      margin-top: 10px;
+      background: #fff;
+    }
+    #uploadArea {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Modern Toolbox</h1>
-        </div>
-    </header>
 
-    <div class="search-container">
-        <input type="text" id="toolSearch" placeholder="Search tools...">
-    </div>
+<div id="sidebar">
+  <h3>Menus</h3>
+  <div id="uploadArea">
+    <input type="file" id="jsonFile" accept=".json" />
+  </div>
+  <div id="menuTree"></div>
+</div>
 
-    <main id="toolList">
-        <div class="tool-card" data-tool-name="EMI Calculator">
-            <a href="tools/emi-calculator.html">
-                <span class="tool-icon">📊</span>
-                <div class="tool-info">
-                    <h2>EMI Calculator</h2>
-                    <p>Calculate your loan EMI with ease.</p>
-                </div>
-            </a>
-        </div>
-        <div class="tool-card" data-tool-name="BMI Calculator">
-            <a href="tools/bmi-calculator.html">
-                <span class="tool-icon">🏋️</span>
-                <div class="tool-info">
-                    <h2>BMI Calculator</h2>
-                    <p>Calculate your Body Mass Index.</p>
-                </div>
-            </a>
-        </div>
-        <div class="tool-card" data-tool-name="Currency Converter">
-            <a href="tools/currency-converter.html">
-                <span class="tool-icon">💱</span>
-                <div class="tool-info">
-                    <h2>Currency Converter</h2>
-                    <p>Convert currencies quickly.</p>
-                </div>
-            </a>
-        </div>
-        <div class="tool-card" data-tool-name="Age Calculator">
-            <a href="tools/age-calculator.html">
-                <span class="tool-icon">🎂</span>
-                <div class="tool-info">
-                    <h2>Age Calculator</h2>
-                    <p>Calculate your age from birthdate.</p>
-                </div>
-            </a>
-        </div>
-    </main>
+<div id="editor">
+  <h3 id="currentTitle">Upload a JSON file and select a menu</h3>
+  <div id="content"></div>
+</div>
 
-    <footer>
-        <p>&copy; 2024 Modern Toolbox. All rights reserved.</p>
-    </footer>
+<script>
+  let flatMap = {}; // id => node map
+  let currentId = null;
 
-    <script src="script.js"></script>
+  const menuTreeDiv = document.getElementById("menuTree");
+  const contentDiv = document.getElementById("content");
+  const titleDiv = document.getElementById("currentTitle");
+
+  document.getElementById("jsonFile").addEventListener("change", handleFileUpload);
+
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        flatMap = {};
+        renderMenuTree(data, []);
+        contentDiv.innerHTML = '';
+        titleDiv.textContent = "Select a menu or submenu";
+        currentId = null;
+      } catch (err) {
+        alert("Invalid JSON file!");
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function renderMenuTree(nodes, path) {
+    if (path.length === 0) menuTreeDiv.innerHTML = '';
+
+    nodes.forEach((node, index) => {
+      const newPath = [...path, index + 1];
+      const id = newPath.join('.');
+      node.id = id; // Inject ID if not already present
+      flatMap[id] = node;
+
+      const div = document.createElement("div");
+      div.className = "menu-item";
+      div.textContent = id + ". " + node.title;
+
+      if (currentId === id) {
+        div.classList.add("active");
+      }
+
+      div.onclick = () => selectNode(id);
+
+      const container = document.createElement("div");
+      container.appendChild(div);
+
+      if (path.length > 0) {
+        container.classList.add("submenu");
+      }
+
+      menuTreeDiv.appendChild(container);
+
+      if (node.children && node.children.length > 0) {
+        renderMenuTree(node.children, newPath);
+      }
+    });
+  }
+
+  function selectNode(id) {
+    const node = flatMap[id];
+    if (node) {
+      currentId = id;
+      contentDiv.innerHTML = node.content || "<i>No content</i>";
+      titleDiv.textContent = id + ". " + node.title;
+      renderMenuTree(Object.values(flatMap).filter(n => n.id && n.id.split('.').length === 1), []);
+    }
+  }
+</script>
+
 </body>
 </html>

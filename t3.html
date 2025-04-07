@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HRIS Requirements Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      margin-top: 30px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #ccc;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .inline-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .inline-group > div {
+      flex: 1 1 200px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HRIS Requirements Input Form</h1>
+
+  <h2>1. Basic Organization Info</h2>
+  <div class="inline-group">
+    <div>
+      <label>Number of Employees</label>
+      <input type="text">
+    </div>
+    <div>
+      <label>HR Staff Managing System</label>
+      <input type="text">
+    </div>
+    <div>
+      <label>Departments</label>
+      <input type="text">
+    </div>
+    <div>
+      <label>Business Units</label>
+      <input type="text">
+    </div>
+    <div>
+      <label>Countries to Deploy</label>
+      <input type="text">
+    </div>
+  </div>
+  <label>Organization Structure</label>
+  <textarea rows="3"></textarea>
+
+  <h2>2. Current Systems & Challenges</h2>
+  <label>Current HR Systems / Tools</label>
+  <textarea rows="3"></textarea>
+
+  <label>Key Pain Points or Inefficiencies</label>
+  <textarea rows="3"></textarea>
+
+  <label>Where is HR Data Currently Stored?</label>
+  <input type="text">
+
+  <h2>3. Goals & Priorities</h2>
+  <label>Top 5 Priorities for the New HRIS</label>
+  <textarea rows="3"></textarea>
+
+  <label>Expected Business Outcomes / KPIs</label>
+  <textarea rows="3"></textarea>
+
+  <label>Key Capabilities Needed</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> Automation</label>
+    <label><input type="checkbox"> Employee Self-Service</label>
+    <label><input type="checkbox"> Analytics</label>
+    <label><input type="checkbox"> Mobile Access</label>
+  </div>
+
+  <h2>4. Functional Modules Required</h2>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> Employee Master Data</label>
+    <label><input type="checkbox"> Leave Management</label>
+    <label><input type="checkbox"> Attendance / Timesheet</label>
+    <label><input type="checkbox"> Recruitment & Onboarding</label>
+    <label><input type="checkbox"> Performance Management</label>
+    <label><input type="checkbox"> Learning & Development</label>
+    <label><input type="checkbox"> Document Management</label>
+    <label><input type="checkbox"> Exit Management</label>
+    <label><input type="checkbox"> Reporting & Dashboards</label>
+    <label><input type="checkbox"> Payroll / 3rd Party Integration</label>
+  </div>
+  <label>Other Required Modules</label>
+  <input type="text">
+
+  <h2>5. Integration Needs</h2>
+  <label>Integrations Required</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> Active Directory</label>
+    <label><input type="checkbox"> Outlook</label>
+    <label><input type="checkbox"> Microsoft Teams</label>
+    <label><input type="checkbox"> ERP</label>
+    <label><input type="checkbox"> Payroll</label>
+    <label><input type="checkbox"> Other 3rd-Party Systems</label>
+  </div>
+
+  <label>Data Sync Strategy (SharePoint, Power Apps, External Systems)</label>
+  <textarea rows="2"></textarea>
+
+  <h2>6. Security & Access</h2>
+  <label>Role-Based Access (e.g., HR, Manager, Employee)</label>
+  <textarea rows="2"></textarea>
+
+  <label>Audit Logs / Approval Workflows Needed?</label>
+  <input type="text">
+
+  <h2>7. Future Readiness</h2>
+  <label>Expected Growth (Users/Features, 3–5 Years)</label>
+  <input type="text">
+
+  <label>Interested in Future AI Features (e.g., Chatbots, Resume Screening)?</label>
+  <input type="text">
+
+  <h2>8. Reporting & Analytics</h2>
+  <label>HR Reports / KPIs Currently Tracked</label>
+  <textarea rows="2"></textarea>
+
+  <label>Preferred Dashboard Tool</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> Power BI</label>
+    <label><input type="checkbox"> In-App Dashboard</label>
+  </div>
+
+  <h2>9. Technical Considerations</h2>
+  <label>Platform Restrictions (e.g., On-Prem vs. Cloud)</label>
+  <input type="text">
+
+  <label>Preference for Microsoft 365 Stack (e.g., SharePoint, Power Platform)</label>
+  <input type="text">
+
+  <label>Internal IT/DevOps Teams Available?</label>
+  <input type="text">
+
+  <h2>10. Timeline & Budget</h2>
+  <label>Preferred Go-Live / Delivery Date</label>
+  <input type="text">
+
+  <label>Estimated Budget / Phased Rollout Approach</label>
+  <input type="text">
+
+</body>
+</html>

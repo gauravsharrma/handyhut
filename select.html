@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enterprise App Design Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    form {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+    }
+    textarea, select, input {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.5rem 0 1rem 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #2c3e50;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 2rem;
+      white-space: pre-wrap;
+      background: #eaf4ff;
+      padding: 1rem;
+      border-left: 5px solid #2980b9;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Enterprise App Design Advisor</h1>
+<form id="designForm">
+  <label>Countries of Deployment</label>
+  <input type="text" name="countries" placeholder="e.g., UAE, India, USA" required />
+
+  <label>Supported Languages</label>
+  <input type="text" name="languages" placeholder="e.g., English, Arabic, Hindi" required />
+
+  <label>Number of Users</label>
+  <input type="number" name="users" placeholder="e.g., 50000" required />
+
+  <label>Types of Users (e.g., Admins, Employees, HR)</label>
+  <input type="text" name="userTypes" required />
+
+  <label>Hosting Preference</label>
+  <select name="hosting">
+    <option value="cloud">Cloud (Microsoft 365 / Azure)</option>
+    <option value="onprem">On-Premises</option>
+    <option value="hybrid">Hybrid</option>
+  </select>
+
+  <label>Authentication & Security Requirements</label>
+  <textarea name="security" placeholder="e.g., Azure AD SSO, MFA, Role-based Access" required></textarea>
+
+  <label>Compliance Requirements (e.g., GDPR, HIPAA, GxP)</label>
+  <textarea name="compliance" required></textarea>
+
+  <label>Integration Needs (e.g., SAP, AD, Outlook, Teams)</label>
+  <textarea name="integrations" required></textarea>
+
+  <label>Key Business Processes to Digitize</label>
+  <textarea name="processes" required></textarea>
+
+  <label>Level of Customization Required</label>
+  <select name="customization">
+    <option value="low">Low (OOTB features)</option>
+    <option value="medium">Medium (Custom Power Apps / Workflows)</option>
+    <option value="high">High (Custom APIs, .NET services, SPFx)</option>
+  </select>
+
+  <button type="submit">Generate Architecture Plan</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+  document.getElementById("designForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const countries = form.countries.value;
+    const languages = form.languages.value;
+    const users = parseInt(form.users.value);
+    const userTypes = form.userTypes.value;
+    const hosting = form.hosting.value;
+    const security = form.security.value;
+    const compliance = form.compliance.value;
+    const integrations = form.integrations.value;
+    const processes = form.processes.value;
+    const customization = form.customization.value;
+
+    let stack = "💡 Suggested Architecture & Technology Stack:\n\n";
+
+    stack += `🌍 Deployment in: ${countries} | Supported Languages: ${languages}\n`;
+    stack += `👥 Users: ${users} | Roles: ${userTypes}\n`;
+    stack += `☁️ Hosting: ${hosting === 'cloud' ? 'Microsoft 365 / Azure' : hosting === 'onprem' ? 'On-Prem SharePoint Server + Local Infra' : 'Hybrid with Azure AD Connect'}\n\n`;
+
+    stack += `🔐 Security & Auth:\n- ${security}\n`;
+    stack += `📜 Compliance:\n- ${compliance}\n\n`;
+
+    stack += `🔌 Integrations Needed:\n- ${integrations}\n\n`;
+
+    stack += `⚙️ Key Business Processes:\n- ${processes}\n\n`;
+
+    stack += `🔧 Customization Level: ${customization}\n`;
+
+    stack += "\n✅ Recommended Tech Stack:\n";
+
+    if (customization === "low") {
+      stack += "- SharePoint Online Lists & Libraries\n";
+      stack += "- Power Automate for workflows\n";
+      stack += "- Power Apps Canvas Apps (basic forms)\n";
+    } else if (customization === "medium") {
+      stack += "- Power Platform (Canvas + Model-driven Apps)\n";
+      stack += "- Dataverse as backend\n";
+      stack += "- SharePoint Online for document management\n";
+      stack += "- Power Automate + AI Builder + Power BI\n";
+    } else {
+      stack += "- Power Apps (Model-Driven + Portal / Power Pages)\n";
+      stack += "- SharePoint Framework (SPFx) custom web parts\n";
+      stack += "- Azure Functions / Logic Apps\n";
+      stack += "- ASP.NET Core APIs / .NET MAUI if mobile apps needed\n";
+      stack += "- SQL Server / Dataverse backend\n";
+    }
+
+    stack += "\n🏗️ Architecture Suggestions:\n";
+    stack += "- Use Power Pages for external user access (if needed)\n";
+    stack += "- Use SharePoint as DMS (Document Management System)\n";
+    stack += "- Implement RBAC using Azure AD groups\n";
+    stack += "- Monitor with Power Platform Admin Center + Azure Monitor\n";
+    stack += "- Backup via Azure Backup / SharePoint Compliance Center\n";
+
+    if (users > 10000) {
+      stack += "\n📈 Scaling Advice:\n- Use Dataverse for large datasets\n- Use Azure Service Bus for async processing\n";
+    }
+
+    stack += "\n🧠 GenAI Ready:\n- Use Power Automate + Copilot Studio\n- Integrate with Azure OpenAI if needed for smart forms / chat\n";
+
+    document.getElementById("output").textContent = stack;
+  });
+</script>
+
+</body>
+</html>

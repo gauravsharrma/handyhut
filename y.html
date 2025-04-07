@@ -1,0 +1,25 @@
+<style>
+  .folder { cursor: pointer; }
+  .nested { display: none; padding-left: 20px; }
+</style>
+
+<div>
+  <div class="folder" onclick="toggleTree(this)">📁 Documents</div>
+  <div class="nested">
+    <div>📄 Resume.pdf</div>
+    <div>📄 Report.docx</div>
+  </div>
+
+  <div class="folder" onclick="toggleTree(this)">📁 Photos</div>
+  <div class="nested">
+    <div>📄 Vacation.jpg</div>
+    <div>📄 Party.png</div>
+  </div>
+</div>
+
+<script>
+  function toggleTree(el) {
+    const next = el.nextElementSibling;
+    next.style.display = next.style.display === 'block' ? 'none' : 'block';
+  }
+</script>

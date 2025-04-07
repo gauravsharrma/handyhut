@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8"/>
+      <title>HRIS Information Tabs</title>
+      <style>
+         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fafc; padding: 20px; color: #333; }
+         .container { max-width: 900px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+         .tabs { overflow: hidden; border-bottom: 2px solid #4299e1; }
+         .tab-button {
+         background-color: #edf2f7; border: none; cursor: pointer; padding: 10px 15px; margin-right: 5px;
+         border-radius: 8px 8px 0 0; font-size: 14px; font-weight: 600; transition: 0.3s;
+         }
+         .tab-button.active, .tab-button:hover { background-color: #4299e1; color: white; }
+         .tab-content { display: none; padding-top: 15px; }
+         .active-content { display: block; }
+         table { width: 100%; border-collapse: collapse; }
+         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+         th { background-color: #ebf8ff; }
+         tr:nth-child(even) { background-color: #f9fafb; }
+         .sub-tabs {
+         margin-top: 10px;
+         margin-bottom: 10px;
+         }
+         .sub-tab-button {
+         background-color: #e2e8f0;
+         border: none;
+         cursor: pointer;
+         padding: 8px 12px;
+         margin-right: 5px;
+         border-radius: 6px;
+         font-size: 13px;
+         font-weight: 600;
+         transition: 0.2s;
+         }
+         .sub-tab-button.active,
+         .sub-tab-button:hover {
+         background-color: #2b6cb0;
+         color: white;
+         }
+         .sub-tab-content {
+         display: none;
+         padding-top: 10px;
+         }
+         .sub-tab-content.active-content {
+         display: block;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'org_size')">Organization Size Categories</button>
+            <button class="tab-button" onclick="openTab(event, 'key_characteristics')">Other Key Characteristics</button>
+            <button class="tab-button" onclick="openTab(event, 'architecture_decisions')">Architecture Decisions</button>
+            <button class="tab-button" onclick="openTab(event, 'core_hris_modules')">Core HRIS Modules</button>
+            <button class="tab-button" onclick="openTab(event, 'stakeholders')">Stakeholders</button>
+            <button class="tab-button" onclick="openTab(event, 'tech_stack')">Tech Stack</button>
+            <button class="tab-button" onclick="openTab(event, 'architectural_principles')">Architectural Principles</button>
+            <button class="tab-button" onclick="openTab(event, 'integration_platform')">Integration Platform</button>
+            <button class="tab-button" onclick="openTab(event, 'ai_use_cases')">AI Use Cases</button>
+            <button class="tab-button" onclick="openTab(event, 'implementation_stages')">Implementation Stages</button>
+            <button class="tab-button" onclick="openTab(event, 'future_ready')">Future Ready Architecture</button>
+            <button class="tab-button" onclick="openTab(event, 'phases')">Phases</button>
+            <button class="tab-button" onclick="openTab(event, 'doc_governance')">Documentation &amp; Governance</button>
+            <button class="tab-button" onclick="openTab(event, 'kpis')">KPIs to Measure Success</button>
+            <button class="tab-button" onclick="openTab(event, 'genai_modules')">GenAI &amp; AI-Powered Modules</button>
+            <button class="tab-button" onclick="openTab(event, 'repo_structure')">HRIS Repo Structure</button>
+            <button class="tab-button" onclick="openTab(event, 'Phase 1')">Phase 1</button>
+            <button class="tab-button" onclick="openTab(event, 'critical_org_characteristics')">Critical Org Characteristics</button>
+         </div>
+         <div class="tab-content active-content" id="org_size">
+            <h3>Organization Size Categories (By Employee Strength)</h3>
+            <table>
+               <tr>
+                  <th>Category</th>
+                  <th>People Strength</th>
+                  <th>Typical Use Case Examples</th>
+               </tr>
+               <tr>
+                  <td>Very Small</td>
+                  <td>1 – 50</td>
+                  <td>Startups, family businesses</td>
+               </tr>
+               <tr>
+                  <td>Small</td>
+                  <td>51 – 250</td>
+                  <td>Growing SMEs, small agencies</td>
+               </tr>
+               <tr>
+                  <td>Medium</td>
+                  <td>251 – 1,000</td>
+                  <td>Regional offices, schools, NGOs</td>
+               </tr>
+               <tr>
+                  <td>Large</td>
+                  <td>1,001 – 10,000</td>
+                  <td>National enterprises, mid-size firms</td>
+               </tr>
+               <tr>
+                  <td>Very Large</td>
+                  <td>10,001+</td>
+                  <td>Multinationals, Government, Iarge</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="key_characteristics">
+            <h3>🧠 Other Key Characteristics to Consider (Beyond Size)</h3>
+            <table>
+               <tr>
+                  <th>Characteristic</th>
+                  <th>Why It Matters for Architecture</th>
+               </tr>
+               <tr>
+                  <td>Geographical Spread</td>
+                  <td>Need for multilingual support, regional rules, time zone handling</td>
+               </tr>
+               <tr>
+                  <td>Role Complexity</td>
+                  <td>Impacts RBAC design in Azure AD &amp; Power Apps</td>
+               </tr>
+               <tr>
+                  <td>Process Maturity</td>
+                  <td>Determines automation levels &amp; AI involvement</td>
+               </tr>
+               <tr>
+                  <td>Compliance Needs</td>
+                  <td>Affects data storage (SharePoint config), audit trail requirements</td>
+               </tr>
+               <tr>
+                  <td>Integration Needs</td>
+                  <td>Determines API design, use of Power Automate for connectors</td>
+               </tr>
+               <tr>
+                  <td>Data Volume</td>
+                  <td>Impacts storage strategy (SQL, Cosmos DB, SharePoint limits)</td>
+               </tr>
+               <tr>
+                  <td>Self-Service Depth</td>
+                  <td>Drives Power Apps design (Model-driven vs Canvas), chatbot depth</td>
+               </tr>
+               <tr>
+                  <td>AI Readiness</td>
+                  <td>Impacts use of Azure OpenAI, Power Virtual Agents, insights architecture</td>
+               </tr>
+               <tr>
+                  <td>IT Skill Maturity</td>
+                  <td>Influences customization vs low-code balance</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="architecture_decisions">
+            <h3>🏗️ Architecture Decisions (SharePoint + Power Platform + .NET)</h3>
+            <table>
+               <tr>
+                  <th>Org Type</th>
+                  <th>Power Platform Use</th>
+                  <th>SharePoint Role</th>
+                  <th>.NET Focus</th>
+               </tr>
+               <tr>
+                  <td>Very Small</td>
+                  <td>Canvas Apps, Templates</td>
+                  <td>Document storage, basic lists</td>
+                  <td>Minimal — focus on Power Automate</td>
+               </tr>
+               <tr>
+                  <td>Small</td>
+                  <td>Canvas + some Model-driven</td>
+                  <td>Team site + HR doc mgmt</td>
+                  <td>Simple APIs (.NET minimal APIs)</td>
+               </tr>
+               <tr>
+                  <td>Medium</td>
+                  <td>Model-driven, chatbots</td>
+                  <td>Department sites, compliance docs</td>
+                  <td>API-first design, modular services</td>
+               </tr>
+               <tr>
+                  <td>Large</td>
+                  <td>Full Power Platform suite</td>
+                  <td>Hub sites, metadata-rich libraries</td>
+                  <td>Microservices, Power Automate + .NET</td>
+               </tr>
+               <tr>
+                  <td>Very Large</td>
+                  <td>Complex app orchestration</td>
+                  <td>Enterprise content mgmt, versioning</td>
+                  <td>.NET microservices, Azure Functions</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="core_hris_modules">
+            <h3>Core HRIS Modules</h3>
+            <ul>
+               <li>Employee Master Data (profile, documents)</li>
+               <li>Leave &amp; Attendance Management</li>
+               <li>Recruitment &amp; Onboarding</li>
+               <li>Payroll &amp; Compensation</li>
+               <li>Performance Management</li>
+               <li>Training &amp; Development (LMS)</li>
+               <li>Exit &amp; Offboarding</li>
+               <li>Compliance &amp; Audit</li>
+               <li>Org Chart &amp; Directory</li>
+               <li>Self-Service Portals (ESS/MSS)</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="stakeholders">
+            <h3>Stakeholders</h3>
+            <ul>
+               <li>HR Managers</li>
+               <li>Employees (ESS)</li>
+               <li>Managers (MSS)</li>
+               <li>IT/Admin</li>
+               <li>Executives (BI Dashboards)</li>
+               <li>External Agencies (via secure APIs)</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="tech_stack">
+            <h3>Tech Stack</h3>
+            <table>
+               <tr>
+                  <th>Layer</th>
+                  <th>Tools/Tech</th>
+               </tr>
+               <tr>
+                  <td>Frontend</td>
+                  <td>Power Apps, React (custom UX)</td>
+               </tr>
+               <tr>
+                  <td>Backend</td>
+                  <td>.NET Core 8+, C#, Azure Functions, App Services</td>
+               </tr>
+               <tr>
+                  <td>API Management</td>
+                  <td>Azure API Management, Swagger/OpenAPI, GraphQL</td>
+               </tr>
+               <tr>
+                  <td>Database</td>
+                  <td>Azure SQL, Cosmos DB, Azure Blob/SharePoint</td>
+               </tr>
+               <tr>
+                  <td>Messaging/Eventing</td>
+                  <td>Azure Service Bus, Azure Event Grid</td>
+               </tr>
+               <tr>
+                  <td>AI/GenAI</td>
+                  <td>Azure OpenAI, Semantic Kernel, Power Automate AI</td>
+               </tr>
+               <tr>
+                  <td>Authentication</td>
+                  <td>Azure AD, OAuth2, MSAL</td>
+               </tr>
+               <tr>
+                  <td>CI/CD</td>
+                  <td>GitHub Actions, Azure DevOps Pipelines</td>
+               </tr>
+               <tr>
+                  <td>Monitoring</td>
+                  <td>Azure Monitor, App Insights, Log Analytics</td>
+               </tr>
+               <tr>
+                  <td>DevOps &amp; Infra</td>
+                  <td>ARM/Bicep/Terraform, ACR, Kubernetes (AKS)</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="architectural_principles">
+            <h3>Architectural Principles</h3>
+            <ul>
+               <li>Cloud-native: Azure primary cloud provider.</li>
+               <li>Microservices-based: Independent modules.</li>
+               <li>API-first: REST APIs, future GraphQL.</li>
+               <li>Event-driven: Azure Event Grid/Service Bus.</li>
+               <li>Composable architecture: Plug-in modules easily.</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="integration_platform">
+            <h3>🔗 Integration Platform</h3>
+            <ul>
+               <li>Microsoft Power Platform</li>
+               <li>SharePoint Online</li>
+               <li>Azure API Management</li>
+               <li>Azure Logic Apps</li>
+               <li>Microsoft Entra ID (formerly Azure AD)</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="ai_use_cases">
+            <h3>AI Use Cases</h3>
+            <table>
+               <tr>
+                  <th>Area</th>
+                  <th>AI Use Case</th>
+               </tr>
+               <tr>
+                  <td>Recruitment</td>
+                  <td>Resume parsing, candidate ranking</td>
+               </tr>
+               <tr>
+                  <td>Chatbots</td>
+                  <td>HR self-service bot</td>
+               </tr>
+               <tr>
+                  <td>Performance Reviews</td>
+                  <td>AI-generated summaries</td>
+               </tr>
+               <tr>
+                  <td>Training</td>
+                  <td>Personalized learning paths</td>
+               </tr>
+               <tr>
+                  <td>Knowledge Base</td>
+                  <td>Natural language Q&amp;A</td>
+               </tr>
+               <tr>
+                  <td>Document Automation</td>
+                  <td>AI-assisted onboarding docs</td>
+               </tr>
+               <tr>
+                  <td>Leave/PTO Assistant</td>
+                  <td>Natural language chatbot</td>
+               </tr>
+               <tr>
+                  <td>Employee Sentiment</td>
+                  <td>Analyze surveys for attrition</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="implementation_stages">
+            <h3>Implementation Stages</h3>
+            <table>
+               <tr>
+                  <th>Stage</th>
+                  <th>Description</th>
+               </tr>
+               <tr>
+                  <td>HRIS Modules</td>
+                  <td>Core modules like employee data, leave</td>
+               </tr>
+               <tr>
+                  <td>AI in Recruitment</td>
+                  <td>Resume Parsing, JD Generation</td>
+               </tr>
+               <tr>
+                  <td>HR Chatbot</td>
+                  <td>Employee FAQs, leave guidance</td>
+               </tr>
+               <tr>
+                  <td>Performance Reviews</td>
+                  <td>AI-Generated Feedback</td>
+               </tr>
+               <tr>
+                  <td>LMS AI</td>
+                  <td>Personalized Learning Paths</td>
+               </tr>
+               <tr>
+                  <td>Document Automation</td>
+                  <td>Offer letters, contracts automation</td>
+               </tr>
+               <tr>
+                  <td>Sentiment Analytics</td>
+                  <td>Feedback and survey analysis</td>
+               </tr>
+               <tr>
+                  <td>Insights Dashboard</td>
+                  <td>Predictive analytics, attrition risk</td>
+               </tr>
+               <tr>
+                  <td>Improved HR Outcomes</td>
+                  <td>Faster hiring, reduced attrition</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="future_ready">
+            <h3>📦 Future Ready Architecture</h3>
+            <table>
+               <tr>
+                  <th>Composability</th>
+                  <th>Intelligent Automations</th>
+                  <th>Extensibility</th>
+                  <th>Security &amp; Compliance</th>
+                  <th>Embedded Analytics</th>
+               </tr>
+               <tr>
+                  <td>Design services as plug-and-play modules.</td>
+                  <td>Integrate low-code AI (Power Automate AI Builder, Azure AI).</td>
+                  <td>Third-party tools integration.</td>
+                  <td>Role-based access control (RBAC)</td>
+                  <td>Power BI dashboards</td>
+               </tr>
+               <tr>
+                  <td>Standardized APIs for internal/external use.</td>
+                  <td>Employee digital assistant.</td>
+                  <td>Marketplace-style plugins.</td>
+                  <td>Data encryption at rest/transit.</td>
+                  <td>Predictive analytics with Azure ML.</td>
+               </tr>
+               <tr>
+                  <td colspan="5">Compliance: GDPR, HIPAA, SOC 2 readiness.</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="phases">
+            <h3>Implementation Phases</h3>
+            <table>
+               <tr>
+                  <th>Phase</th>
+                  <th>Modules</th>
+                  <th>AI/Automation Focus</th>
+               </tr>
+               <tr>
+                  <td>Phase 1</td>
+                  <td>Core HR, Leave, Attendance</td>
+                  <td>Employee chatbot, doc upload AI</td>
+               </tr>
+               <tr>
+                  <td>Phase 2</td>
+                  <td>Recruitment, Onboarding, Payroll</td>
+                  <td>Resume AI, onboarding automation</td>
+               </tr>
+               <tr>
+                  <td>Phase 3</td>
+                  <td>Performance, Training, Exit</td>
+                  <td>AI feedback gen, learning assistant</td>
+               </tr>
+               <tr>
+                  <td>Phase 4</td>
+                  <td>Full analytics, integrations</td>
+                  <td>Sentiment, attrition AI, smart search</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="doc_governance">
+            <h3>📚 Documentation and Governance</h3>
+            <ul>
+               <li>Use Swagger/OpenAPI for all APIs</li>
+               <li>Maintain API Gateway with tiered access</li>
+               <li>Centralized policy management via Azure</li>
+               <li>DevSecOps practices for testing/releases</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="kpis">
+            <h3>📊 KPIs to Measure Success</h3>
+            <ul>
+               <li>Onboarding Time Reduction</li>
+               <li>HR Ticket/Query Automation %</li>
+               <li>AI Suggestion Accuracy</li>
+               <li>Employee NPS/Sentiment</li>
+               <li>System Uptime &amp; Latency</li>
+            </ul>
+         </div>
+         <div class="tab-content" id="genai_modules">
+            <h3>🚀 GenAI &amp; AI-Powered Modules</h3>
+            <table>
+               <tr>
+                  <th>Area</th>
+                  <th>Use Case</th>
+               </tr>
+               <tr>
+                  <td>Recruitment</td>
+                  <td>Resume parsing, JD generation, candidate scoring</td>
+               </tr>
+               <tr>
+                  <td>Chatbot (HR Assistant)</td>
+                  <td>Azure OpenAI + Power Virtual Agents</td>
+               </tr>
+               <tr>
+                  <td>Performance Reviews</td>
+                  <td>Feedback generation, insights</td>
+               </tr>
+               <tr>
+                  <td>LMS</td>
+                  <td>Personalized learning paths</td>
+               </tr>
+               <tr>
+                  <td>Knowledge Base</td>
+                  <td>Q&amp;A assistant using Azure Cognitive Search + OpenAI</td>
+               </tr>
+               <tr>
+                  <td>Document Automation</td>
+                  <td>AI-generated offer letters, onboarding kits</td>
+               </tr>
+               <tr>
+                  <td>Leave &amp; Attendance</td>
+                  <td>AI assistant for leave booking</td>
+               </tr>
+               <tr>
+                  <td>Analytics</td>
+                  <td>Sentiment analysis, attrition prediction</td>
+               </tr>
+            </table>
+         </div>
+         <div class="tab-content" id="repo_structure">
+            <h3>📁 HRIS Repo Structure</h3>
+            <pre style="background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;">
+/hris-platform/
+├── frontend/
+│   ├── powerapps/
+│   └── react-spa/
+├── backend/
+│   ├── employee-service/
+│   ├── leave-service/
+│   ├── payroll-service/
+│   └── shared-libs/
+├── api/
+│   ├── gateway/
+│   └── openapi-specs/
+├── ai/
+│   ├── chatbots/
+│   ├── prompts/
+│   └── models/
+├── infrastructure/
+│   ├── bicep/terraform/
+│   └── aks-config/
+├── workflows/
+│   ├── power-automate/
+│   └── azure-logic-apps/
+├── docs/
+│   ├── architecture.pdf
+│   └── diagrams/
+├── .github/
+│   └── workflows/
+└── README.md
+</pre>
+         </div>
+         <div class="tab-content" id="Phase 1">
+            <h3>🧩 Phase 1 Overview</h3>
+            <div class="sub-tabs">
+               <button class="sub-tab-button active" onclick="openSubTab(event, 'phase1-modules')">Modules in Scope</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'phase1-architecture')">Architecture Stack</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'phase1-ai')">🤖 AI/Automation</button><button class="sub-tab-button" onclick="openSubTab(event, 'phase1-timeline')">📅 Timeline</button><button class="sub-tab-button" onclick="openSubTab(event, 'phase1-repo')">📁 Repo Structure</button><button class="sub-tab-button" onclick="openSubTab(event, 'phase1-week1-goals')">📅 Week 1 Goals</button><button class="sub-tab-button" onclick="openSubTab(event, 'phase1-week1-activities')">🧩 Activities Breakdown</button><button class="sub-tab-button" onclick="openSubTab(event, 'phase1-week1-deliverables')">📄 Week 1 Deliverables</button>
+            </div>
+            <div class="sub-tab-content active-content" id="phase1-modules">
+               <ul>
+                  <li>Employee Master Data</li>
+                  <li>Leave &amp; Attendance Management</li>
+                  <li>Basic Self-Service Portal (ESS)</li>
+                  <li>Core API Gateway</li>
+                  <li>SharePoint Integration</li>
+                  <li>HR Chatbot (basic FAQ + leave queries)</li>
+               </ul>
+            </div>
+            <div class="sub-tab-content" id="phase1-architecture">
+               <table>
+                  <tr>
+                     <th>Layer</th>
+                     <th>Tools/Stack</th>
+                  </tr>
+                  <tr>
+                     <td>Frontend</td>
+                     <td>Power Apps Canvas + optional React SPA</td>
+                  </tr>
+                  <tr>
+                     <td>Backend</td>
+                     <td>.NET 8 APIs (microservice-based)</td>
+                  </tr>
+                  <tr>
+                     <td>Database</td>
+                     <td>Azure SQL + SharePoint Lists/Documents</td>
+                  </tr>
+                  <tr>
+                     <td>Integration</td>
+                     <td>Azure API Management</td>
+                  </tr>
+                  <tr>
+                     <td>Workflows</td>
+                     <td>Power Automate (for leave request flows)</td>
+                  </tr>
+                  <tr>
+                     <td>Authentication</td>
+                     <td>Azure AD + MSAL (RBAC, SSO)</td>
+                  </tr>
+                  <tr>
+                     <td>Chatbot</td>
+                     <td>Power Virtual Agent + Azure OpenAI</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="phase1-ai">
+               <h4>🤖 AI/Automation in Phase 1</h4>
+               <table>
+                  <tr>
+                     <th>Area</th>
+                     <th>Description</th>
+                  </tr>
+                  <tr>
+                     <td>HR Chatbot</td>
+                     <td>FAQs, leave policy guidance, leave request initiation</td>
+                  </tr>
+                  <tr>
+                     <td>Doc Uploader</td>
+                     <td>AI auto-tags documents in SharePoint (optional add-on)</td>
+                  </tr>
+                  <tr>
+                     <td>Leave Assistant</td>
+                     <td>Conversational UI to check leave balance, apply leave</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="phase1-timeline">
+               <h4>📅 Timeline (Recommended)</h4>
+               <table>
+                  <tr>
+                     <th>Week</th>
+                     <th>Activities</th>
+                  </tr>
+                  <tr>
+                     <td>1</td>
+                     <td>Requirements gathering, Use case validation</td>
+                  </tr>
+                  <tr>
+                     <td>2</td>
+                     <td>Data modeling (Employee, Leave), Azure infra setup</td>
+                  </tr>
+                  <tr>
+                     <td>3</td>
+                     <td>Build core microservices (Employee, Leave), SharePoint structure setup</td>
+                  </tr>
+                  <tr>
+                     <td>4</td>
+                     <td>Frontend (Power Apps), Leave workflow (Power Automate), Auth integration</td>
+                  </tr>
+                  <tr>
+                     <td>5</td>
+                     <td>HR Chatbot integration</td>
+                  </tr>
+                  <tr>
+                     <td>6</td>
+                     <td>Testing (unit + UAT), Documentation, Go-live</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="phase1-repo">
+               <h4>📁 Repo Structure (Phase 1)</h4>
+               <pre style="background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;">
+/phase1/
+├── frontend/
+│   └── powerapps/
+├── backend/
+│   ├── employee-service/
+│   └── leave-service/
+├── api/
+│   └── gateway/
+├── workflows/
+│   └── leave-request/
+├── ai/
+│   └── hr-chatbot/
+├── infrastructure/
+│   └── azure-setup/
+    </pre>
+            </div>
+            <div class="sub-tab-content" id="phase1-week1-goals">
+               <h4>📅 Week 1 — Requirements Gathering &amp; Use Case Validation</h4>
+               <h5>🎯 Goals:</h5>
+               <ul>
+                  <li>Understand core HR processes (employee onboarding, leave, attendance)</li>
+                  <li>Validate user needs (HR, employees, managers)</li>
+                  <li>Finalize the MVP scope for Phase 1</li>
+                  <li>Identify AI/automation fitment (chatbot, workflows)</li>
+               </ul>
+            </div>
+            <div class="sub-tab-content" id="phase1-week1-activities">
+               <h5>🧩 Activities Breakdown:</h5>
+               <table>
+                  <tr>
+                     <th>Task</th>
+                     <th>Description</th>
+                  </tr>
+                  <tr>
+                     <td>Stakeholder Interviews</td>
+                     <td>Meet with HR, IT, and selected employees to capture expectations</td>
+                  </tr>
+                  <tr>
+                     <td>Current Process Mapping</td>
+                     <td>Document existing leave, attendance, and employee master data workflows</td>
+                  </tr>
+                  <tr>
+                     <td>Pain Point Identification</td>
+                     <td>List bottlenecks in the current system (manual entries, delayed approvals)</td>
+                  </tr>
+                  <tr>
+                     <td>Define User Roles &amp; Permissions</td>
+                     <td>HR Admin, Employee (ESS), Manager (MSS), System Admin</td>
+                  </tr>
+                  <tr>
+                     <td>Use Case Workshop (MVP Scope)</td>
+                     <td>Prioritize features: Employee profile CRUD, Leave apply/approve/view</td>
+                  </tr>
+                  <tr>
+                     <td>AI Fitment Review</td>
+                     <td>Validate chatbot FAQ needs, document AI use cases for leave assistant</td>
+                  </tr>
+                  <tr>
+                     <td>System Requirements Checklist</td>
+                     <td>Decide core tech (Azure AD, SharePoint Online, Power Apps, SQL, etc.)</td>
+                  </tr>
+                  <tr>
+                     <td>Documentation Prep</td>
+                     <td>Create BRD (Business Requirements Doc), Use Case Diagrams, Flowcharts</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="phase1-week1-deliverables">
+               <h5>📄 Key Deliverables by End of Week 1:</h5>
+               <ul>
+                  <li>✅ Business Requirements Document (BRD)</li>
+                  <li>✅ User Journey Map / Personas</li>
+                  <li>✅ Use Case Catalog (Employee Mgmt, Leave Flow)</li>
+                  <li>✅ Stakeholder Matrix</li>
+                  <li>✅ AI Use Case Feasibility Notes</li>
+                  <li>✅ Tooling/Infra Checklist (Azure resources, licenses, connectors)</li>
+               </ul>
+            </div>
+         </div>
+         <script>
+            function openTab(evt, tabName) {
+                const tabcontent = document.querySelectorAll(".tab-content");
+                const tabbuttons = document.querySelectorAll(".tab-button");
+                tabcontent.forEach(tc => tc.style.display = "none");
+                tabbuttons.forEach(tb => tb.classList.remove("active"));
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.classList.add("active");
+            }
+            document.getElementById('org_size').style.display = "block";
+            
+            function openSubTab(evt, subTabName) {
+            const subTabContents = document.querySelectorAll(".sub-tab-content");
+            const subTabButtons = document.querySelectorAll(".sub-tab-button");
+            subTabContents.forEach(stc => stc.classList.remove("active-content"));
+            subTabButtons.forEach(stb => stb.classList.remove("active"));
+            document.getElementById(subTabName).classList.add("active-content");
+            evt.currentTarget.classList.add("active");
+            }
+         </script>
+         <div class="tab-content" id="critical_org_characteristics">
+            <h3>📌 Critical Organizational Characteristics</h3>
+            <div class="sub-tabs">
+               <button class="sub-tab-button active" onclick="openSubTab(event, 'geo-spread')">Geographical Spread</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'role-complexity')">Role Complexity</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'process-maturity')">Process Maturity</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'compliance-needs')">Compliance Needs</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'integration-needs')">Integration Needs</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'data-volume')">Data Volume</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'self-service-depth')">Self-Service Depth</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'ai-readiness')">AI Readiness</button>
+               <button class="sub-tab-button" onclick="openSubTab(event, 'it-skill-maturity')">IT Skill Maturity</button>
+            </div>
+            <div class="sub-tab-content active-content" id="geo-spread">
+               <h4>Geo Spread</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Time Zone Differences</td>
+                     <td>Leave workflows break without proper time tracking</td>
+                     <td>Incorrect timestamps impact SLAs</td>
+                     <td>Use UTC in .NET, convertTimeZone() in Power Automate</td>
+                     <td>During workflow design</td>
+                     <td>.NET, Power Automate, SQL</td>
+                  </tr>
+                  <tr>
+                     <td>Holiday Schedule</td>
+                     <td>Regional public holidays vary</td>
+                     <td>Invalid leave validation</td>
+                     <td>Use region-based holiday tables</td>
+                     <td>Leave request logic</td>
+                     <td>SharePoint, SQL, Power Automate</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="role-complexity">
+               <h4>Role Complexity</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Org Hierarchy</td>
+                     <td>Too many roles/departments</td>
+                     <td>Affects access and approvals</td>
+                     <td>Use metadata in Azure AD and Power Apps</td>
+                     <td>RBAC definition phase</td>
+                     <td>Azure AD, Power Apps</td>
+                  </tr>
+                  <tr>
+                     <td>Delegation</td>
+                     <td>Managers go on leave</td>
+                     <td>Workflow may halt</td>
+                     <td>Add delegation rules to workflow logic</td>
+                     <td>Workflow configuration</td>
+                     <td>Power Automate, SQL</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="process-maturity">
+               <h4>Process Maturity</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Undefined HR Flows</td>
+                     <td>Inconsistent approvals</td>
+                     <td>Leads to errors and inefficiencies</td>
+                     <td>Document and standardize via SOPs</td>
+                     <td>Initial discovery phase</td>
+                     <td>Power Automate, Power Apps</td>
+                  </tr>
+                  <tr>
+                     <td>No audit logs</td>
+                     <td>Cannot track changes</td>
+                     <td>Non-compliance risk</td>
+                     <td>Enable audit in SharePoint/.NET</td>
+                     <td>Design phase</td>
+                     <td>SharePoint, Azure Monitor</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="compliance-needs">
+               <h4>Compliance Needs</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Data Location Laws</td>
+                     <td>Cannot store PII globally</td>
+                     <td>Legal violation</td>
+                     <td>Use region-specific Azure data centers</td>
+                     <td>Data model planning</td>
+                     <td>Azure, SharePoint</td>
+                  </tr>
+                  <tr>
+                     <td>Retention Policies</td>
+                     <td>Sensitive data not deleted</td>
+                     <td>Audit risk</td>
+                     <td>Enable SharePoint retention labels</td>
+                     <td>Data lifecycle design</td>
+                     <td>SharePoint, Compliance Center</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="integration-needs">
+               <h4>Integration Needs</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Payroll/ERP Sync</td>
+                     <td>Manual data duplication</td>
+                     <td>Data inconsistency</td>
+                     <td>Use Power Automate connectors</td>
+                     <td>Post-MVP planning</td>
+                     <td>Power Automate, API Mgmt</td>
+                  </tr>
+                  <tr>
+                     <td>No API Standards</td>
+                     <td>Incompatible systems</td>
+                     <td>Hard to scale</td>
+                     <td>Enforce Swagger/OpenAPI</td>
+                     <td>During API dev</td>
+                     <td>.NET, API Management</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="data-volume">
+               <h4>Data Volume</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Large lists</td>
+                     <td>Performance issues</td>
+                     <td>Sluggish Power Apps</td>
+                     <td>Paginate &amp; filter data</td>
+                     <td>UI Design</td>
+                     <td>Power Apps, SQL</td>
+                  </tr>
+                  <tr>
+                     <td>Upload overload</td>
+                     <td>Files exceed limits</td>
+                     <td>Storage errors</td>
+                     <td>Use SharePoint + Azure Blob for offloading</td>
+                     <td>Infra planning</td>
+                     <td>SharePoint, Azure Storage</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="self-service-depth">
+               <h4>Self Service Depth</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>Low ESS adoption</td>
+                     <td>HR burdened with manual tasks</td>
+                     <td>Scalability issue</td>
+                     <td>Empower users via Power Apps</td>
+                     <td>UX Design</td>
+                     <td>Power Apps, Power Virtual Agents</td>
+                  </tr>
+                  <tr>
+                     <td>Unclear statuses</td>
+                     <td>Users raise repeated queries</td>
+                     <td>Frustration</td>
+                     <td>Add real-time status tracking</td>
+                     <td>Feature design</td>
+                     <td>Power Apps, .NET</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="ai-readiness">
+               <h4>Ai Readiness</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>No data for training</td>
+                     <td>AI models underperform</td>
+                     <td>Poor recommendations</td>
+                     <td>Structure historical data</td>
+                     <td>Before AI build</td>
+                     <td>Azure SQL, Power BI</td>
+                  </tr>
+                  <tr>
+                     <td>Trust issues</td>
+                     <td>Users fear AI bias</td>
+                     <td>Resistance to adoption</td>
+                     <td>Explainability + guardrails</td>
+                     <td>AI pilot phase</td>
+                     <td>Azure OpenAI, Policy Design</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="sub-tab-content" id="it-skill-maturity">
+               <h4>It Skill Maturity</h4>
+               <table border="1" style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                     <th>Aspect</th>
+                     <th>What (Problem)</th>
+                     <th>Why (Importance)</th>
+                     <th>How (Solution)</th>
+                     <th>When (Trigger Point)</th>
+                     <th>Where (Tech Involvement)</th>
+                  </tr>
+                  <tr>
+                     <td>No in-house devs</td>
+                     <td>Can't maintain custom code</td>
+                     <td>System rot risk</td>
+                     <td>Use low-code Power Platform</td>
+                     <td>Early architecture</td>
+                     <td>Power Apps, Power Automate</td>
+                  </tr>
+                  <tr>
+                     <td>Overcustomization</td>
+                     <td>Hard to manage upgrades</td>
+                     <td>Technical debt</td>
+                     <td>Keep core in Power Platform, APIs in .NET</td>
+                     <td>Scaling stage</td>
+                     <td>Power Platform, .NET</td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

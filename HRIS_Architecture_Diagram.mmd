@@ -1,0 +1,19 @@
+flowchart TD
+    FE[Frontend<br/>(Power Apps / React)]
+    API[API Gateway<br/>(Azure API Mgmt)]
+    MS[Microservices<br/>(.NET 8+)]
+    EVENT[Event Bus<br/>(Service Bus / Grid)]
+    DB[Data Layer<br/>(Azure SQL / Cosmos DB)]
+    AI[AI/GenAI<br/>(Azure OpenAI / AI Builder)]
+    SP[SharePoint<br/>(Doc Mgmt)]
+    MON[Monitoring<br/>(Azure Monitor / Insights)]
+    AUTH[Auth & Security<br/>(Azure AD, RBAC)]
+
+    FE --> API
+    API --> MS
+    MS --> EVENT
+    MS --> DB
+    MS --> AI
+    MS --> SP
+    MS --> MON
+    MS --> AUTH

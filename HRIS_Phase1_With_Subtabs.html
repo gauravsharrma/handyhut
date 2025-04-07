@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRIS Information Tabs</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7fafc; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .tabs { overflow: hidden; border-bottom: 2px solid #4299e1; }
+        .tab-button {
+            background-color: #edf2f7; border: none; cursor: pointer; padding: 10px 15px; margin-right: 5px;
+            border-radius: 8px 8px 0 0; font-size: 14px; font-weight: 600; transition: 0.3s;
+        }
+        .tab-button.active, .tab-button:hover { background-color: #4299e1; color: white; }
+        .tab-content { display: none; padding-top: 15px; }
+        .active-content { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #ebf8ff; }
+        tr:nth-child(even) { background-color: #f9fafb; }
+        pre {background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'org_size')">Organization Size Categories</button>
+        <button class="tab-button" onclick="openTab(event, 'key_characteristics')">Other Key Characteristics</button>
+        <button class="tab-button" onclick="openTab(event, 'architecture_decisions')">Architecture Decisions</button>
+<button class="tab-button" onclick="openTab(event, 'core_hris_modules')">Core HRIS Modules</button>
+<button class="tab-button" onclick="openTab(event, 'stakeholders')">Stakeholders</button>
+<button class="tab-button" onclick="openTab(event, 'tech_stack')">Tech Stack</button>
+<button class="tab-button" onclick="openTab(event, 'architectural_principles')">Architectural Principles</button>
+<button class="tab-button" onclick="openTab(event, 'integration_platform')">Integration Platform</button>
+<button class="tab-button" onclick="openTab(event, 'ai_use_cases')">AI Use Cases</button>
+<button class="tab-button" onclick="openTab(event, 'implementation_stages')">Implementation Stages</button>
+    <button class="tab-button" onclick="openTab(event, 'future_ready')">Future Ready Architecture</button>
+    <button class="tab-button" onclick="openTab(event, 'phases')">Phases</button>
+    <button class="tab-button" onclick="openTab(event, 'doc_governance')">Documentation & Governance</button>
+    <button class="tab-button" onclick="openTab(event, 'kpis')">KPIs to Measure Success</button>
+    <button class="tab-button" onclick="openTab(event, 'genai_modules')">GenAI & AI-Powered Modules</button>
+    <button class="tab-button" onclick="openTab(event, 'repo_structure')">HRIS Repo Structure</button>
+<button class="tab-button" onclick="openTab(event, 'modules_in_scope')">Modules in Scope</button>
+
+
+
+    </div>
+
+    <div id="org_size" class="tab-content active-content">
+        <h3>Organization Size Categories (By Employee Strength)</h3>
+        <table>
+            <tr><th>Category</th><th>People Strength</th><th>Typical Use Case Examples</th></tr>
+            <tr><td>Very Small</td><td>1 – 50</td><td>Startups, family businesses</td></tr>
+            <tr><td>Small</td><td>51 – 250</td><td>Growing SMEs, small agencies</td></tr>
+            <tr><td>Medium</td><td>251 – 1,000</td><td>Regional offices, schools, NGOs</td></tr>
+            <tr><td>Large</td><td>1,001 – 10,000</td><td>National enterprises, mid-size firms</td></tr>
+            <tr><td>Very Large</td><td>10,001+</td><td>Multinationals, Government, Iarge</td></tr>
+        </table>
+    </div>
+
+    <div id="key_characteristics" class="tab-content">
+        <h3>🧠 Other Key Characteristics to Consider (Beyond Size)</h3>
+        <table>
+            <tr><th>Characteristic</th><th>Why It Matters for Architecture</th></tr>
+            <tr><td>Geographical Spread</td><td>Need for multilingual support, regional rules, time zone handling</td></tr>
+            <tr><td>Role Complexity</td><td>Impacts RBAC design in Azure AD & Power Apps</td></tr>
+            <tr><td>Process Maturity</td><td>Determines automation levels & AI involvement</td></tr>
+            <tr><td>Compliance Needs</td><td>Affects data storage (SharePoint config), audit trail requirements</td></tr>
+            <tr><td>Integration Needs</td><td>Determines API design, use of Power Automate for connectors</td></tr>
+            <tr><td>Data Volume</td><td>Impacts storage strategy (SQL, Cosmos DB, SharePoint limits)</td></tr>
+            <tr><td>Self-Service Depth</td><td>Drives Power Apps design (Model-driven vs Canvas), chatbot depth</td></tr>
+            <tr><td>AI Readiness</td><td>Impacts use of Azure OpenAI, Power Virtual Agents, insights architecture</td></tr>
+            <tr><td>IT Skill Maturity</td><td>Influences customization vs low-code balance</td></tr>
+        </table>
+    </div>
+
+    <div id="architecture_decisions" class="tab-content">
+        <h3>🏗️ Architecture Decisions (SharePoint + Power Platform + .NET)</h3>
+        <table>
+            <tr><th>Org Type</th><th>Power Platform Use</th><th>SharePoint Role</th><th>.NET Focus</th></tr>
+            <tr><td>Very Small</td><td>Canvas Apps, Templates</td><td>Document storage, basic lists</td><td>Minimal — focus on Power Automate</td></tr>
+            <tr><td>Small</td><td>Canvas + some Model-driven</td><td>Team site + HR doc mgmt</td><td>Simple APIs (.NET minimal APIs)</td></tr>
+            <tr><td>Medium</td><td>Model-driven, chatbots</td><td>Department sites, compliance docs</td><td>API-first design, modular services</td></tr>
+            <tr><td>Large</td><td>Full Power Platform suite</td><td>Hub sites, metadata-rich libraries</td><td>Microservices, Power Automate + .NET</td></tr>
+            <tr><td>Very Large</td><td>Complex app orchestration</td><td>Enterprise content mgmt, versioning</td><td>.NET microservices, Azure Functions</td></tr>
+        </table>
+    </div>
+
+<div id="core_hris_modules" class="tab-content">
+<h3>Core HRIS Modules</h3><ul>
+<li>Employee Master Data (profile, documents)</li>
+<li>Leave & Attendance Management</li>
+<li>Recruitment & Onboarding</li>
+<li>Payroll & Compensation</li>
+<li>Performance Management</li>
+<li>Training & Development (LMS)</li>
+<li>Exit & Offboarding</li>
+<li>Compliance & Audit</li>
+<li>Org Chart & Directory</li>
+<li>Self-Service Portals (ESS/MSS)</li>
+</ul></div>
+
+<div id="stakeholders" class="tab-content">
+<h3>Stakeholders</h3><ul>
+<li>HR Managers</li>
+<li>Employees (ESS)</li>
+<li>Managers (MSS)</li>
+<li>IT/Admin</li>
+<li>Executives (BI Dashboards)</li>
+<li>External Agencies (via secure APIs)</li>
+</ul></div>
+
+<div id="tech_stack" class="tab-content">
+<h3>Tech Stack</h3><table><tr><th>Layer</th><th>Tools/Tech</th></tr>
+<tr><td>Frontend</td><td>Power Apps, React (custom UX)</td></tr>
+<tr><td>Backend</td><td>.NET Core 8+, C#, Azure Functions, App Services</td></tr>
+<tr><td>API Management</td><td>Azure API Management, Swagger/OpenAPI, GraphQL</td></tr>
+<tr><td>Database</td><td>Azure SQL, Cosmos DB, Azure Blob/SharePoint</td></tr>
+<tr><td>Messaging/Eventing</td><td>Azure Service Bus, Azure Event Grid</td></tr>
+<tr><td>AI/GenAI</td><td>Azure OpenAI, Semantic Kernel, Power Automate AI</td></tr>
+<tr><td>Authentication</td><td>Azure AD, OAuth2, MSAL</td></tr>
+<tr><td>CI/CD</td><td>GitHub Actions, Azure DevOps Pipelines</td></tr>
+<tr><td>Monitoring</td><td>Azure Monitor, App Insights, Log Analytics</td></tr>
+<tr><td>DevOps & Infra</td><td>ARM/Bicep/Terraform, ACR, Kubernetes (AKS)</td></tr>
+</table></div>
+
+<div id="architectural_principles" class="tab-content">
+<h3>Architectural Principles</h3><ul>
+<li>Cloud-native: Azure primary cloud provider.</li>
+<li>Microservices-based: Independent modules.</li>
+<li>API-first: REST APIs, future GraphQL.</li>
+<li>Event-driven: Azure Event Grid/Service Bus.</li>
+<li>Composable architecture: Plug-in modules easily.</li>
+</ul></div>
+
+<div id="integration_platform" class="tab-content">
+<h3>🔗 Integration Platform</h3><ul>
+<li>Microsoft Power Platform</li>
+<li>SharePoint Online</li>
+<li>Azure API Management</li>
+<li>Azure Logic Apps</li>
+<li>Microsoft Entra ID (formerly Azure AD)</li>
+</ul></div>
+
+<div id="ai_use_cases" class="tab-content">
+<h3>AI Use Cases</h3><table><tr><th>Area</th><th>AI Use Case</th></tr>
+<tr><td>Recruitment</td><td>Resume parsing, candidate ranking</td></tr>
+<tr><td>Chatbots</td><td>HR self-service bot</td></tr>
+<tr><td>Performance Reviews</td><td>AI-generated summaries</td></tr>
+<tr><td>Training</td><td>Personalized learning paths</td></tr>
+<tr><td>Knowledge Base</td><td>Natural language Q&A</td></tr>
+<tr><td>Document Automation</td><td>AI-assisted onboarding docs</td></tr>
+<tr><td>Leave/PTO Assistant</td><td>Natural language chatbot</td></tr>
+<tr><td>Employee Sentiment</td><td>Analyze surveys for attrition</td></tr>
+</table></div>
+
+<div id="implementation_stages" class="tab-content">
+<h3>Implementation Stages</h3><table><tr><th>Stage</th><th>Description</th></tr>
+<tr><td>HRIS Modules</td><td>Core modules like employee data, leave</td></tr>
+<tr><td>AI in Recruitment</td><td>Resume Parsing, JD Generation</td></tr>
+<tr><td>HR Chatbot</td><td>Employee FAQs, leave guidance</td></tr>
+<tr><td>Performance Reviews</td><td>AI-Generated Feedback</td></tr>
+<tr><td>LMS AI</td><td>Personalized Learning Paths</td></tr>
+<tr><td>Document Automation</td><td>Offer letters, contracts automation</td></tr>
+<tr><td>Sentiment Analytics</td><td>Feedback and survey analysis</td></tr>
+<tr><td>Insights Dashboard</td><td>Predictive analytics, attrition risk</td></tr>
+<tr><td>Improved HR Outcomes</td><td>Faster hiring, reduced attrition</td></tr>
+</table></div>
+
+<div id="future_ready" class="tab-content">
+<h3>📦 Future Ready Architecture</h3>
+<table>
+<tr><th>Composability</th><th>Intelligent Automations</th><th>Extensibility</th><th>Security & Compliance</th><th>Embedded Analytics</th></tr>
+<tr>
+<td>Design services as plug-and-play modules.</td>
+<td>Integrate low-code AI (Power Automate AI Builder, Azure AI).</td>
+<td>Third-party tools integration.</td>
+<td>Role-based access control (RBAC)</td>
+<td>Power BI dashboards</td>
+</tr>
+<tr>
+<td>Standardized APIs for internal/external use.</td>
+<td>Employee digital assistant.</td>
+<td>Marketplace-style plugins.</td>
+<td>Data encryption at rest/transit.</td>
+<td>Predictive analytics with Azure ML.</td>
+</tr>
+<tr>
+<td colspan="5">Compliance: GDPR, HIPAA, SOC 2 readiness.</td>
+</tr>
+</table>
+</div>
+
+<div id="phases" class="tab-content">
+<h3>Implementation Phases</h3>
+<table>
+<tr><th>Phase</th><th>Modules</th><th>AI/Automation Focus</th></tr>
+<tr><td>Phase 1</td><td>Core HR, Leave, Attendance</td><td>Employee chatbot, doc upload AI</td></tr>
+<tr><td>Phase 2</td><td>Recruitment, Onboarding, Payroll</td><td>Resume AI, onboarding automation</td></tr>
+<tr><td>Phase 3</td><td>Performance, Training, Exit</td><td>AI feedback gen, learning assistant</td></tr>
+<tr><td>Phase 4</td><td>Full analytics, integrations</td><td>Sentiment, attrition AI, smart search</td></tr>
+</table>
+</div>
+
+<div id="doc_governance" class="tab-content">
+<h3>📚 Documentation and Governance</h3>
+<ul>
+<li>Use Swagger/OpenAPI for all APIs</li>
+<li>Maintain API Gateway with tiered access</li>
+<li>Centralized policy management via Azure</li>
+<li>DevSecOps practices for testing/releases</li>
+</ul>
+</div>
+
+<div id="kpis" class="tab-content">
+<h3>📊 KPIs to Measure Success</h3>
+<ul>
+<li>Onboarding Time Reduction</li>
+<li>HR Ticket/Query Automation %</li>
+<li>AI Suggestion Accuracy</li>
+<li>Employee NPS/Sentiment</li>
+<li>System Uptime & Latency</li>
+</ul>
+</div>
+
+<div id="genai_modules" class="tab-content">
+<h3>🚀 GenAI & AI-Powered Modules</h3>
+<table>
+<tr><th>Area</th><th>Use Case</th></tr>
+<tr><td>Recruitment</td><td>Resume parsing, JD generation, candidate scoring</td></tr>
+<tr><td>Chatbot (HR Assistant)</td><td>Azure OpenAI + Power Virtual Agents</td></tr>
+<tr><td>Performance Reviews</td><td>Feedback generation, insights</td></tr>
+<tr><td>LMS</td><td>Personalized learning paths</td></tr>
+<tr><td>Knowledge Base</td><td>Q&A assistant using Azure Cognitive Search + OpenAI</td></tr>
+<tr><td>Document Automation</td><td>AI-generated offer letters, onboarding kits</td></tr>
+<tr><td>Leave & Attendance</td><td>AI assistant for leave booking</td></tr>
+<tr><td>Analytics</td><td>Sentiment analysis, attrition prediction</td></tr>
+</table>
+</div>
+
+<div id="repo_structure" class="tab-content">
+<h3>📁 HRIS Repo Structure</h3>
+<pre style="background:#f4f4f4;padding:10px;border-radius:5px;font-family:Consolas;">
+/hris-platform/
+├── frontend/
+│   ├── powerapps/
+│   └── react-spa/
+├── backend/
+│   ├── employee-service/
+│   ├── leave-service/
+│   ├── payroll-service/
+│   └── shared-libs/
+├── api/
+│   ├── gateway/
+│   └── openapi-specs/
+├── ai/
+│   ├── chatbots/
+│   ├── prompts/
+│   └── models/
+├── infrastructure/
+│   ├── bicep/terraform/
+│   └── aks-config/
+├── workflows/
+│   ├── power-automate/
+│   └── azure-logic-apps/
+├── docs/
+│   ├── architecture.pdf
+│   └── diagrams/
+├── .github/
+│   └── workflows/
+└── README.md
+</pre>
+</div>
+
+
+<script>
+
+    function openTab(evt, tabName) {
+        const tabcontent = document.querySelectorAll(".tab-content");
+        const tabbuttons = document.querySelectorAll(".tab-button");
+        tabcontent.forEach(tc => tc.style.display = "none");
+        tabbuttons.forEach(tb => tb.classList.remove("active"));
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+    document.getElementById('org_size').style.display = "block";
+</script>
+
+<script>
+    function openTab(evt, tabName) {
+        const tabcontent = document.querySelectorAll(".tab-content");
+        const tabbuttons = document.querySelectorAll(".tab-button");
+        tabcontent.forEach(tc => tc.style.display = "none");
+        tabbuttons.forEach(tb => tb.classList.remove("active"));
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+    document.getElementById('org_size').style.display = "block";
+</script>
+</body>
+</html>
+
+<script>
+    function openTab(evt, tabName) {
+        const tabcontent = document.querySelectorAll(".tab-content");
+        const tabbuttons = document.querySelectorAll(".tab-button");
+        tabcontent.forEach(tc => tc.style.display = "none");
+        tabbuttons.forEach(tb => tb.classList.remove("active"));
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+    document.getElementById('org_size').style.display = "block";
+    document.getElementById('phase1_modules').style.display = "block";
+</script>
+</body>
+</html>

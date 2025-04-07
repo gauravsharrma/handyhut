@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Timezone Best Practices</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .section {
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #ccc;
+    }
+
+    h1 {
+      color: #0078D7;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #444;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      background: #fff;
+      padding: 20px;
+      border-left: 5px solid #0078D7;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      list-style-type: disc;
+    }
+
+    li {
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      background: #e6f1fc;
+      padding: 15px 20px;
+      border-left: 5px solid #0078D7;
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+	<div class="section">
+  <h1>1. Timezone Handling Best Practices</h1>
+
+  <h2>What to Do</h2>
+  <ul>
+    <li>Use <code>DateTime.UtcNow</code> in all .NET-based API calls and data persistence layers to ensure that system timestamps are always stored in UTC.</li>
+    <li>In Power Automate flows, use the <code>convertTimeZone()</code> function to dynamically convert UTC timestamps into each user’s local time zone for email notifications, approvals, or task due dates.</li>
+    <li>In Power Apps, reference user profile metadata (such as time zone) from Azure AD or SharePoint to format and display date-time fields correctly on the UI.</li>
+  </ul>
+
+  <div class="highlight">
+    <h2>How It Helps</h2>
+    <p>
+      These practices help eliminate workflow misfires, incorrect deadline calculations, and SLA violations that typically occur when timestamps are interpreted in different time zones without normalization.
+    </p>
+  </div>
+ </div>
+<div class="section">
+  <h1>2. Role-Based Access Control (RBAC)</h1>
+
+  <h2>What to Do</h2>
+  <ul>
+    <li>have to implement granular role-based access control (RBAC) in SharePoint, Power Apps, and the .NET service laye</li>
+    <li>In SharePoint, permission levels must be assigned at the site, list, and item level using SharePoint groups or Microsoft 365 security groups.</li>
+	<li>In Power Apps, app-level role-based rules should be enforced using User().Email, Office365Users.MyProfile().JobTitle, and conditional logic within visible/display/editable properties to show or hide content dynamically. </li>
+	<li>In Power Automate, approval flows should branch based on role, and sensitive data must only be routed to authorized users. </li>
+	<li>The .NET backend must implement middleware to check user roles on API requests, using claims-based identity and token-based authorization, typically via Azure AD or OAuth tokens.</li>
+  </ul>
+
+  <div class="highlight">
+    <h2>How It Helps</h2>
+    <p>
+      ensure that each user only accesses the data, pages, workflows, and records relevant to their role. This is required to protect sensitive HR data such as compensation details, performance records, and exit information from unauthorized users while enabling seamless access for employees, managers, HR staff, and administrators based on their responsibilities. This approach ensures regulatory compliance, preserves data confidentiality, and creates a secure, trust-driven environment where users interact only with relevant and authorized components of the HRIS. RBAC must be fully defined and implemented during the system configuration and workflow development phase to avoid rework, data breaches, or access violations in production.
+    </p>
+  </div>
+</div>
+<!-- Start of block -->
+<div class="section">
+	<h1>3. Department Segregation and Workflow Customization</h1>
+	<h2>What to do</h2>
+	<ul>
+	<li>departments must be captured as metadata fields in all core data entities such as employee profiles, requests, and forms. This metadata should then be used in Power Apps to filter gallery views and limit visibility of records using conditional expressions tied to the user’s department.</li>
+	<li>In Power Automate, conditional branching logic must be applied based on department values to route workflows through department-specific approval chains, notifications, or document templates.</li>
+	<li>SharePoint lists and libraries should be structured with folders or views filtered by department metadata to simplify document access and content management.</li>
+	<li>The .NET backend should enforce department-based filtering in API queries using the authenticated user's claims or roles.</li>
+	</ul>
+	<div class="highlight">
+	<h2>How it helps</h2>
+	<p>
+	  ensures that departments can operate semi-independently within the same system, improves performance by reducing data noise, and enhances user experience by showing only relevant information. It also supports the design of modular workflows, which are easier to maintain and scale. Department segregation and workflow logic must be implemented during the workflow and UI design phase to avoid reengineering when department-level customizations emerge post-launch.
+	</p>
+	</div>
+	</div>
+<!-- End of block -->
+<!-- Start of block -->
+	<div class="section">
+		<h1>4. Organizational Hierarchy and Approval Routing</h1>
+		<h2>What to do</h2>
+			<ul>
+				<li>the full org structure must be captured either from Active Directory, Azure AD, or uploaded as a reference list into SharePoint or Dataverse.</li>
+				<li>Each employee record must include a direct manager ID or email, and this relationship should be queried dynamically in Power Automate using the Office 365 Users connector to resolve current manager details at runtime.</li>
+				<li>In Power Apps, the manager information should be displayed contextually and used to control form routing and approval buttons.</li>
+				<li>In SharePoint-based scenarios, workflows should resolve manager hierarchy using lookup fields or calculated columns linked to an authoritative source.</li>
+				<li>For .NET-based services, hierarchy metadata must be embedded into JWT tokens or passed as API parameters to ensure that server-side validations respect reporting structures.</li>
+			</ul>
+		<div class="highlight">
+		<h2>How it helps</h2>
+		<p>
+		  ensures that all tasks are routed appropriately without hardcoded assignments, prevents misdirected approvals, and supports escalations to alternate reviewers or higher authorities when managers are unavailable. It also allows HR teams to dynamically adjust workflows when organizational changes occur. Approval routing logic tied to hierarchy must be implemented during the workflow design and employee profile modeling phase to ensure routing logic is scalable, traceable, and audit-compliant across all HR modules
+		</p>
+		</div>
+	</div>
+<!-- End of block -->
+
+<!-- Start of block -->
+	<div class="section">
+		<h1></h1>
+		<h2>What to do</h2>
+			<ul>
+				<li></li>
+			</ul>
+		<div class="highlight">
+		<h2>How it helps</h2>
+		<p>
+		  
+		</p>
+		</div>
+	</div>
+<!-- End of block -->
+
+<!-- Start of block -->
+	<div class="section">
+		<h1></h1>
+		<h2>What to do</h2>
+			<ul>
+				<li></li>
+			</ul>
+		<div class="highlight">
+		<h2>How it helps</h2>
+		<p>
+		  
+		</p>
+		</div>
+	</div>
+<!-- End of block -->
+
+</body>
+</html>

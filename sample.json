@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Home",
+    "content": "<b>Welcome to Home</b><br>This is the home section.",
+    "children": [
+      {
+        "title": "Getting Started",
+        "content": "<ul><li>Install</li><li>Setup</li></ul>",
+        "children": [
+          {
+            "title": "Step-by-Step",
+            "content": "<p>Follow each step carefully.</p>",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "About",
+    "content": "<p>This is the <b>About</b> page with some details.</p>",
+    "children": []
+  }
+]

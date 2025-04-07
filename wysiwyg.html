@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WYSIWYG HTML Editor with Tools</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: sans-serif;
+    }
+
+    .toolbar {
+      background: #eee;
+      padding: 8px 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .toolbar button {
+      margin-right: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 42px); /* Account for toolbar height */
+      width: 100%;
+    }
+
+    .editor, .preview {
+      height: 100%;
+      overflow: auto;
+    }
+
+    .editor {
+      background: #f9f9f9;
+    }
+
+    .preview {
+      background: #fff;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100%;
+      border: none;
+      resize: none;
+      font-family: monospace;
+      font-size: 14px;
+      background: transparent;
+      outline: none;
+      padding: 10px;
+    }
+
+    .output {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      padding: 10px;
+    }
+
+    #divider {
+      width: 5px;
+      cursor: ew-resize;
+      background-color: #ccc;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button onclick="beautifyHtml()">Beautify HTML</button>
+    <button onclick="makeJsonSafe()">Make JSON-safe</button>
+  </div>
+
+  <div class="container">
+    <div id="leftPanel" class="editor" style="flex: 1;">
+      <textarea id="htmlEditor"><h1>Hello, world!</h1><p>This is a <b>WYSIWYG</b> editor.</p></textarea>
+    </div>
+    <div id="divider"></div>
+    <div id="rightPanel" class="preview" style="flex: 1;">
+      <div id="output" class="output" contenteditable="true"></div>
+    </div>
+  </div>
+
+  <script>
+    const editor = document.getElementById('htmlEditor');
+    const output = document.getElementById('output');
+    const divider = document.getElementById('divider');
+    const leftPanel = document.getElementById('leftPanel');
+    const rightPanel = document.getElementById('rightPanel');
+
+    // Sync HTML -> Output
+    editor.addEventListener('input', () => {
+      output.innerHTML = editor.value;
+    });
+
+    // Sync Output -> HTML
+    output.addEventListener('input', () => {
+      editor.value = output.innerHTML;
+    });
+
+    // Initialize output
+    output.innerHTML = editor.value;
+
+    // Draggable divider logic
+    let isDragging = false;
+
+    divider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      document.body.style.cursor = 'ew-resize';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const containerWidth = document.querySelector('.container').offsetWidth;
+      const leftWidth = e.clientX;
+      const rightWidth = containerWidth - leftWidth - divider.offsetWidth;
+      leftPanel.style.flex = `0 0 ${leftWidth}px`;
+      rightPanel.style.flex = `0 0 ${rightWidth}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      document.body.style.cursor = 'default';
+    });
+
+    // Beautify HTML (simple indentation)
+    function beautifyHtml() {
+      const html = editor.value;
+      const formatted = html
+        .replace(/>\s*</g, '>\n<')  // Break between tags
+        .split('\n')
+        .map((line, i, arr) => {
+          let indent = 0;
+          for (let j = 0; j < i; j++) {
+            if (arr[j].match(/<[^\/!][^>]*[^\/]>$/)) indent++;
+            if (arr[j].match(/<\/[^>]+>$/)) indent = Math.max(indent - 1, 0);
+          }
+          return '  '.repeat(indent) + line.trim();
+        })
+        .join('\n');
+      editor.value = formatted;
+      output.innerHTML = formatted;
+    }
+
+    // Make JSON-safe
+    function makeJsonSafe() {
+      const html = editor.value;
+      const jsonSafe = html
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\t/g, '\\t');
+      editor.value = jsonSafe;
+      output.innerHTML = jsonSafe;
+    }
+  </script>
+
+</body>
+</html>
