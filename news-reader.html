@@ -83,7 +83,7 @@
     const subcategory = document.getElementById("subcategory").value;
     const url = feeds[category][subcategory];
 
-    fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url))
+    fetch("https://api.codetabs.com/v1/proxy/?quest=" + encodeURIComponent(url))
       .then(res => res.json())
       .then(data => {
         const xml = new DOMParser().parseFromString(data.contents, "text/xml");
