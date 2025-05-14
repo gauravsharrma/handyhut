@@ -1,52 +1,125 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HandyHut - Unit Converter</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
+
         .input-error {
-            border-color: #FC8181 !important; /* Tailwind red-400 */
+            border-color: #FC8181 !important;
+            /* Tailwind red-400 */
         }
+
         .result-success {
-            color: #68D391; /* Tailwind green-400 */
+            color: #68D391;
+            /* Tailwind green-400 */
         }
+
         .result-error {
-            color: #FC8181; /* Tailwind red-400 */
+            color: #FC8181;
+            /* Tailwind red-400 */
         }
+
         .type-button {
             transition: all 0.2s ease-in-out;
-            padding: 0.75rem 1.5rem; /* Increased padding */
+            padding: 0.75rem 1.5rem;
+            /* Increased padding */
             font-weight: 600;
-            border-radius: 0.375rem; /* md */
+            border-radius: 0.375rem;
+            /* md */
             margin: 0.25rem;
             border: 2px solid transparent;
         }
+
         .type-button.active {
-            border-color: #818CF8; /* Indigo-400 for active state */
+            border-color: #818CF8;
+            /* Indigo-400 for active state */
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+
         /* Specific button colors - you can customize these */
-        .btn-length { background-color: #6366F1; color: white; } /* Indigo */
-        .btn-length:hover { background-color: #4F46E5; }
-        .btn-weight { background-color: #F59E0B; color: white; } /* Amber */
-        .btn-weight:hover { background-color: #D97706; }
-        .btn-volume { background-color: #10B981; color: white; } /* Emerald */
-        .btn-volume:hover { background-color: #059669; }
-        .btn-temperature { background-color: #EF4444; color: white; } /* Red */
-        .btn-temperature:hover { background-color: #DC2626; }
-        .btn-area { background-color: #8B5CF6; color: white; } /* Violet */
-        .btn-area:hover { background-color: #7C3AED; }
-        .btn-time { background-color: #3B82F6; color: white; } /* Blue */
-        .btn-time:hover { background-color: #2563EB; }
-        .btn-speed { background-color: #EC4899; color: white; } /* Pink */
-        .btn-speed:hover { background-color: #DB2777; }
+        .btn-length {
+            background-color: #6366F1;
+            color: white;
+        }
+
+        /* Indigo */
+        .btn-length:hover {
+            background-color: #4F46E5;
+        }
+
+        .btn-weight {
+            background-color: #F59E0B;
+            color: white;
+        }
+
+        /* Amber */
+        .btn-weight:hover {
+            background-color: #D97706;
+        }
+
+        .btn-volume {
+            background-color: #10B981;
+            color: white;
+        }
+
+        /* Emerald */
+        .btn-volume:hover {
+            background-color: #059669;
+        }
+
+        .btn-temperature {
+            background-color: #EF4444;
+            color: white;
+        }
+
+        /* Red */
+        .btn-temperature:hover {
+            background-color: #DC2626;
+        }
+
+        .btn-area {
+            background-color: #8B5CF6;
+            color: white;
+        }
+
+        /* Violet */
+        .btn-area:hover {
+            background-color: #7C3AED;
+        }
+
+        .btn-time {
+            background-color: #3B82F6;
+            color: white;
+        }
+
+        /* Blue */
+        .btn-time:hover {
+            background-color: #2563EB;
+        }
+
+        .btn-speed {
+            background-color: #EC4899;
+            color: white;
+        }
+
+        /* Pink */
+        .btn-speed:hover {
+            background-color: #DB2777;
+        }
     </style>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
 
     <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section>
@@ -67,17 +140,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-end">
                     <div>
                         <label for="inputValue" class="block text-sm font-medium text-gray-300 mb-2">Value:</label>
-                        <input type="number" id="inputValue" placeholder="Enter value" class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                        <input type="number" id="inputValue" placeholder="Enter value"
+                            class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
                     </div>
                     <div>
                         <label for="fromUnit" class="block text-sm font-medium text-gray-300 mb-2">From:</label>
-                        <select id="fromUnit" class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
-                            </select>
+                        <select id="fromUnit"
+                            class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                        </select>
                     </div>
                 </div>
 
                 <div class="text-center mb-6 hidden md:block">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400 inline-block transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transform: rotate(90deg);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400 inline-block transform"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transform: rotate(90deg);">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                 </div>
@@ -85,21 +161,43 @@
 
                 <div class="mb-6">
                     <label for="toUnit" class="block text-sm font-medium text-gray-300 mb-2">To:</label>
-                    <select id="toUnit" class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
-                        </select>
+                    <select id="toUnit"
+                        class="mt-1 p-3 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                    </select>
                 </div>
 
-                <button id="convertButton" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                <button id="convertButton"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     Convert
                 </button>
 
-                <div id="conversionResult" class="mt-8 p-4 bg-gray-700 rounded-md text-lg text-center font-semibold min-h-[50px] flex items-center justify-center">
+                <div id="conversionResult"
+                    class="mt-8 p-4 bg-gray-700 rounded-md text-lg text-center font-semibold min-h-[50px] flex items-center justify-center">
                     Awaiting conversion...
                 </div>
             </div>
         </section>
     </main>
 
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+    </script>
     <script src="unit-converter.js"></script>
 </body>
+
 </html>
