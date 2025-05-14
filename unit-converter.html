@@ -1,72 +1,303 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HandyHut - Unit Converter</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Custom styles for smooth scrolling (if needed on tool pages) */
-        html { scroll-behavior: smooth; }
+        /* Custom styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .converter-section {
+            display: none;
+        }
+
+        .converter-section.active {
+            display: block;
+        }
+
+        .unit-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .unit-input {
+            @apply mt-1 p-2 w-1/3 bg-gray-700 text-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500;
+        }
+
+        .unit-select {
+            @apply mt-1 p-2 w-1/3 bg-gray-700 text-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500;
+        }
+
+        .convert-button {
+            @apply bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mr-2;
+        }
+
+        .result-text {
+            @apply mt-4 text-gray-300 font-semibold;
+        }
     </style>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-sans">
-
     <div id="header-container"></div>
-
     <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section>
             <h1 class="text-2xl font-bold text-indigo-400 mb-6">Unit Converter</h1>
             <div class="bg-gray-800 rounded-md shadow-md p-6">
                 <p class="text-gray-300 mb-4">Convert between various units of measurement.</p>
-
-                <div class="mb-6">
-                    <h2 class="text-xl font-semibold text-blue-400 mb-2">Length Conversion</h2>
-
-                    <div class="flex space-x-4 mb-4">
-                        <div class="w-1/3">
-                            <label for="lengthValue" class="block text-sm font-medium text-gray-300">Value</label>
-                            <input type="number" id="lengthValue" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter value">
-                        </div>
-
-                        <div class="w-1/3">
-                            <label for="fromLengthUnit" class="block text-sm font-medium text-gray-300">From</label>
-                            <select id="fromLengthUnit" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="meters">Meters</option>
-                                <option value="feet">Feet</option>
-                                <option value="inches">Inches</option>
-                                <option value="kilometers">Kilometers</option>
-                                <option value="miles">Miles</option>
-                                {/* Add more length units */}
-                            </select>
-                        </div>
-
-                        <div class="w-1/3">
-                            <label for="toLengthUnit" class="block text-sm font-medium text-gray-300">To</label>
-                            <select id="toLengthUnit" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="feet">Feet</option>
-                                <option value="meters">Meters</option>
-                                <option value="inches">Inches</option>
-                                <option value="kilometers">Kilometers</option>
-                                <option value="miles">Miles</option>
-                                {/* Add more length units */}
-                            </select>
-                        </div>
-                    </div>
-
-                    <button onclick="convertLength()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Convert</button>
-                    <div id="lengthResult" class="mt-4 text-gray-300 font-semibold"></div>
+                <div class="mb-4">
+                    <button class="converter-button bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="length">Length</button>
+                    <button class="converter-button bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="weight">Weight</button>
+                    <button class="converter-button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="volume">Volume</button>
+                    <button class="converter-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="temperature">Temperature</button>
+                    <button class="converter-button bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="area">Area</button>
+                    <button class="converter-button bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        data-target="time">Time</button>
+                    <button class="converter-button bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded"
+                        data-target="speed">Speed</button>
                 </div>
-
-                {/* Add sections for other unit types (e.g., Weight, Volume, Temperature) here */}
-
+                <div id="length" class="converter-section active">
+                    <h2 class="text-xl font-semibold text-blue-400 mb-2">Length</h2>
+                    <div class="unit-group">
+                        <input type="number" id="lengthValue" class="unit-input" placeholder="Value">
+                        <select id="fromLengthUnit" class="unit-select">
+                            <option value="meters">Meters</option>
+                            <option value="feet">Feet</option>
+                            <option value="inches">Inches</option>
+                            <option value="kilometers">Kilometers</option>
+                            <option value="miles">Miles</option>
+                        </select>
+                        <select id="toLengthUnit" class="unit-select">
+                            <option value="feet">Feet</option>
+                            <option value="meters">Meters</option>
+                            <option value="inches">Inches</option>
+                            <option value="kilometers">Kilometers</option>
+                            <option value="miles">Miles</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('length')" class="convert-button">Convert
+                        Length</button>
+                    <div id="lengthResult" class="result-text"></div>
+                </div>
+                <div id="weight" class="converter-section">
+                    <h2 class="text-xl font-semibold text-yellow-400 mb-2">Weight</h2>
+                    <div class="unit-group">
+                        <input type="number" id="weightValue" class="unit-input" placeholder="Value">
+                        <select id="fromWeightUnit" class="unit-select">
+                            <option value="kilograms">Kilograms</option>
+                            <option value="pounds">Pounds</option>
+                            <option value="grams">Grams</option>
+                            <option value="ounces">Ounces</option>
+                        </select>
+                        <select id="toWeightUnit" class="unit-select">
+                            <option value="pounds">Pounds</option>
+                            <option value="kilograms">Kilograms</option>
+                            <option value="grams">Grams</option>
+                            <option value="ounces">Ounces</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('weight')" class="convert-button">Convert
+                        Weight</button>
+                    <div id="weightResult" class="result-text"></div>
+                </div>
+                <div id="volume" class="converter-section">
+                    <h2 class="text-xl font-semibold text-green-400 mb-2">Volume</h2>
+                    <div class="unit-group">
+                        <input type="number" id="volumeValue" class="unit-input" placeholder="Value">
+                        <select id="fromVolumeUnit" class="unit-select">
+                            <option value="liters">Liters</option>
+                            <option value="gallons">Gallons (US)</option>
+                            <option value="quarts">Quarts (US)</option>
+                            <option value="milliliters">Milliliters</option>
+                        </select>
+                        <select id="toVolumeUnit" class="unit-select">
+                            <option value="gallons">Gallons (US)</option>
+                            <option value="liters">Liters</option>
+                            <option value="quarts">Quarts (US)</option>
+                            <option value="milliliters">Milliliters</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('volume')" class="convert-button">Convert
+                        Volume</button>
+                    <div id="volumeResult" class="result-text"></div>
+                </div>
+                <div id="temperature" class="converter-section">
+                    <h2 class="text-xl font-semibold text-red-400 mb-2">Temperature</h2>
+                    <div class="unit-group">
+                        <input type="number" id="temperatureValue" class="unit-input" placeholder="Value">
+                        <select id="fromTemperatureUnit" class="unit-select">
+                            <option value="celsius">Celsius</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                            <option value="kelvin">Kelvin</option>
+                        </select>
+                        <select id="toTemperatureUnit" class="unit-select">
+                            <option value="fahrenheit">Fahrenheit</option>
+                            <option value="celsius">Celsius</option>
+                            <option value="kelvin">Kelvin</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('temperature')" class="convert-button">Convert
+                        Temperature</button>
+                    <div id="temperatureResult" class="result-text"></div>
+                </div>
+                <div id="area" class="converter-section">
+                    <h2 class="text-xl font-semibold text-purple-400 mb-2">Area</h2>
+                    <div class="unit-group">
+                        <input type="number" id="areaValue" class="unit-input" placeholder="Value">
+                        <select id="fromAreaUnit" class="unit-select">
+                            <option value="squareMeters">Square Meters</option>
+                            <option value="squareFeet">Square Feet</option>
+                            <option value="acres">Acres</option>
+                        </select>
+                        <select id="toAreaUnit" class="unit-select">
+                            <option value="squareFeet">Square Feet</option>
+                            <option value="squareMeters">Square Meters</option>
+                            <option value="acres">Acres</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('area')" class="convert-button">Convert
+                        Area</button>
+                    <div id="areaResult" class="result-text"></div>
+                </div>
+                <div id="time" class="converter-section">
+                    <h2 class="text-xl font-semibold text-teal-400 mb-2">Time</h2>
+                    <div class="unit-group">
+                        <input type="number" id="timeValue" class="unit-input" placeholder="Value">
+                        <select id="fromTimeUnit" class="unit-select">
+                            <option value="seconds">Seconds</option>
+                            <option value="minutes">Minutes</option>
+                            <option value="hours">Hours</option>
+                            <option value="days">Days</option>
+                        </select>
+                        <select id="toTimeUnit" class="unit-select">
+                            <option value="minutes">Minutes</option>
+                            <option value="seconds">Seconds</option>
+                            <option value="hours">Hours</option>
+                            <option value="days">Days</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('time')" class="convert-button">Convert
+                        Time</button>
+                    <div id="timeResult" class="result-text"></div>
+                </div>
+                <div id="speed" class="converter-section">
+                    <h2 class="text-xl font-semibold text-lime-400 mb-2">Speed</h2>
+                    <div class="unit-group">
+                        <input type="number" id="speedValue" class="unit-input" placeholder="Value">
+                        <select id="fromSpeedUnit" class="unit-select">
+                            <option value="mps">Meters per Second</option>
+                            <option value="kph">Kilometers per Hour</option>
+                            <option value="mph">Miles per Hour</option>
+                        </select>
+                        <select id="toSpeedUnit" class="unit-select">
+                            <option value="kph">Kilometers per Hour</option>
+                            <option value="mps">Meters per Second</option>
+                            <option value="mph">Miles per Hour</option>
+                        </select>
+                    </div>
+                    <button onclick="convert('speed')" class="convert-button">Convert
+                        Speed</button>
+                    <div id="speedResult" class="result-text"></div>
+                </div>
             </div>
         </section>
     </main>
-
     <div id="footer-container"></div>
-
     <script>
+        const conversionFunctions = {
+            length: (value, fromUnit, toUnit) => {
+                const factors = {
+                    meters: 1,
+                    feet: 0.3048,
+                    inches: 0.0254,
+                    kilometers: 1000,
+                    miles: 1609.34
+                };
+                const meters = value * factors[fromUnit];
+                return meters / factors[toUnit];
+            },
+            weight: (value, fromUnit, toUnit) => {
+                const factors = {
+                    kilograms: 1,
+                    pounds: 0.453592,
+                    grams: 0.001,
+                    ounces: 0.0283495
+                };
+                const kilograms = value * factors[fromUnit];
+                return kilograms / factors[toUnit];
+            },
+            volume: (value, fromUnit, toUnit) => {
+                const factors = {
+                    liters: 1,
+                    gallons: 3.78541,
+                    quarts: 0.946353,
+                    milliliters: 0.001
+                };
+                const liters = value * factors[fromUnit];
+                return liters / factors[toUnit];
+            },
+            temperature: (value, fromUnit, toUnit) => {
+                if (fromUnit === toUnit) return value;
+                let celsius;
+                switch (fromUnit) {
+                    case 'celsius':
+                        celsius = value;
+                        break;
+                    case 'fahrenheit':
+                        celsius = (value - 32) * 5 / 9;
+                        break;
+                    case 'kelvin':
+                        celsius = value - 273.15;
+                        break;
+                }
+                switch (toUnit) {
+                    case 'celsius':
+                        return celsius;
+                    case 'fahrenheit':
+                        return (celsius * 9 / 5) + 32;
+                    case 'kelvin':
+                        return celsius + 273.15;
+                }
+            },
+            area: (value, fromUnit, toUnit) => {
+                const factors = {
+                    squareMeters: 1,
+                    squareFeet: 0.092903,
+                    acres: 4046.86
+                };
+                const squareMeters = value * factors[fromUnit];
+                return squareMeters / factors[toUnit];
+            },
+            time: (value, fromUnit, toUnit) => {
+                const factors = {
+                    seconds: 1,
+                    minutes: 60,
+                    hours: 3600,
+                    days: 86400
+                };
+                const seconds = value * factors[fromUnit];
+                return seconds / factors[toUnit];
+            },
+            speed: (value, fromUnit, toUnit) => {
+                const factors = {
+                    mps: 1,
+                    kph: 3.6,
+                    mph: 2.23694
+                };
+                const mps = value * factors[fromUnit];
+                return mps / factors[toUnit];
+            }
+        };
+
         async function loadHeader() {
             const response = await fetch('header.html');
             const text = await response.text();
@@ -82,57 +313,36 @@
         loadHeader();
         loadFooter();
 
-        function convertLength() {
-            const value = parseFloat(document.getElementById('lengthValue').value);
-            const fromUnit = document.getElementById('fromLengthUnit').value;
-            const toUnit = document.getElementById('toLengthUnit').value;
-            const resultDiv = document.getElementById('lengthResult');
+        document.querySelectorAll('.converter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.dataset.target;
+                document.querySelectorAll('.converter-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        function convert(type) {
+            const value = parseFloat(document.getElementById(type + 'Value').value);
+            const fromUnit = document.getElementById('from' + type.charAt(0).toUpperCase() + type.slice(1) + 'Unit').value;
+            const toUnit = document.getElementById('to' + type.charAt(0).toUpperCase() + type.slice(1) + 'Unit').value;
+            const resultDiv = document.getElementById(type + 'Result');
 
             if (isNaN(value)) {
                 resultDiv.textContent = "Please enter a valid number.";
                 return;
             }
 
-            let meters = value; // Convert everything to meters first
-
-            switch (fromUnit) {
-                case "feet":
-                    meters = value * 0.3048;
-                    break;
-                case "inches":
-                    meters = value * 0.0254;
-                    break;
-                case "kilometers":
-                    meters = value * 1000;
-                    break;
-                case "miles":
-                    meters = value * 1609.34;
-                    break;
+            const conversionFunction = conversionFunctions[type];
+            if (conversionFunction) {
+                const result = conversionFunction(value, fromUnit, toUnit);
+                resultDiv.textContent = `${value} ${fromUnit} is equal to ${result.toFixed(4)} ${toUnit}`;
+            } else {
+                resultDiv.textContent = `Conversion type "${type}" is not supported.`;
             }
-
-            let result = meters;
-
-            switch (toUnit) {
-                case "feet":
-                    result = meters / 0.3048;
-                    break;
-                case "inches":
-                    result = meters / 0.0254;
-                    break;
-                case "kilometers":
-                    result = meters / 1000;
-                    break;
-                case "miles":
-                    result = meters / 1609.34;
-                    break;
-            }
-
-            resultDiv.textContent = `${value} ${fromUnit} is equal to ${result.toFixed(4)} ${toUnit}`;
         }
-
-        // Add conversion functions for other unit types here (e.g., convertWeight, convertVolume, convertTemperature)
-
     </script>
-
 </body>
+
 </html>
