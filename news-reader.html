@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - News Reader</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        #newsContainer {
+            margin-top: 2rem;
+        }
+        .newsCategory {
+            margin-bottom: 1.5rem;
+        }
+        .categoryTitle {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #6366f1; /* indigo-500 */
+            margin-bottom: 0.5rem;
+        }
+        .subCategoryTitle {
+            font-size: 1rem;
+            font-weight: medium;
+            color: #a78bfa; /* indigo-300 */
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        .newsList {
+            margin-left: 2rem;
+        }
+        .newsItem {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.7); /* gray-700 with opacity */
+            cursor: pointer;
+        }
+        .newsItem:last-child {
+            border-bottom: none;
+        }
+        .newsTitle {
+            font-weight: medium;
+            color: #f3f4f6; /* gray-200 */
+        }
+        .newsDetailsContainer {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #4b5563; /* gray-600 */
+            border-radius: 0.375rem;
+            display: none; /* Hidden by default */
+        }
+        .newsDetailsTitle {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f3f4f6; /* gray-200 */
+            margin-bottom: 1rem;
+        }
+        .newsDescription {
+            color: #d1d5db; /* gray-300 */
+            margin-bottom: 1rem;
+        }
+        .newsLink {
+            color: #818cf8; /* indigo-400 */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">News Reader</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Read the latest news from various sources.</p>
+
+                <div id="newsContainer">
+                    {/* News will be loaded here */}
+                </div>
+
+                <div id="newsDetailsContainer" class="newsDetailsContainer">
+                    <h2 id="newsDetailsTitle" class="newsDetailsTitle"></h2>
+                    <p id="newsDescription" class="newsDescription"></p>
+                    <a id="newsLink" href="#" target="_blank" rel="noopener noreferrer" class="newsLink">Read Full Article</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        const newsFeeds = [
+            {
+                category: "Times of India",
+                subCategory: "Main Feeds",
+                title: "Top Stories",
+                url: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms"
+            },
+            {
+                category: "Times of India",
+                subCategory: "India",
+                title: "India",
+                url: "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
+            }
+            // You can add more feeds here later
+        ];
+
+        const newsContainer = document.getElementById('newsContainer');
+        const newsDetailsContainer = document.getElementById('newsDetailsContainer');
+        const newsDetailsTitle = document.getElementById('newsDetailsTitle');
+        const newsDescription = document.getElementById('newsDescription');
+        const newsLink = document.getElementById('newsLink');
+        let currentNewsItem = null;
+
+        function displayNewsDetails(item) {
+            currentNewsItem = item;
+            newsDetailsTitle.textContent = item.title;
+            newsDescription.textContent = item.description || 'No description available.';
+            newsLink.href = item.link;
+            newsDetailsContainer.style.display = 'block';
+            newsContainer.style.display = 'none'; // Hide the list
+        }
+
+        function loadNews() {
+            newsFeeds.forEach(feed => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('newsCategory');
+
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.classList.add('categoryTitle');
+                categoryTitle.textContent = feed.category;
+                categoryDiv.appendChild(categoryTitle);
+
+                const subCategoryTitle = document.createElement('h3');
+                subCategoryTitle.classList.add('subCategoryTitle');
+                subCategoryTitle.textContent = feed.subCategory;
+                categoryDiv.appendChild(subCategoryTitle);
+
+                const newsList = document.createElement('ul');
+                newsList.classList.add('newsList');
+                categoryDiv.appendChild(newsList);
+
+                fetch(feed.url)
+                    .then(response => response.text())
+                    .then(xmlText => {
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                        const items = xmlDoc.querySelectorAll('item');
+
+                        items.forEach(item => {
+                            const titleElement = item.querySelector('title');
+                            const linkElement = item.querySelector('link');
+                            const descriptionElement = item.querySelector('description');
+
+                            if (titleElement && linkElement) {
+                                const listItem = document.createElement('li');
+                                listItem.classList.add('newsItem');
+                                const newsTitleLink = document.createElement('span');
+                                newsTitleLink.classList.add('newsTitle');
+                                newsTitleLink.textContent = titleElement.textContent;
+                                listItem.appendChild(newsTitleLink);
+                                newsList.appendChild(listItem);
+
+                                listItem.addEventListener('click', () => {
+                                    displayNewsDetails({
+                                        title: titleElement.textContent,
+                                        link: linkElement.textContent,
+                                        description: descriptionElement ? descriptionElement.textContent : ''
+                                    });
+                                });
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching RSS feed from ${feed.url}:`, error);
+                        const errorItem = document.createElement('li');
+                        errorItem.classList.add('newsItem');
+                        errorItem.textContent = `Failed to load news from ${feed.title}`;
+                        newsList.appendChild(errorItem);
+                    });
+
+                newsContainer.appendChild(categoryDiv);
+            });
+        }
+
+        loadNews();
+
+        // Optional: Add a back button to go from details back to the list
+        const backButton = document.createElement('button');
+        backButton.textContent = 'Back to News List';
+        backButton.classList.add('bg-gray-600', 'hover:bg-gray-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded', 'mt-4');
+        backButton.addEventListener('click', () => {
+            newsDetailsContainer.style.display = 'none';
+            newsContainer.style.display = 'block';
+        });
+        document.querySelector('main section div.bg-gray-800').appendChild(backButton);
+
+    </script>
+
+</body>
+</html>
