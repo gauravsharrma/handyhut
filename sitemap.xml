@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://handyhut.netlify.app/index.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/emi-calculator.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/age-calculator.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/bmi-calculator.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/currency-converter.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/word-counter.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/speech-converter.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/dictionary.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/name-meaning.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/multiplication-table.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/conversion.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://handyhut.netlify.app/tools/financial.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://handyhut.netlify.app/</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/emi-calculator</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/bmi-calculator</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/prompt-engineering</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/emi-calculator</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/date-difference</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/unit-converter</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/timer-stopwatch-countdown</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/qr-code-generator</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://handyhut.netlify.app/text-tools</loc>
+  <lastmod>2025-05-14T14:42:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
 </urlset>
