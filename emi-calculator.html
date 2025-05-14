@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - EMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling (if needed on tool pages) */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">EMI Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Calculate your Equated Monthly Installment (EMI) for loans.</p>
+
+                <div class="mb-4">
+                    <label for="principal" class="block text-sm font-medium text-gray-300">Loan Amount (Principal - AED)</label>
+                    <input type="number" id="principal" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 50000">
+                </div>
+
+                <div class="mb-4">
+                    <label for="interest" class="block text-sm font-medium text-gray-300">Annual Interest Rate (%)</label>
+                    <input type="number" id="interest" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 5">
+                </div>
+
+                <div class="mb-4">
+                    <label for="tenure" class="block text-sm font-medium text-gray-300">Loan Tenure (Years)</label>
+                    <input type="number" id="tenure" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 3">
+                </div>
+
+                <button onclick="calculateEMI()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate EMI</button>
+
+                <div id="emiResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function calculateEMI() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const annualInterestRate = parseFloat(document.getElementById('interest').value);
+            const tenureYears = parseFloat(document.getElementById('tenure').value);
+            const emiResultDiv = document.getElementById('emiResult');
+
+            if (isNaN(principal) || isNaN(annualInterestRate) || isNaN(tenureYears) || principal <= 0 || annualInterestRate < 0 || tenureYears <= 0) {
+                emiResultDiv.textContent = "Please enter valid positive numbers for all fields.";
+                return;
+            }
+
+            const monthlyInterestRate = annualInterestRate / 12 / 100;
+            const tenureMonths = tenureYears * 12;
+
+            const emi = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) / (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+
+            if (isNaN(emi) || !isFinite(emi)) {
+                emiResultDiv.textContent = "Error calculating EMI. Please check your inputs.";
+            } else {
+                emiResultDiv.textContent = `Your monthly EMI is: AED ${emi.toFixed(2)}`;
+            }
+        }
+    </script>
+
+</body>
+</html>
