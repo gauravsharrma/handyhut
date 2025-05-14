@@ -131,16 +131,8 @@
   }
 
   function extractMainArticleContent(doc) {
-    const divs = Array.from(doc.querySelectorAll("div"));
-    const mainDiv = divs
-      .map(div => ({
-        text: div.innerText.trim(),
-        length: div.innerText.trim().split(/\s+/).length
-      }))
-      .filter(x => x.length > 100)
-      .sort((a, b) => b.length - a.length)[0];
-
-    return mainDiv ? mainDiv.text : "Unable to extract main content.";
+    const mainDiv = doc.querySelector("div._s30J.clearfix");
+    return mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
   }
 
   window.onload = onFeedSelect;
