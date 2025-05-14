@@ -127,9 +127,13 @@
 
         function removeDuplicates() {
             const text = inputTextElement.value;
-            const lines = text.split('\n').map(line => line.trim()).filter(line => line !== '');
-            const uniqueLines = [...new Set(lines)];
-            outputElement.textContent = uniqueLines.join('\n');
+            const lines = text.split('\n');
+            const uniqueLinesWithWords = lines.map(line => {
+                const words = line.toLowerCase().split(/\s+/).filter(word => word !== '');
+                const uniqueWords = [...new Set(words)];
+                return uniqueWords.join(' ');
+            });
+            outputElement.textContent = uniqueLinesWithWords.join('\n');
             outputElement.style.display = 'block';
             wordCountElement.textContent = '';
         }
