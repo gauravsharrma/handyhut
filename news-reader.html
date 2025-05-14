@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     html { scroll-behavior: smooth; }
+    .controls button { @apply px-2 py-1 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-700; }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -36,16 +37,35 @@
 
   <!-- Two-column layout -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Left: List of article descriptions -->
+    <!-- Left: Article Descriptions -->
     <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto">
       <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
       <div id="news-list" class="space-y-4 text-sm"></div>
     </section>
 
-    <!-- Right: Full article content -->
-    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto">
+    <!-- Right: Full Article + Reader -->
+    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto relative">
       <h2 class="text-lg text-indigo-400 font-semibold mb-2">Full Article</h2>
-      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line">Select an article to read.</div>
+
+      <!-- Font Controls -->
+      <div class="flex justify-between items-center mb-4">
+        <div class="text-sm text-gray-400">Font size:
+          <button onclick="changeFontSize(+1)">A+</button>
+          <button onclick="changeFontSize(-1)">A−</button>
+        </div>
+        <div class="text-sm text-gray-400">
+          <button onclick="prevSentence()">◀ Prev</button>
+          <button onclick="nextSentence()">Next ▶</button>
+        </div>
+      </div>
+
+      <!-- Full Article Content -->
+      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line"></div>
+      <hr class="my-4 border-gray-600">
+      <div>
+        <h3 class="text-indigo-300 font-semibold mb-2">Sentence View</h3>
+        <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded"></div>
+      </div>
     </section>
   </div>
 </main>
@@ -74,6 +94,9 @@
   };
 
   const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
+  let sentenceIndex = 0;
+  let allSentences = [];
+  let fontSize = 16;
 
   function onCategoryChange() {
     onFeedSelect();
@@ -93,6 +116,7 @@
         const list = document.getElementById("news-list");
         list.innerHTML = "";
         document.getElementById("full-article").innerHTML = "Select an article to read.";
+        document.getElementById("sentence-view").innerHTML = "";
 
         items.forEach((item) => {
           const title = item.querySelector("title").textContent;
@@ -119,10 +143,15 @@
       .then(res => res.text())
       .then(html => {
         const doc = new DOMParser().parseFromString(html, "text/html");
-        const textContent = extractMainArticleContent(doc);
+        const mainDiv = doc.querySelector("div._s30J.clearfix");
+        const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
 
         document.getElementById("full-article").innerHTML =
           `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
+        allSentences = textContent.match(/[^\.!\?]+[\.!\?]+/g) || [textContent];
+        sentenceIndex = 0;
+        showSentence();
+        applyFontSize();
       })
       .catch(err => {
         console.error("Full article load error:", err);
@@ -130,9 +159,39 @@
       });
   }
 
-  function extractMainArticleContent(doc) {
-    const mainDiv = doc.querySelector("div._s30J.clearfix");
-    return mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
+  function showSentence() {
+    const sentenceEl = document.getElementById("sentence-view");
+    if (allSentences.length === 0) {
+      sentenceEl.innerText = "";
+    } else {
+      sentenceEl.innerText = allSentences[sentenceIndex];
+    }
+  }
+
+  function nextSentence() {
+    if (sentenceIndex < allSentences.length - 1) {
+      sentenceIndex++;
+      showSentence();
+    }
+  }
+
+  function prevSentence() {
+    if (sentenceIndex > 0) {
+      sentenceIndex--;
+      showSentence();
+    }
+  }
+
+  function changeFontSize(change) {
+    fontSize += change;
+    if (fontSize < 12) fontSize = 12;
+    if (fontSize > 28) fontSize = 28;
+    applyFontSize();
+  }
+
+  function applyFontSize() {
+    document.getElementById("full-article").style.fontSize = fontSize + "px";
+    document.getElementById("sentence-view").style.fontSize = fontSize + "px";
   }
 
   window.onload = onFeedSelect;
