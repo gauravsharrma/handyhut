@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HandyHut - Prompt Engineering</title>
+    <title>Prompt Engineering Concepts</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for smooth scrolling (if needed on tool pages) */
         html { scroll-behavior: smooth; }
@@ -17,8 +16,8 @@
 
     <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section>
-            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Prompt Engineering</h1>
-            <div class="bg-gray-800 rounded-md shadow-md p-4 overflow-y-auto">
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Prompt Engineering Concepts</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
                 <div class="flex flex-col">
                     <div class="flex justify-between items-center mb-4">
                         <div>
@@ -28,8 +27,8 @@
                         </div>
                         <button onclick="increaseFontSize()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Increase Font Size</button>
                     </div>
-                    <div id="contentDisplay" class="bg-gray-700 rounded-md shadow-md p-4 overflow-y-auto h-[calc(60vh - 150px)] text-gray-300">
-                        <p class="text-gray-300">Loading data...</p>
+                    <div id="contentDisplay" class="bg-gray-700 rounded-md shadow-md p-4 overflow-y-auto h-[calc(100vh - 250px)]">
+                        <p class="text-gray-400">Loading data...</p>
                     </div>
                 </div>
             </div>
@@ -39,6 +38,21 @@
     <div id="footer-container"></div>
 
     <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
         let excelData = [];
         let currentRowIndex = 0;
         let pageSize = 1;
@@ -77,7 +91,7 @@
                     if (rowData.hasOwnProperty(key)) {
                         const rowDiv = document.createElement('div');
                         rowDiv.classList.add('mb-2');
-                        rowDiv.innerHTML = `<span class="font-semibold">${key}:</span> ${rowData[key] !== undefined ? rowData[key] : ''}`;
+                        rowDiv.innerHTML = `<span class="font-semibold text-indigo-400">${key}:</span> <span class="text-gray-300">${rowData[key] !== undefined ? rowData[key] : ''}</span>`;
                         contentDisplay.appendChild(rowDiv);
                     }
                 }
@@ -116,7 +130,6 @@
             contentDisplay.style.fontSize = (currentSize + 2) + 'px';
         }
 
-        // Load data when the page loads
         window.onload = loadPromptData;
     </script>
 
