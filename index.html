@@ -1,140 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <title>Menu Viewer - JSON Upload with IDs</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      margin: 0;
-      height: 100vh;
-    }
-    #sidebar {
-      width: 300px;
-      background: #f4f4f4;
-      padding: 10px;
-      overflow-y: auto;
-      border-right: 1px solid #ccc;
-    }
-    #editor {
-      flex: 1;
-      padding: 20px;
-    }
-    .menu-item {
-      cursor: pointer;
-      padding: 5px;
-      margin-bottom: 4px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: white;
-    }
-    .menu-item.active {
-      background: #dbeafe;
-    }
-    .submenu {
-      margin-left: 20px;
-    }
-    #content {
-      border: 1px solid #ccc;
-      padding: 10px;
-      min-height: 300px;
-      margin-top: 10px;
-      background: #fff;
-    }
-    #uploadArea {
-      margin-bottom: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Your Toolkit Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling and potentially other enhancements */
+        html { scroll-behavior: smooth; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 font-sans">
 
-<div id="sidebar">
-  <h3>Menus</h3>
-  <div id="uploadArea">
-    <input type="file" id="jsonFile" accept=".json" />
-  </div>
-  <div id="menuTree"></div>
-</div>
+    <header class="bg-gray-800 py-6 px-4 sm:px-6 lg:px-8 shadow-md">
+        <div class="container mx-auto flex justify-center items-center">
+            <a href="/" class="text-xl font-bold text-indigo-500">HandyHut</a>
+        </div>
+    </header>
 
-<div id="editor">
-  <h3 id="currentTitle">Upload a JSON file and select a menu</h3>
-  <div id="content"></div>
-</div>
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section class="mb-10">
+            <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your One-Stop Shop for Handy Online Tools</h1>
+            <p class="text-lg text-gray-300">HandyHut provides a collection of useful tools right at your fingertips. Explore our growing library and simplify your daily tasks.</p>
+        </section>
 
-<script>
-  let flatMap = {}; // id => node map
-  let currentId = null;
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <a href="bmi-calculator.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-blue-400 mb-2">BMI Calculator</h2>
+                    <p class="text-gray-400">Calculate your Body Mass Index quickly and easily.</p>
+                    <div class="mt-4">
+                        <span class="inline-flex items-center rounded-full bg-blue-500 px-2.5 py-0.5 text-xs font-semibold text-white">Health</span>
+                    </div>
+                </div>
+            </a>
 
-  const menuTreeDiv = document.getElementById("menuTree");
-  const contentDiv = document.getElementById("content");
-  const titleDiv = document.getElementById("currentTitle");
+            <a href="prompt-engineering.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-purple-400 mb-2">Prompt Engineering</h2>
+                    <p class="text-gray-400">Explore the art of crafting effective prompts.</p>
+                    <div class="mt-4">
+                        <span class="inline-flex items-center rounded-full bg-purple-500 px-2.5 py-0.5 text-xs font-semibold text-white">AI</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
 
-  document.getElementById("jsonFile").addEventListener("change", handleFileUpload);
-
-  function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        flatMap = {};
-        renderMenuTree(data, []);
-        contentDiv.innerHTML = '';
-        titleDiv.textContent = "Select a menu or submenu";
-        currentId = null;
-      } catch (err) {
-        alert("Invalid JSON file!");
-      }
-    };
-    reader.readAsText(file);
-  }
-
-  function renderMenuTree(nodes, path) {
-    if (path.length === 0) menuTreeDiv.innerHTML = '';
-
-    nodes.forEach((node, index) => {
-      const newPath = [...path, index + 1];
-      const id = newPath.join('.');
-      node.id = id; // Inject ID if not already present
-      flatMap[id] = node;
-
-      const div = document.createElement("div");
-      div.className = "menu-item";
-      div.textContent = id + ". " + node.title;
-
-      if (currentId === id) {
-        div.classList.add("active");
-      }
-
-      div.onclick = () => selectNode(id);
-
-      const container = document.createElement("div");
-      container.appendChild(div);
-
-      if (path.length > 0) {
-        container.classList.add("submenu");
-      }
-
-      menuTreeDiv.appendChild(container);
-
-      if (node.children && node.children.length > 0) {
-        renderMenuTree(node.children, newPath);
-      }
-    });
-  }
-
-  function selectNode(id) {
-    const node = flatMap[id];
-    if (node) {
-      currentId = id;
-      contentDiv.innerHTML = node.content || "<i>No content</i>";
-      titleDiv.textContent = id + ". " + node.title;
-      renderMenuTree(Object.values(flatMap).filter(n => n.id && n.id.split('.').length === 1), []);
-    }
-  }
-</script>
+    <footer class="bg-gray-800 py-4 px-4 sm:px-6 lg:px-8 mt-10">
+        <div class="container mx-auto text-center text-gray-400">
+            <p>&copy; 2025 HandyHut. All rights reserved.</p>
+            <nav class="mt-2">
+                <ul class="flex justify-center space-x-4">
+                    <li><a href="privacy.html" class="hover:text-indigo-300">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="hover:text-indigo-300">Terms of Service</a></li>
+                    <li><a href="contact.html" class="hover:text-indigo-300">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
 
 </body>
 </html>

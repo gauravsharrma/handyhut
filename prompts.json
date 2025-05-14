@@ -1,0 +1,212 @@
+[
+    {
+        "Concept Name": "Prompt Engineering (in general)",
+        "Explanation": "The art and science of designing effective prompts to elicit desired responses from Large Language Models (LLMs).",
+        "Layman Examples": "Asking ChatGPT to plan a birthday party with specific details.",
+        "Best Practice": "Prompt Engineering"
+    },
+    {
+        "Concept Name": "LLM Output Configuration",
+        "Explanation": "Settings that control how the LLM generates text, such as length and creativity.",
+        "Layman Examples": "Controlling the length of a story or making the output more or less creative.",
+        "Best Practice": "LLM Output Configuration"
+    },
+    {
+        "Concept Name": "LLM Output Configuration (Top-K and Top-P)",
+        "Explanation": "Controls the randomness and focus of the LLM's word choices when generating text. Lower values make the output more predictable, while higher values allow for more creativity.",
+        "Layman Examples": "The cat sat on the... with low Top-K/P results in \"\"...mat.\"\". With high Top-K/P, it could be \"\"...keyboard.\"\".",
+        "Best Practice": "LLM Output Configuration"
+    },
+    {
+        "Concept Name": "General Prompting / Zero-Shot Prompting",
+        "Explanation": "Asking the LLM to perform a task without providing any examples. Relies on the LLM's general knowledge.",
+        "Layman Examples": "Write a short poem about a cat sitting by a window on a rainy day.",
+        "Best Practice": "General Prompting / Zero-Shot Prompting"
+    },
+    {
+        "Concept Name": "One-Shot Prompting",
+        "Explanation": "Giving the LLM one example of the desired input-output pair before asking it to complete a similar task.",
+        "Layman Examples": "Translate \"\"hello\"\" to French. Answer: bonjour  Translate \"\"thank you\"\" to French. Answer:",
+        "Best Practice": "One-Shot Prompting"
+    },
+    {
+        "Concept Name": "Few-Shot Prompting",
+        "Explanation": "Giving the LLM a few examples of the desired input-output pairs before asking it to complete a similar task.",
+        "Layman Examples": "Question: What is the capital of France? Answer: Paris  Question: What is the capital of Japan? Answer: Tokyo  Question: What is the capital of Canada? Answer: Ottawa  Question: What is the capital of Italy? Answer:",
+        "Best Practice": "Few-Shot Prompting"
+    },
+    {
+        "Concept Name": "System Prompting",
+        "Explanation": "Providing an initial instruction that sets the overall behavior or role of the LLM for the entire conversation.",
+        "Layman Examples": "System: You are a helpful and friendly travel guide.  User: Hi, I'm planning a trip to Dubai. Can you give me some recommendations for things to do?\"\"",
+        "Best Practice": "System Prompting"
+    },
+    {
+        "Concept Name": "Contextual Prompting",
+        "Explanation": "Providing the LLM with specific background information relevant to the user's current query.",
+        "Layman Examples": "Context: We are discussing the history of the United Arab Emirates.  User: When was the UAE founded?\"\"",
+        "Best Practice": "Contextual Prompting"
+    },
+    {
+        "Concept Name": "Role Prompting",
+        "Explanation": "Instructing the LLM to adopt a specific persona or act as a particular type of expert.",
+        "Layman Examples": "User: Act as a professional chef. What are some tips for making a perfect omelette?\"\"",
+        "Best Practice": "Role Prompting"
+    },
+    {
+        "Concept Name": "Step-Back Prompting",
+        "Explanation": "First asking the LLM a simpler, related question to build foundational knowledge before asking the complex question.",
+        "Layman Examples": "Prompt 1 (Step-Back): \"\"What are the basic needs of a plant to survive?\"\" Prompt 2 (Specific): \"\"My tomato plant's leaves are turning yellow. Considering its basic needs, what could be the possible reasons?\"\"\"\"",
+        "Best Practice": "Step-Back Prompting"
+    },
+    {
+        "Concept Name": "Chain of Thought (CoT) Prompting",
+        "Explanation": "Encouraging the LLM to show its reasoning step-by-step to arrive at an answer.",
+        "Layman Examples": "A baker has 3 apples and then buys 2 more bags of apples, with each bag containing 4 apples. How many apples does the baker have in total? Let's think step by step.\"\"\"\"",
+        "Best Practice": "Chain of Thought Prompting"
+    },
+    {
+        "Concept Name": "Self-Consistency",
+        "Explanation": "Implicitly prompting the LLM to solve a task in multiple ways and then choosing the most frequent answer.",
+        "Layman Examples": "What is 15 multiplied by 12? Show your work in a couple of different ways.\"\" (The consistently appearing answer is more likely correct)",
+        "Best Practice": "Self-Consistency"
+    },
+    {
+        "Concept Name": "Tree of Thoughts (ToT)",
+        "Explanation": "Encouraging the LLM to explore multiple reasoning paths or options at each step of problem-solving.",
+        "Layman Examples": "Write the beginning of a story about a robot living in a city. Explore a few different possible scenarios for the robot's main goal in the story.\"\" (LLM explores different plot directions)",
+        "Best Practice": "Tree of Thoughts"
+    },
+    {
+        "Concept Name": "ReAct (Reasoning and Acting)",
+        "Explanation": "Prompting the LLM to first reason about what information or tools it needs and then act (e.g., use a search engine) to get the answer.",
+        "Layman Examples": "What is the current time in London and what is the weather like there?\"\" (LLM reasons it needs time and weather data, then acts to retrieve it)",
+        "Best Practice": "ReAct"
+    },
+    {
+        "Concept Name": "Automatic Prompt Engineering (APE)",
+        "Explanation": "Allowing the LLM (or another AI system) to automatically generate and test various prompts to find the most effective one for a given task.",
+        "Layman Examples": "(User provides a task like \"\"summarize news.\"\" The system internally tests prompts like \"\"Summarize concisely,\"\" \"\"Key takeaways,\"\" etc.)",
+        "Best Practice": "Automatic Prompt Engineering"
+    },
+    {
+        "Concept Name": "Code Prompting (General)",
+        "Explanation": "Asking the LLM for assistance with computer code, including writing, explaining, or translating it.",
+        "Layman Examples": "Write a simple Python command to print 'Hello, world!'\"\", \"\"Explain this Javascript code...\"\", \"\"Translate this Python code to JavaScript...\"\"",
+        "Best Practice": "Code Prompting"
+    },
+    {
+        "Concept Name": "Prompts for writing code",
+        "Explanation": "Asking the LLM to generate computer code based on a description in plain language.",
+        "Layman Examples": "Write a short Python function that takes a list of numbers as input and returns the average.\"\"\"\"",
+        "Best Practice": "Code Prompting"
+    },
+    {
+        "Concept Name": "Prompts for explaining code",
+        "Explanation": "Asking the LLM to explain the functionality of a given piece of computer code in plain English.",
+        "Layman Examples": "Explain what this Python code does: `for i in range(5): print(i * 2)`\"\"",
+        "Best Practice": "Code Prompting"
+    },
+    {
+        "Concept Name": "Prompts for translating code",
+        "Explanation": "Asking the LLM to convert code from one programming language to another.",
+        "Layman Examples": "Translate this Python code to JavaScript: `def greet(name): return 'Hello, ' + name + '!'`\"\"",
+        "Best Practice": "Code Prompting"
+    },
+    {
+        "Concept Name": "Prompts for debugging and reviewing code",
+        "Explanation": "Asking the LLM to identify errors in code or suggest improvements for efficiency and readability.",
+        "Layman Examples": "This Python code for area is wrong, can you find the error?\"\"",
+        "Best Practice": "Code Prompting"
+    },
+    {
+        "Concept Name": "Multimodal Prompting",
+        "Explanation": "Providing the LLM with multiple types of input, such as text and images, simultaneously.",
+        "Layman Examples": "(Uploading an image of a cat in a funny pose) \"\"Describe what's happening in this image and why it might be funny.\"\"\"\"",
+        "Best Practice": "Multimodal Prompting"
+    },
+    {
+        "Concept Name": "Best Practice: Provide examples",
+        "Explanation": "Demonstrating the desired output format, style, or reasoning through clear examples in the prompt.",
+        "Layman Examples": "(Showing example tweets before asking to summarize a new article in tweet style)",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Design with simplicity",
+        "Explanation": "Using clear, direct, and easy-to-understand language in your prompts. Avoid overly complex phrasing.",
+        "Layman Examples": "Summarize this text in a few sentences.\"\" (Instead of a very complex way of asking for a summary)",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Be specific about the output",
+        "Explanation": "Clearly stating the desired format, length, and content of the LLM's response.",
+        "Layman Examples": "List the planets in order with one fact per planet.\"\" (Instead of just \"\"Tell me about the planets.\"\")",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Use Instructions over Constraints",
+        "Explanation": "Focusing on telling the LLM what to do rather than what not to do. Use positive guidance.",
+        "Layman Examples": "Write an objective summary.\"\" (Instead of \"\"Summarize but don't include opinions.\"\")",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Control the max token length",
+        "Explanation": "Specifying the desired length of the LLM's response (e.g., word count, sentence count.).",
+        "Layman Examples": "Summarize in no more than 150 words.\"\"\"\"",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Use variables in prompts",
+        "Explanation": "Employing placeholders for specific pieces of information that can be easily changed within a general prompt structure.",
+        "Layman Examples": "Summarize the key points of the book '[BOOK_TITLE]'.\"\"\"\"",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Experiment with input formats and writing styles",
+        "Explanation": "Trying different ways of phrasing prompts and organizing input information to see what yields the best results.",
+        "Layman Examples": "Asking for an explanation in different tones (simple, polite, for a child) or presenting information as text vs. a list.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Few-shot prompting with classification tasks, mix up the classes",
+        "Explanation": "When providing examples for classification tasks, ensure a balanced representation of different classes and interleave them.",
+        "Layman Examples": "Showing a mix of positive and negative movie reviews when teaching sentiment classification.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Adapt to model updates",
+        "Explanation": "Being prepared to adjust prompts and techniques as LLMs are updated, as their behavior and capabilities can change.",
+        "Layman Examples": "Revising prompts that relied on specific keywords that are no longer as effective after a model update.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Experiment with output formats",
+        "Explanation": "Requesting the LLM to provide its response in various formats (list, table, paragraph, code) to suit different needs.",
+        "Layman Examples": "Asking for steps as a list vs. a paragraph, or asking for data in a table.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: JSON Repair",
+        "Explanation": "Using the LLM to identify and correct errors in JSON (JavaScript Object Notation) output.",
+        "Layman Examples": "Asking the LLM to fix a JSON output that has missing commas or brackets.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Working with Schemas",
+        "Explanation": "Providing the LLM with predefined data structures to guide its output generation into a consistent format.",
+        "Layman Examples": "Asking for book information with specific fields like title, author, and year.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Experiment together with other prompt engineers",
+        "Explanation": "Collaborating with others to share knowledge, techniques, and get feedback on prompts.",
+        "Layman Examples": "Discussing prompting strategies with colleagues to find better ways to get desired results.",
+        "Best Practice": "Best Practice"
+    },
+    {
+        "Concept Name": "Best Practice: Document the various prompt attempts",
+        "Explanation": "Keeping a record of different prompts tried, the results obtained, and any modifications made.",
+        "Layman Examples": "Maintaining a list of different slogan prompts and which ones were most effective.",
+        "Best Practice": "Best Practice"
+    }
+]

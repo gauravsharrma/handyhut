@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - BMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling (if needed on tool pages) */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <header class="bg-gray-800 py-6 px-4 sm:px-6 lg:px-8 shadow-md">
+        <div class="container mx-auto flex justify-center items-center">
+            <a href="index.html" class="text-xl font-bold text-indigo-500">HandyHut</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">BMI Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300">Calculate your Body Mass Index (BMI) here.</p>
+                <label for="height" class="block text-sm font-medium text-gray-300">Height (cm)</label>
+                <input type="number" id="height" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+
+                <label for="weight" class="block mt-4 text-sm font-medium text-gray-300">Weight (kg)</label>
+                <input type="number" id="weight" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+
+                <button onclick="calculateBMI()" class="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+
+                <div id="result" class="mt-4 text-gray-300"></div>
+
+                <script>
+                    function calculateBMI() {
+                        const height = document.getElementById('height').value / 100; // Convert cm to meters
+                        const weight = document.getElementById('weight').value;
+                        const resultDiv = document.getElementById('result');
+
+                        if (height > 0 && weight > 0) {
+                            const bmi = weight / (height * height);
+                            resultDiv.textContent = `Your BMI is: ${bmi.toFixed(2)}`;
+                        } else {
+                            resultDiv.textContent = "Please enter valid height and weight.";
+                        }
+                    }
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 py-4 px-4 sm:px-6 lg:px-8 mt-10">
+        <div class="container mx-auto text-center text-gray-400">
+            <p>&copy; 2025 HandyHut. All rights reserved.</p>
+            <nav class="mt-2">
+                <ul class="flex justify-center space-x-4">
+                    <li><a href="privacy.html" class="hover:text-indigo-300">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="hover:text-indigo-300">Terms of Service</a></li>
+                    <li><a href="contact.html" class="hover:text-indigo-300">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>
