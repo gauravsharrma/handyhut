@@ -73,8 +73,9 @@
     }
   };
 
+  const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
+
   function onCategoryChange() {
-    // Future-proof for more categories (e.g., BBC, CNN)
     onFeedSelect();
   }
 
@@ -82,17 +83,18 @@
     const category = document.getElementById("category").value;
     const subcategory = document.getElementById("subcategory").value;
     const url = feeds[category][subcategory];
+    const proxyURL = proxyBase + encodeURIComponent(url);
 
-    fetch("https://api.codetabs.com/v1/proxy/?quest=" + encodeURIComponent(url))
-      .then(res => res.json())
-      .then(data => {
-        const xml = new DOMParser().parseFromString(data.contents, "text/xml");
+    fetch(proxyURL)
+      .then(res => res.text())
+      .then(text => {
+        const xml = new DOMParser().parseFromString(text, "text/xml");
         const items = xml.querySelectorAll("item");
         const list = document.getElementById("news-list");
         list.innerHTML = "";
         document.getElementById("full-article").innerHTML = "Select an article to read.";
 
-        items.forEach((item, index) => {
+        items.forEach((item) => {
           const title = item.querySelector("title").textContent;
           const link = item.querySelector("link").textContent;
           const description = item.querySelector("description").textContent;
@@ -105,34 +107,29 @@
         });
       })
       .catch(err => {
-        console.error("Error loading RSS feed", err);
+        console.error("RSS feed load error:", err);
         document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
       });
   }
 
   function loadFullArticle(url, title) {
-    const proxy = "https://api.allorigins.win/get?url=" + encodeURIComponent(url);
+    const proxyURL = proxyBase + encodeURIComponent(url);
 
-    fetch(proxy)
-      .then(res => res.json())
-      .then(data => {
-        const doc = new DOMParser().parseFromString(data.contents, "text/html");
-        const content =
-          doc.querySelector("div.Normal") ||
-          doc.querySelector("article") ||
-          doc.querySelector("body");
-        const output = content ? content.innerText.trim() : "Unable to extract content.";
-
+    fetch(proxyURL)
+      .then(res => res.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const content = doc.querySelector("div.Normal") || doc.querySelector("article") || doc.querySelector("body");
+        const textContent = content ? content.innerText.trim() : "Unable to extract article content.";
         document.getElementById("full-article").innerHTML =
-          `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${output}</p>`;
+          `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
       })
       .catch(err => {
-        console.error("Error loading full article", err);
+        console.error("Full article load error:", err);
         document.getElementById("full-article").innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
       });
   }
 
-  // Initial load
   window.onload = onFeedSelect;
 </script>
 
