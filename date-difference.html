@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Age & Date Difference Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling (if needed on tool pages) */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Age & Date Difference Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Calculate age from a birthdate or the difference between two dates.</p>
+
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-blue-400 mb-2">Calculate Age</h2>
+                    <div class="mb-4">
+                        <label for="birthdate" class="block text-sm font-medium text-gray-300">Birthdate</label>
+                        <input type="date" id="birthdate" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <button onclick="calculateAge()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Calculate Age</button>
+                    <div id="ageResult" class="mt-4 text-gray-300 font-semibold"></div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-semibold text-green-400 mb-2">Calculate Date Difference</h2>
+                    <div class="mb-4">
+                        <label for="startDate" class="block text-sm font-medium text-gray-300">Start Date</label>
+                        <input type="date" id="startDate" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="endDate" class="block text-sm font-medium text-gray-300">End Date</label>
+                        <input type="date" id="endDate" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <button onclick="calculateDateDifference()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Calculate Difference</button>
+                    <div id="dateDifferenceResult" class="mt-4 text-gray-300 font-semibold"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function calculateAge() {
+            const birthdateInput = document.getElementById('birthdate').value;
+            const ageResultDiv = document.getElementById('ageResult');
+
+            if (!birthdateInput) {
+                ageResultDiv.textContent = "Please enter a birthdate.";
+                return;
+            }
+
+            const birthDate = new Date(birthdateInput);
+            const today = new Date();
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                ageYears--;
+            }
+
+            ageResultDiv.textContent = `Your age is: ${ageYears} years`;
+        }
+
+        function calculateDateDifference() {
+            const startDateInput = document.getElementById('startDate').value;
+            const endDateInput = document.getElementById('endDate').value;
+            const dateDifferenceResultDiv = document.getElementById('dateDifferenceResult');
+
+            if (!startDateInput || !endDateInput) {
+                dateDifferenceResultDiv.textContent = "Please enter both start and end dates.";
+                return;
+            }
+
+            const startDate = new Date(startDateInput);
+            const endDate = new Date(endDateInput);
+
+            if (endDate < startDate) {
+                dateDifferenceResultDiv.textContent = "End date cannot be before the start date.";
+                return;
+            }
+
+            const timeDifference = endDate.getTime() - startDate.getTime();
+            const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+            dateDifferenceResultDiv.textContent = `The difference between the dates is: ${daysDifference} days`;
+        }
+    </script>
+
+</body>
+</html>
