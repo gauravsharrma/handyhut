@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Currency Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling (if needed on tool pages) */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Currency Converter</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Convert currencies quickly using live exchange rates.</p>
+
+                <div class="mb-4">
+                    <label for="fromCurrency" class="block text-sm font-medium text-gray-300">From Currency</label>
+                    <select id="fromCurrency" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="AED">AED - United Arab Emirates Dirham</option>
+                        <option value="USD">USD - United States Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound Sterling</option>
+                        {/* Add more currency options as needed */}
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="amount" class="block text-sm font-medium text-gray-300">Amount</label>
+                    <input type="number" id="amount" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 100">
+                </div>
+
+                <div class="mb-4">
+                    <label for="toCurrency" class="block text-sm font-medium text-gray-300">To Currency</label>
+                    <select id="toCurrency" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="USD">USD - United States Dollar</option>
+                        <option value="AED">AED - United Arab Emirates Dirham</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound Sterling</option>
+                        {/* Add more currency options as needed */}
+                    </select>
+                </div>
+
+                <button onclick="convertCurrency()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Convert</button>
+
+                <div id="conversionResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        async function convertCurrency() {
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const conversionResultDiv = document.getElementById('conversionResult');
+
+            if (isNaN(amount)) {
+                conversionResultDiv.textContent = "Please enter a valid amount.";
+                return;
+            }
+
+            // Replace with a real API endpoint for live currency conversion
+            const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
+            const apiUrl = `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                if (data.rates && data.rates[toCurrency]) {
+                    const convertedAmount = amount * data.rates[toCurrency];
+                    conversionResultDiv.textContent = `${amount} ${fromCurrency} is equal to ${convertedAmount.toFixed(2)} ${toCurrency}`;
+                } else {
+                    conversionResultDiv.textContent = `Could not find exchange rate for ${toCurrency}. Please try again later.`;
+                }
+
+            } catch (error) {
+                console.error("Error fetching exchange rates:", error);
+                conversionResultDiv.textContent = "Failed to fetch exchange rates. Please check your internet connection or try again later.";
+            }
+        }
+    </script>
+
+</body>
+</html>
