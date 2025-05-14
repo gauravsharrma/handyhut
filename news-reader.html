@@ -7,9 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     html { scroll-behavior: smooth; }
-    .controls button {
-      @apply px-2 py-1 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-700;
-    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -50,12 +47,12 @@
       <h2 class="text-lg text-indigo-400 font-semibold mb-2">Full Article</h2>
 
       <!-- Controls -->
-      <div class="flex justify-between items-center mb-4">
-        <div class="text-sm text-gray-400">Font size:
+      <div class="flex justify-between items-center mb-4 text-sm text-gray-400">
+        <div>Font size:
           <button onclick="changeFontSize(+1)">A+</button>
           <button onclick="changeFontSize(-1)">A−</button>
         </div>
-        <div class="text-sm text-gray-400 space-x-2">
+        <div class="space-x-2">
           <button onclick="toggleView()">🔁 Toggle View</button>
           <button onclick="prevSentence()">◀ Prev</button>
           <button onclick="nextSentence()">Next ▶</button>
@@ -63,10 +60,10 @@
       </div>
 
       <!-- Full View -->
-      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line mb-4"></div>
+      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line break-words rounded leading-relaxed p-2"></div>
 
       <!-- Sentence View -->
-      <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded hidden"></div>
+      <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded hidden leading-relaxed break-words"></div>
     </section>
   </div>
 </main>
@@ -154,7 +151,7 @@
         document.getElementById("full-article").innerHTML = `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
         document.getElementById("sentence-view").innerText = allSentences[0];
         applyFontSize();
-        toggleView(false); // Reset to full view when article loads
+        toggleView(false); // Reset to full view
       })
       .catch(err => {
         console.error("Full article load error:", err);
@@ -184,8 +181,16 @@
   }
 
   function applyFontSize() {
-    document.getElementById("full-article").style.fontSize = fontSize + "px";
-    document.getElementById("sentence-view").style.fontSize = fontSize + "px";
+    const fullEl = document.getElementById("full-article");
+    const sentEl = document.getElementById("sentence-view");
+
+    fullEl.style.fontSize = fontSize + "px";
+    fullEl.style.lineHeight = "1.8";
+    fullEl.style.padding = "0.5rem";
+
+    sentEl.style.fontSize = fontSize + "px";
+    sentEl.style.lineHeight = "1.8";
+    sentEl.style.padding = "0.5rem";
   }
 
   function toggleView(forceTo = null) {
