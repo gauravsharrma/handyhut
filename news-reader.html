@@ -119,8 +119,8 @@
       .then(res => res.text())
       .then(html => {
         const doc = new DOMParser().parseFromString(html, "text/html");
-        const content = doc.querySelector("div.Normal") || doc.querySelector("article") || doc.querySelector("body");
-        const textContent = content ? content.innerText.trim() : "Unable to extract article content.";
+        const textContent = extractMainArticleContent(doc);
+
         document.getElementById("full-article").innerHTML =
           `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
       })
@@ -128,6 +128,19 @@
         console.error("Full article load error:", err);
         document.getElementById("full-article").innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
       });
+  }
+
+  function extractMainArticleContent(doc) {
+    const divs = Array.from(doc.querySelectorAll("div"));
+    const mainDiv = divs
+      .map(div => ({
+        text: div.innerText.trim(),
+        length: div.innerText.trim().split(/\s+/).length
+      }))
+      .filter(x => x.length > 100)
+      .sort((a, b) => b.length - a.length)[0];
+
+    return mainDiv ? mainDiv.text : "Unable to extract main content.";
   }
 
   window.onload = onFeedSelect;
