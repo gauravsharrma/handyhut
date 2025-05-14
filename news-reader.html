@@ -7,7 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     html { scroll-behavior: smooth; }
-    .controls button { @apply px-2 py-1 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-700; }
+    .controls button {
+      @apply px-2 py-1 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-700;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -47,25 +49,24 @@
     <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto relative">
       <h2 class="text-lg text-indigo-400 font-semibold mb-2">Full Article</h2>
 
-      <!-- Font Controls -->
+      <!-- Controls -->
       <div class="flex justify-between items-center mb-4">
         <div class="text-sm text-gray-400">Font size:
           <button onclick="changeFontSize(+1)">A+</button>
           <button onclick="changeFontSize(-1)">A−</button>
         </div>
-        <div class="text-sm text-gray-400">
+        <div class="text-sm text-gray-400 space-x-2">
+          <button onclick="toggleView()">🔁 Toggle View</button>
           <button onclick="prevSentence()">◀ Prev</button>
           <button onclick="nextSentence()">Next ▶</button>
         </div>
       </div>
 
-      <!-- Full Article Content -->
-      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line"></div>
-      <hr class="my-4 border-gray-600">
-      <div>
-        <h3 class="text-indigo-300 font-semibold mb-2">Sentence View</h3>
-        <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded"></div>
-      </div>
+      <!-- Full View -->
+      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line mb-4"></div>
+
+      <!-- Sentence View -->
+      <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded hidden"></div>
     </section>
   </div>
 </main>
@@ -97,6 +98,7 @@
   let sentenceIndex = 0;
   let allSentences = [];
   let fontSize = 16;
+  let isSentenceMode = false;
 
   function onCategoryChange() {
     onFeedSelect();
@@ -146,12 +148,13 @@
         const mainDiv = doc.querySelector("div._s30J.clearfix");
         const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
 
-        document.getElementById("full-article").innerHTML =
-          `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
         allSentences = textContent.match(/[^\.!\?]+[\.!\?]+/g) || [textContent];
         sentenceIndex = 0;
-        showSentence();
+
+        document.getElementById("full-article").innerHTML = `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
+        document.getElementById("sentence-view").innerText = allSentences[0];
         applyFontSize();
+        toggleView(false); // Reset to full view when article loads
       })
       .catch(err => {
         console.error("Full article load error:", err);
@@ -159,26 +162,17 @@
       });
   }
 
-  function showSentence() {
-    const sentenceEl = document.getElementById("sentence-view");
-    if (allSentences.length === 0) {
-      sentenceEl.innerText = "";
-    } else {
-      sentenceEl.innerText = allSentences[sentenceIndex];
-    }
-  }
-
   function nextSentence() {
     if (sentenceIndex < allSentences.length - 1) {
       sentenceIndex++;
-      showSentence();
+      document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
     }
   }
 
   function prevSentence() {
     if (sentenceIndex > 0) {
       sentenceIndex--;
-      showSentence();
+      document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
     }
   }
 
@@ -192,6 +186,16 @@
   function applyFontSize() {
     document.getElementById("full-article").style.fontSize = fontSize + "px";
     document.getElementById("sentence-view").style.fontSize = fontSize + "px";
+  }
+
+  function toggleView(forceTo = null) {
+    const fullEl = document.getElementById("full-article");
+    const sentEl = document.getElementById("sentence-view");
+
+    isSentenceMode = forceTo !== null ? forceTo : !isSentenceMode;
+
+    fullEl.style.display = isSentenceMode ? "none" : "block";
+    sentEl.style.display = isSentenceMode ? "block" : "none";
   }
 
   window.onload = onFeedSelect;
