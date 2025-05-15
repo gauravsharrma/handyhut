@@ -1,114 +1,87 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HandyHut Header</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @media (min-width: 768px) {
-      .dropdown-menu {
-        display: none;
-      }
-      .group:hover .dropdown-menu {
-        display: block;
-      }
-    }
-    .submenu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    .submenu.open {
-      max-height: 500px;
-    }
-  </style>
-</head>
-<body class="bg-gray-900 text-white">
-
 <header class="bg-gray-900 text-white py-4 shadow-md">
   <div class="container mx-auto px-4 flex items-center justify-between">
     <a href="/" class="text-xl font-bold hover:text-indigo-400">HandyHut</a>
-    <!-- Desktop Menu -->
     <nav class="hidden md:flex space-x-6">
       <div class="relative group">
-        <button class="py-2 px-3 hover:text-indigo-400">Finance</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+        <button class="py-2 px-3 hover:text-green-400">Finance</button>
+        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
           <a href="/emi-calculator.html" class="block px-4 py-2 hover:bg-gray-700">EMI Calculator</a>
           <a href="/currency-converter.html" class="block px-4 py-2 hover:bg-gray-700">Currency Converter</a>
         </div>
       </div>
       <div class="relative group">
-        <button class="py-2 px-3 hover:text-indigo-400">Utility</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-56 dropdown-menu z-20">
+        <button class="py-2 px-3 hover:text-yellow-400">Utility</button>
+        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-56 hidden group-hover:block z-20">
           <a href="/unit-converter.html" class="block px-4 py-2 hover:bg-gray-700">Unit Converter</a>
           <a href="/timer.html" class="block px-4 py-2 hover:bg-gray-700">Timer</a>
         </div>
       </div>
       <div class="relative group">
-        <button class="py-2 px-3 hover:text-indigo-400">AI</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+        <button class="py-2 px-3 hover:text-blue-400">AI</button>
+        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
           <a href="/prompt-engineering.html" class="block px-4 py-2 hover:bg-gray-700">Prompt Engineering</a>
         </div>
       </div>
       <div class="relative group">
-        <button class="py-2 px-3 hover:text-indigo-400">Health</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+        <button class="py-2 px-3 hover:text-purple-400">Health</button>
+        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
           <a href="/bmi-calculator.html" class="block px-4 py-2 hover:bg-gray-700">BMI Calculator</a>
         </div>
       </div>
     </nav>
-
-    <!-- Mobile Menu Button -->
     <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
       <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="block md:hidden hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
+  <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
     <div>
       <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Finance</button>
-      <div class="submenu">
+      <div class="hidden ml-4 mt-2 space-y-1 submenu">
         <a href="/emi-calculator.html" class="block py-2 px-6 hover:bg-gray-700">EMI Calculator</a>
         <a href="/currency-converter.html" class="block py-2 px-6 hover:bg-gray-700">Currency Converter</a>
       </div>
     </div>
     <div>
       <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Utility</button>
-      <div class="submenu">
+      <div class="hidden ml-4 mt-2 space-y-1 submenu">
         <a href="/unit-converter.html" class="block py-2 px-6 hover:bg-gray-700">Unit Converter</a>
         <a href="/timer.html" class="block py-2 px-6 hover:bg-gray-700">Timer</a>
       </div>
     </div>
     <div>
       <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">AI</button>
-      <div class="submenu">
+      <div class="hidden ml-4 mt-2 space-y-1 submenu">
         <a href="/prompt-engineering.html" class="block py-2 px-6 hover:bg-gray-700">Prompt Engineering</a>
       </div>
     </div>
     <div>
       <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Health</button>
-      <div class="submenu">
+      <div class="hidden ml-4 mt-2 space-y-1 submenu">
         <a href="/bmi-calculator.html" class="block py-2 px-6 hover:bg-gray-700">BMI Calculator</a>
       </div>
     </div>
   </div>
-</header>
 
-<script>
-  document.getElementById('mobileMenuButton').addEventListener('click', function () {
-    document.getElementById('mobileMenu').classList.toggle('hidden');
-  });
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuButton = document.getElementById('mobileMenuButton');
+      const menu = document.getElementById('mobileMenu');
+      const submenuToggles = document.querySelectorAll('.submenu-toggle');
 
-  document.querySelectorAll('.submenu-toggle').forEach(function(btn) {
-    btn.addEventListener('click', function () {
-      const menu = btn.nextElementSibling;
-      menu.classList.toggle('open');
+      if (menuButton && menu) {
+        menuButton.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+      }
+
+      submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const submenu = toggle.nextElementSibling;
+          if (submenu) submenu.classList.toggle('hidden');
+        });
+      });
     });
-  });
-</script>
-
-</body>
-</html>
+  </script>
+</header>
