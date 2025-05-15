@@ -1,120 +1,182 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HandyHut - Your Toolkit Online</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HandyHut - Your Toolkit Online</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"/>
+<style>
         /* Custom styles for smooth scrolling and potentially other enhancements */
         html { scroll-behavior: smooth; }
     </style>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
-    <script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-TR2F6D499L');
     </script>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-
-    <div id="header-container"></div>
-
-    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <section class="mb-10">
-            <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your One-Stop Shop for Handy Online Tools</h1>
-            <p class="text-lg text-gray-300">HandyHut provides a collection of useful tools right at your fingertips. Explore our growing library and simplify your daily tasks.</p>
-        </section>
-
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <a href="bmi-calculator.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-purple-400 mb-2">BMI Calculator</h2>
-                    <p class="text-gray-400">Calculate your Body Mass Index (BMI) and find out your weight status.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span>
-                    </div>
-                </div>
-            </a>
-            <a href="emi-calculator.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-green-400 mb-2">EMI Calculator</h2>
-                    <p class="text-gray-400">Calculate the monthly payment (EMI) for your loans.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span>
-                    </div>
-                </div>
-            </a>
-            <a href="currency-converter.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-blue-400 mb-2">Currency Converter</h2>
-                <p class="text-gray-400">Convert between different currencies using up-to-date exchange rates.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span>
-                    </div>
-                </div>
-            </a>
-            <a href="unit-converter.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-orange-400 mb-2">Unit Converter</h2>
-                    <p class="text-gray-400">Convert between various units of measurement.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
-                    </div>
-                </div>
-            </a>
-            <a href="date-difference.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-purple-400 mb-2">Age & Date Difference</h2>
-                    <p class="text-gray-400">Calculate age from birthdate or the difference between two dates.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
-                    </div>
-                </div>
-            </a>
-            <a href="timer-stopwatch-countdown.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-teal-400 mb-2">Timer, Stopwatch & Countdown</h2>
-                    <p class="text-gray-400">A versatile tool for timing your activities.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
-                    </div>
-                </div>
-            </a>
-            <a href="qr-code-generator.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-yellow-400 mb-2">QR Code Generator</h2>
-                    <p class="text-gray-400">Generate QR codes for URLs, text, Wi-Fi, and more.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
-                    </div>
-                </div>
-            </a>
-             <a href="prompt-engineering.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold text-indigo-400 mb-2">Prompt Engineering</h2>
-                        <p class="text-gray-400">Craft effective prompts for AI models.</p>
-                        <div class="mt-4">
-                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-blue-400 bg-blue-900">AI</span>
-                        </div>
-                    </div>
-                </a>
-            <a href="text-tools.html" class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block">
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-yellow-400 mb-2">Text Tools</h2>
-                    <p class="text-gray-400">Count words, change case, remove duplicates, and more.</p>
-                    <div class="mt-4">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
-                    </div>
-                </div>
-            </a>
-        </section>
-    </main>
-
-    <div id="footer-container"></div>
-
-    <script>
+<body class="bg-gray-900 text-gray-100 font-sans"><header class="bg-gray-900 text-white py-4 shadow-md">
+<div class="container mx-auto px-4 flex items-center justify-between">
+<a class="text-xl font-bold hover:text-indigo-400" href="/">HandyHut</a>
+<!-- Desktop Menu -->
+<nav class="hidden md:flex space-x-6">
+<div class="relative group">
+<button class="py-2 px-3 hover:text-indigo-400">Finance</button>
+<div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+<a class="block px-4 py-2 hover:bg-gray-700" href="/emi-calculator.html">EMI Calculator</a>
+<a class="block px-4 py-2 hover:bg-gray-700" href="/currency-converter.html">Currency Converter</a>
+</div>
+</div>
+<div class="relative group">
+<button class="py-2 px-3 hover:text-indigo-400">Utility</button>
+<div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-56 dropdown-menu z-20">
+<a class="block px-4 py-2 hover:bg-gray-700" href="/unit-converter.html">Unit Converter</a>
+<a class="block px-4 py-2 hover:bg-gray-700" href="/timer.html">Timer</a>
+</div>
+</div>
+<div class="relative group">
+<button class="py-2 px-3 hover:text-indigo-400">AI</button>
+<div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+<a class="block px-4 py-2 hover:bg-gray-700" href="/prompt-engineering.html">Prompt Engineering</a>
+</div>
+</div>
+<div class="relative group">
+<button class="py-2 px-3 hover:text-indigo-400">Health</button>
+<div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 dropdown-menu z-20">
+<a class="block px-4 py-2 hover:bg-gray-700" href="/bmi-calculator.html">BMI Calculator</a>
+</div>
+</div>
+</nav>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-white hover:text-indigo-400" id="mobileMenuButton">
+<svg class="h-6 w-6 fill-current" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div class="block md:hidden hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3" id="mobileMenu">
+<div>
+<button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Finance</button>
+<div class="submenu">
+<a class="block py-2 px-6 hover:bg-gray-700" href="/emi-calculator.html">EMI Calculator</a>
+<a class="block py-2 px-6 hover:bg-gray-700" href="/currency-converter.html">Currency Converter</a>
+</div>
+</div>
+<div>
+<button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Utility</button>
+<div class="submenu">
+<a class="block py-2 px-6 hover:bg-gray-700" href="/unit-converter.html">Unit Converter</a>
+<a class="block py-2 px-6 hover:bg-gray-700" href="/timer.html">Timer</a>
+</div>
+</div>
+<div>
+<button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">AI</button>
+<div class="submenu">
+<a class="block py-2 px-6 hover:bg-gray-700" href="/prompt-engineering.html">Prompt Engineering</a>
+</div>
+</div>
+<div>
+<button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Health</button>
+<div class="submenu">
+<a class="block py-2 px-6 hover:bg-gray-700" href="/bmi-calculator.html">BMI Calculator</a>
+</div>
+</div>
+</div>
+</header>
+<div id="header-container"></div>
+<main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<section class="mb-10">
+<h1 class="text-3xl font-bold text-indigo-500 mb-4">Your One-Stop Shop for Handy Online Tools</h1>
+<p class="text-lg text-gray-300">HandyHut provides a collection of useful tools right at your fingertips. Explore our growing library and simplify your daily tasks.</p>
+</section>
+<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="bmi-calculator.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-purple-400 mb-2">BMI Calculator</h2>
+<p class="text-gray-400">Calculate your Body Mass Index (BMI) and find out your weight status.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="emi-calculator.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-green-400 mb-2">EMI Calculator</h2>
+<p class="text-gray-400">Calculate the monthly payment (EMI) for your loans.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="currency-converter.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-blue-400 mb-2">Currency Converter</h2>
+<p class="text-gray-400">Convert between different currencies using up-to-date exchange rates.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="unit-converter.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-orange-400 mb-2">Unit Converter</h2>
+<p class="text-gray-400">Convert between various units of measurement.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="date-difference.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-purple-400 mb-2">Age &amp; Date Difference</h2>
+<p class="text-gray-400">Calculate age from birthdate or the difference between two dates.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="timer-stopwatch-countdown.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-teal-400 mb-2">Timer, Stopwatch &amp; Countdown</h2>
+<p class="text-gray-400">A versatile tool for timing your activities.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="qr-code-generator.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-yellow-400 mb-2">QR Code Generator</h2>
+<p class="text-gray-400">Generate QR codes for URLs, text, Wi-Fi, and more.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="prompt-engineering.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-indigo-400 mb-2">Prompt Engineering</h2>
+<p class="text-gray-400">Craft effective prompts for AI models.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-blue-400 bg-blue-900">AI</span>
+</div>
+</div>
+</a>
+<a class="bg-gray-800 rounded-md shadow-md hover:shadow-lg transition duration-300 ease-in-out block" href="text-tools.html">
+<div class="p-6">
+<h2 class="text-xl font-semibold text-yellow-400 mb-2">Text Tools</h2>
+<p class="text-gray-400">Count words, change case, remove duplicates, and more.</p>
+<div class="mt-4">
+<span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span>
+</div>
+</div>
+</a>
+</section>
+</main>
+<div id="footer-container"></div>
+<script>
         async function loadHeader() {
             const response = await fetch('header.html');
             const text = await response.text();
@@ -150,6 +212,5 @@
             });
         }
     </script>
-
 </body>
 </html>
