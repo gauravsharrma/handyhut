@@ -3,97 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HandyHut - BMI Calculator</title>
+    <title>BMI Calculator & Comprehensive Guide - HandyHut</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Custom styles for smooth scrolling (if needed on tool pages) */
-        html { scroll-behavior: smooth; }
+        /* Custom styles for better readability */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6366f1; /* Indigo-500 */
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4b5563; /* Gray-600 */
+            padding-bottom: 0.5rem;
+        }
+        .subsection-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a78bfa; /* Purple-400 */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .interpretation-box {
+            background-color: #1e293b; /* Gray-800 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .interpretation-title {
+            font-weight: bold;
+            color: #818cf8; /* Indigo-400 */
+            margin-bottom: 0.5rem;
+        }
+        .caveat {
+            font-style: italic;
+            color: #fca5a5; /* Red-400 */
+        }
+        .calculator-container {
+            background-color: #2d3748; /* Gray-700 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .calculator-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e5e7eb; /* Gray-200 */
+        }
+        .calculator-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #4a5568; /* Gray-600 */
+            border-radius: 0.25rem;
+            background-color: #1a202c; /* Gray-900 */
+            color: #f7fafc; /* Gray-100 */
+        }
+        .calculator-button {
+            background-color: #6366f1; /* Indigo-500 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .calculator-button:hover {
+            background-color: #4f46e5; /* Indigo-600 */
+        }
+        #bmiResult {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #81e9ff; /* Teal-300 (example - adjust as needed) */
+        }
     </style>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-TR2F6D499L');
-</script>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
 
     <div id="header-container"></div>
 
-    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <main class="container">
         <section>
-            <h1 class="text-2xl font-bold text-indigo-400 mb-6">BMI Calculator</h1>
-            <div class="bg-gray-800 rounded-md shadow-md p-6">
-                <p class="text-gray-300">Calculate your Body Mass Index (BMI) here.</p>
-                <label for="height" class="block text-sm font-medium text-gray-300">Height (cm)</label>
-                <input type="number" id="height" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+            <h1 class="section-title">Understanding Your Body Mass Index (BMI): More Than Just a Number</h1>
+            <p class="text-lg text-gray-300 mb-4">Welcome to our comprehensive guide on Body Mass Index (BMI). While our calculator provides a quick snapshot, understanding the depths and nuances of BMI is crucial for informed health awareness. Let's delve into the wisdom behind this widely used metric.</p>
+        </section>
 
-                <label for="weight" class="block mt-4 text-sm font-medium text-gray-300">Weight (kg)</label>
-                <input type="number" id="weight" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+        <section>
+            <h2 class="subsection-title">What Exactly is BMI? The Foundation of the Metric</h2>
+            <p class="text-gray-400 mb-4">Body Mass Index (BMI) is a simple index of weight-for-height that is commonly used to classify underweight, overweight, and obesity in adults. It is calculated by dividing weight in kilograms by the square of height in meters ($BMI = \frac{weight (kg)}{height (m)^2}$). Alternatively, using pounds and inches, the formula is $BMI = \frac{weight (lb)}{height (in)^2} \times 703$.</p>
+            <p class="text-gray-400 mb-4">Developed in the 19th century by Belgian statistician Adolphe Quetelet, it was initially intended as a statistical tool to understand population trends rather than an individual diagnostic measure. Its simplicity and ease of calculation led to its widespread adoption in clinical and public health settings.</p>
+        </section>
 
-                <button onclick="calculateBMI()" class="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
-
-                <div id="result" class="mt-4 text-gray-300"></div>
-
-                <script>
-                    function calculateBMI() {
-                        const height = document.getElementById('height').value / 100; // Convert cm to meters
-                        const weight = document.getElementById('weight').value;
-                        const resultDiv = document.getElementById('result');
-
-                        if (height > 0 && weight > 0) {
-                            const bmi = weight / (height * height);
-                            resultDiv.textContent = `Your BMI is: ${bmi.toFixed(2)}`;
-                        } else {
-                            resultDiv.textContent = "Please enter valid height and weight.";
-                        }
-                    }
-                </script>
+        <section>
+            <h2 class="subsection-title">The BMI Calculator: A Starting Point</h2>
+            <div class="calculator-container">
+                <label for="weight" class="calculator-label">Weight (kg or lbs):</label>
+                <input type="number" id="weight" class="calculator-input" placeholder="Enter your weight">
+                <label for="height" class="calculator-label">Height (m or inches):</label>
+                <input type="number" id="height" class="calculator-input" placeholder="Enter your height">
+                <label for="unit" class="calculator-label">Units:</label>
+                <select id="unit" class="calculator-input">
+                    <option value="metric">Metric (kg, m)</option>
+                    <option value="imperial">Imperial (lbs, inches)</option>
+                </select>
+                <button onclick="calculateBMI()" class="calculator-button">Calculate BMI</button>
+                <div id="bmiResult" class="mt-4 font-semibold text-teal-300"></div>
             </div>
+            <p class="text-gray-400 mb-4">Use the calculator above to get a preliminary understanding of your BMI. Remember, this is just the first step in a broader assessment of your health.</p>
+
+            <script>
+                function calculateBMI() {
+                    const weight = parseFloat(document.getElementById('weight').value);
+                    const height = parseFloat(document.getElementById('height').value);
+                    const unit = document.getElementById('unit').value;
+                    const bmiResultDiv = document.getElementById('bmiResult');
+
+                    if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                        bmiResultDiv.textContent = "Please enter valid weight and height.";
+                        return;
+                    }
+
+                    let bmi;
+                    if (unit === 'metric') {
+                        bmi = weight / (height * height);
+                    } else {
+                        bmi = (weight / (height * height)) * 703;
+                    }
+
+                    bmiResultDiv.textContent = `Your BMI is: ${bmi.toFixed(2)}`;
+                    interpretBMI(bmi);
+                }
+
+                function interpretBMI(bmi) {
+                    const bmiResultDiv = document.getElementById('bmiResult');
+                    let interpretation = "";
+
+                    if (bmi < 18.5) {
+                        interpretation = "Underweight: This may indicate nutritional deficiencies or other underlying health issues. Consulting a healthcare professional is advisable.";
+                    } else if (bmi >= 18.5 && bmi < 25) {
+                        interpretation = "Normal weight: This range is generally considered healthy. Maintaining a balanced lifestyle is key.";
+                    } else if (bmi >= 25 && bmi < 30) {
+                        interpretation = "Overweight: This suggests carrying excess body weight, which can increase the risk of certain health conditions. Lifestyle modifications may be beneficial.";
+                    } else if (bmi >= 30) {
+                        interpretation = "Obese: This indicates a higher degree of excess body weight, significantly increasing the risk of various health problems. Seeking medical guidance is strongly recommended.";
+                    }
+
+                    bmiResultDiv.textContent += ` - ${interpretation}`;
+                }
+            </script>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">The Wisdom of Interpretation: Understanding the BMI Categories</h2>
+            <div class="interpretation-box">
+                <h3 class="interpretation-title">Underweight (BMI &lt; 18.5):</h3>
+                <p class="text-gray-400 mb-2">Being underweight can be a sign of malnutrition, eating disorders, or underlying illnesses. It can weaken the immune system, lead to bone loss, and cause fatigue. It's essential to identify the cause and seek appropriate medical or nutritional advice.</p>
+                <p class="caveat">It's important to note that a low BMI in very athletic individuals with low body fat is not a health concern.</p>
+            </div>
+
+            <div class="interpretation-box">
+                <h3 class="interpretation-title">Normal Weight (BMI 18.5 - 24.9):</h3>
+                <p class="text-gray-400 mb-2">A BMI in this range is generally associated with good health and a lower risk of weight-related diseases. Maintaining a balanced diet and regular physical activity are crucial for staying within this healthy range.</p>
+            </div>
+
+            <div class="interpretation-box">
+                <h3 class="interpretation-title">Overweight (BMI 25 - 29.9):</h3>
+                <p class="text-gray-400 mb-2">Being overweight signifies an excess of body weight, which can increase the risk of conditions like type 2 diabetes, heart disease, high blood pressure, and certain cancers. Lifestyle changes, including diet and exercise, are often recommended.</p>
+            </div>
+
+            <div class="interpretation-box">
+                <h3 class="interpretation-title">Obese (BMI ≥ 30):</h3>
+                <p class="text-gray-400 mb-2">Obesity is a more significant degree of excess body weight that substantially elevates the risk of numerous serious health problems. It is often categorized further into Class I (30-34.9), Class II (35-39.9), and Class III (≥40), with increasing levels of risk. Medical intervention and comprehensive lifestyle changes are usually necessary.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">The Limitations of BMI: Where Wisdom Demands Caution</h2>
+            <p class="text-gray-400 mb-4">While BMI is a convenient and widely used tool, it's crucial to acknowledge its limitations. Relying solely on BMI for assessing individual health can be misleading because it does not directly measure body fat and doesn't account for variations in body composition.</p>
+            <ul class="list-disc list-inside text-gray-400 mb-4">
+                <li><strong>Muscle Mass:</strong> Highly muscular individuals, such as athletes, may have a high BMI due to increased muscle mass, even if they have low body fat. In such cases, a high BMI does not necessarily indicate poor health.</li>
+                <li><strong>Bone Density:</strong> Variations in bone density are not accounted for in BMI.</li>
+                <li><strong>Body Composition:</strong> BMI doesn't differentiate between fat mass and lean mass. Two individuals with the same BMI can have vastly different body compositions and health risks. Visceral fat (fat around organs) is a greater health risk than subcutaneous fat (fat under the skin), and BMI doesn't distinguish between them.</li>
+                <li><strong>Age:</strong> Body composition naturally changes with age. Older adults may lose muscle mass and gain fat, potentially leading to a "normal" BMI despite having unhealthy levels of body fat.</li>
+                <li><strong>Sex:</strong> Men tend to have more muscle mass than women, which can influence BMI interpretation.</li>
+                <li><strong>Ethnicity:</strong> Some studies suggest that the relationship between BMI and body fat percentage may vary across different ethnic groups.</li>
+            </ul>
+            <p class="text-gray-400 mb-4">Therefore, BMI should be considered a screening tool, and further assessments, such as waist circumference, skinfold thickness measurements, or more advanced body composition analysis (like DEXA scans), may be necessary for a more accurate understanding of an individual's health status.</p>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">Beyond the Number: A Holistic View of Health</h2>
+            <p class="text-gray-400 mb-4">True wisdom in health assessment lies in looking beyond a single metric. While BMI can provide a useful starting point, it should be integrated with other indicators of health, including:</p>
+            <ul class="list-disc list-inside text-gray-400 mb-4">
+                <li><strong>Waist Circumference:</strong> A measure of abdominal fat, which is strongly linked to metabolic health risks.</li>
+                <li><strong>Blood Pressure:</strong> An indicator of cardiovascular health.</li>
+                <li><strong>Cholesterol Levels:</strong> Important for assessing the risk of heart disease.</li>
+                <li><strong>Blood Sugar Levels:</strong> Crucial for diabetes screening and management.</li>
+                <li><strong>Physical Activity Levels:</strong> A key determinant of overall health and well-being.</li>
+                <li><strong>Dietary Habits:</strong> The quality and balance of food intake significantly impact health.</li>
+                <li><strong>Family History:</strong> Genetic predisposition to certain conditions.</li>
+                <li><strong>Overall Well-being:</strong> Including mental and emotional health.</li>
+            </ul>
+            <p class="text-gray-400 mb-4">Consulting with healthcare professionals, including doctors, registered dietitians, and certified trainers, is essential for a comprehensive and personalized assessment of your health risks and for developing effective strategies for well-being.</p>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">The Enduring Value of BMI: A Tool for Population Health</h2>
+            <p class="text-gray-400 mb-4">Despite its limitations at the individual level, BMI remains a valuable tool for public health research and for tracking population-level trends in weight and obesity. Its ease of calculation and widespread availability make it suitable for large-scale studies and for monitoring the prevalence of weight-related health issues across communities.</p>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">Conclusion: Embracing Wisdom in Health Assessment</h2>
+            <p class="text-lg text-gray-300 mb-4">The BMI calculator on this page offers a quick way to understand your weight category based on your height. However, true health literacy involves understanding the context, interpretations, and limitations of this metric. Use this tool as a starting point for self-awareness, but always seek a holistic understanding of your health through professional guidance and by considering a range of relevant factors. Wisdom in health is about informed awareness, not sole reliance on a single number.</p>
         </section>
     </main>
 
     <div id="footer-container"></div>
 
-<script>
-    async function loadHeader() {
-        const response = await fetch('header.html');
-        const text = await response.text();
-        document.getElementById('header-container').innerHTML = text;
-        initializeMenu(); // Crucial: Initialize menu after header load
-    }
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
 
-    async function loadFooter() {
-        const response = await fetch('footer.html');
-        const text = await response.text();
-        document.getElementById('footer-container').innerHTML = text;
-    }
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
 
-    loadHeader();
-    loadFooter();
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
 
-    function initializeMenu() {
-        const menuGroups = document.querySelectorAll('.relative.group');
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
 
-        menuGroups.forEach(menuGroup => {
-            const button = menuGroup.querySelector('button');
-            const dropdown = menuGroup.querySelector('.absolute');
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
 
-            if (button && dropdown) {
-                button.addEventListener('mouseenter', () => {
-                    dropdown.classList.remove('hidden');
-                });
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
 
-                menuGroup.addEventListener('mouseleave', () => {
-                    dropdown.classList.add('hidden');
-                });
-            }
-        });
-    }
-</script>
-
+        loadHeader();
+        loadFooter();
+    </script>
 </body>
 </html>
