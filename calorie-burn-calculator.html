@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Calorie Burn Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Calorie Burn Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Estimate the number of calories burned during different types of exercise.</p>
+
+                <div class="mb-4">
+                    <label for="weight" class="block text-sm font-medium text-gray-300">Your Weight (kg)</label>
+                    <input type="number" id="weight" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 70">
+                </div>
+
+                <div class="mb-4">
+                    <label for="exerciseType" class="block text-sm font-medium text-gray-300">Type of Exercise</label>
+                    <select id="exerciseType" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="walking_moderate">Walking (Moderate Pace)</option>
+                        <option value="running_moderate">Running (Moderate Pace)</option>
+                        <option value="cycling_moderate">Cycling (Moderate Pace)</option>
+                        <option value="swimming_moderate">Swimming (Moderate Pace)</option>
+                        <option value="aerobics_general">Aerobics (General)</option>
+                        <option value="strength_training">Strength Training (General)</option>
+                        <option value="hiking">Hiking</option>
+                        <option value="yoga">Yoga</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="duration" class="block text-sm font-medium text-gray-300">Duration of Exercise (minutes)</label>
+                    <input type="number" id="duration" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 30">
+                </div>
+
+                <button onclick="calculateCaloriesBurned()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate Calories</button>
+
+                <div id="caloriesBurnedResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        // MET (Metabolic Equivalent of Task) values for different activities (approximate)
+        const metValues = {
+            walking_moderate: 3.5,
+            running_moderate: 8.0,
+            cycling_moderate: 6.0,
+            swimming_moderate: 5.5,
+            aerobics_general: 5.0,
+            strength_training: 3.0,
+            hiking: 6.0,
+            yoga: 2.5,
+        };
+
+        function calculateCaloriesBurned() {
+            const weightKg = parseFloat(document.getElementById('weight').value);
+            const exerciseType = document.getElementById('exerciseType').value;
+            const durationMinutes = parseFloat(document.getElementById('duration').value);
+            const caloriesBurnedResultDiv = document.getElementById('caloriesBurnedResult');
+
+            if (isNaN(weightKg) || isNaN(durationMinutes) || weightKg <= 0 || durationMinutes <= 0) {
+                caloriesBurnedResultDiv.textContent = "Please enter valid positive numbers for weight and duration.";
+                return;
+            }
+
+            if (!metValues[exerciseType]) {
+                caloriesBurnedResultDiv.textContent = "Please select a valid exercise type.";
+                return;
+            }
+
+            const met = metValues[exerciseType];
+            // Calories burned per minute = (MET * 3.5 * weight in kg) / 200
+            const caloriesPerMinute = (met * 3.5 * weightKg) / 200;
+            const totalCaloriesBurned = caloriesPerMinute * durationMinutes;
+
+            caloriesBurnedResultDiv.textContent = `Estimated calories burned: ${totalCaloriesBurned.toFixed(2)} kcal.`;
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

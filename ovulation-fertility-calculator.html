@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Ovulation and Fertility Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Ovulation and Fertility Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Estimate your ovulation period and fertile window based on your last menstrual period (LMP) and average cycle length.</p>
+
+                <div class="mb-4">
+                    <label for="lmp" class="block text-sm font-medium text-gray-300">First Day of Last Menstrual Period (LMP)</label>
+                    <input type="date" id="lmp" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div class="mb-4">
+                    <label for="cycleLength" class="block text-sm font-medium text-gray-300">Average Menstrual Cycle Length (days)</label>
+                    <select id="cycleLength" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="21">21 days</option>
+                        <option value="22">22 days</option>
+                        <option value="23">23 days</option>
+                        <option value="24">24 days</option>
+                        <option value="25">25 days</option>
+                        <option value="26">26 days</option>
+                        <option value="27" selected>27 days (Average)</option>
+                        <option value="28">28 days</option>
+                        <option value="29">29 days</option>
+                        <option value="30">30 days</option>
+                        <option value="31">31 days</option>
+                        <option value="32">32 days</option>
+                        <option value="33">33 days</option>
+                        <option value="34">34 days</option>
+                        <option value="35">35 days</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateOvulation()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+
+                <div id="ovulationResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function calculateOvulation() {
+            const lmpInput = document.getElementById('lmp').value;
+            const cycleLength = parseInt(document.getElementById('cycleLength').value);
+            const ovulationResultDiv = document.getElementById('ovulationResult');
+
+            if (!lmpInput) {
+                ovulationResultDiv.textContent = "Please enter the first day of your last menstrual period.";
+                return;
+            }
+
+            const lmpDate = new Date(lmpInput);
+            const ovulationDate = new Date(lmpDate);
+            const fertileWindowStart = new Date(lmpDate);
+            const fertileWindowEnd = new Date(lmpDate);
+
+            // Calculate estimated ovulation day (typically 12-16 days before the next period)
+            const ovulationDayOffset = cycleLength - 14;
+            ovulationDate.setDate(lmpDate.getDate() + ovulationDayOffset);
+
+            // Calculate fertile window (around 5-6 days including ovulation day)
+            fertileWindowStart.setDate(ovulationDate.getDate() - 5);
+            fertileWindowEnd.setDate(ovulationDate.getDate() + 1);
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedLMP = lmpDate.toLocaleDateString(undefined, options);
+            const formattedOvulation = ovulationDate.toLocaleDateString(undefined, options);
+            const formattedFertileStart = fertileWindowStart.toLocaleDateString(undefined, options);
+            const formattedFertileEnd = fertileWindowEnd.toLocaleDateString(undefined, options);
+
+            ovulationResultDiv.innerHTML = `
+                <p>Your last menstrual period (LMP) started on: <strong>${formattedLMP}</strong></p>
+                <p>Your estimated ovulation day is around: <strong>${formattedOvulation}</strong></p>
+                <p>Your estimated fertile window is approximately between: <strong>${formattedFertileStart}</strong> and <strong>${formattedFertileEnd}</strong></p>
+            `;
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

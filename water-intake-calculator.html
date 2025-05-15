@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Water Intake Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Daily Water Intake Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Estimate your daily water intake needs based on your weight.</p>
+
+                <div class="mb-4">
+                    <label for="weight" class="block text-sm font-medium text-gray-300">Your Weight (kg)</label>
+                    <input type="number" id="weight" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 70">
+                </div>
+
+                <button onclick="calculateWaterIntake()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+
+                <div id="waterIntakeResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function calculateWaterIntake() {
+            const weightKg = parseFloat(document.getElementById('weight').value);
+            const waterIntakeResultDiv = document.getElementById('waterIntakeResult');
+
+            if (isNaN(weightKg) || weightKg <= 0) {
+                waterIntakeResultDiv.textContent = "Please enter a valid positive number for your weight.";
+                return;
+            }
+
+            // Calculate water intake (a common guideline is 30-35 ml per kg of body weight)
+            const minWaterIntakeLiters = (weightKg * 30) / 1000;
+            const maxWaterIntakeLiters = (weightKg * 35) / 1000;
+
+            waterIntakeResultDiv.textContent = `
+                Based on your weight, a general recommendation is to drink approximately 
+                ${minWaterIntakeLiters.toFixed(2)} - ${maxWaterIntakeLiters.toFixed(2)} liters of water per day.
+            `;
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
