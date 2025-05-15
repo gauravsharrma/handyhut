@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - GST Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">GST Calculator</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Calculate GST (Goods and Services Tax) inclusive or exclusive amounts.</p>
+
+                <div class="mb-4">
+                    <label for="amount" class="block text-sm font-medium text-gray-300">Amount</label>
+                    <input type="number" id="amount" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter amount">
+                </div>
+
+                <div class="mb-4">
+                    <label for="gstRate" class="block text-sm font-medium text-gray-300">GST Rate (%)</label>
+                    <input type="number" id="gstRate" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter GST rate">
+                </div>
+
+                <div class="mb-4">
+                    <label for="calculationType" class="block text-sm font-medium text-gray-300">Calculation Type</label>
+                    <select id="calculationType" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="inclusive">Inclusive of GST</option>
+                        <option value="exclusive">Exclusive of GST</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateGST()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+
+                <div id="gstResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const gstRate = parseFloat(document.getElementById('gstRate').value);
+            const calculationType = document.getElementById('calculationType').value;
+            const gstResultDiv = document.getElementById('gstResult');
+
+            if (isNaN(amount) || isNaN(gstRate)) {
+                gstResultDiv.textContent = "Please enter valid numeric values for amount and GST rate.";
+                return;
+            }
+
+            let gstAmount = 0;
+            let netAmount = 0;
+            let totalAmount = 0;
+
+            if (calculationType === 'inclusive') {
+                netAmount = amount / (1 + gstRate / 100);
+                gstAmount = amount - netAmount;
+                totalAmount = amount;
+            } else if (calculationType === 'exclusive') {
+                gstAmount = amount * gstRate / 100;
+                netAmount = amount;
+                totalAmount = amount + gstAmount;
+            }
+
+            gstResultDiv.textContent = `
+                Net Amount: ${netAmount.toFixed(2)}, 
+                GST Amount: ${gstAmount.toFixed(2)}, 
+                Total Amount: ${totalAmount.toFixed(2)}
+            `;
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

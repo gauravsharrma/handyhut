@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - India Income Tax Calculator (FY 2025-26)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">India Income Tax Calculator (FY 2025-26)</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Calculate your estimated income tax for the financial year 2025-26 in India.</p>
+
+                <div class="mb-4">
+                    <label for="income" class="block text-sm font-medium text-gray-300">Total Annual Income (INR)</label>
+                    <input type="number" id="income" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 1000000">
+                </div>
+
+                <div class="mb-4">
+                    <label for="age" class="block text-sm font-medium text-gray-300">Age Group</label>
+                    <select id="age" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="below60">Below 60 years</option>
+                        <option value="60to80">60 to 80 years (Senior Citizen)</option>
+                        <option value="above80">Above 80 years (Super Senior Citizen)</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateTax()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Calculate Tax</button>
+
+                <div id="taxResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('income').value);
+            const ageGroup = document.getElementById('age').value;
+            const taxResultDiv = document.getElementById('taxResult');
+            let tax = 0;
+
+            if (isNaN(income) || income < 0) {
+                taxResultDiv.textContent = "Please enter a valid positive income.";
+                return;
+            }
+
+            // Income Tax Slabs for FY 2025-26 (Assuming New Tax Regime as Default based on search results)
+            let slab1 = 400000;
+            let slab2 = 800000;
+            let slab3 = 1200000;
+            let slab4 = 1600000;
+            let slab5 = 2000000;
+            let slab6 = 2400000;
+
+            if (ageGroup === 'below60') {
+                if (income <= slab1) {
+                    tax = 0;
+                } else if (income <= slab2) {
+                    tax = (income - slab1) * 0.05;
+                } else if (income <= slab3) {
+                    tax = 20000 + (income - slab2) * 0.10;
+                } else if (income <= slab4) {
+                    tax = 60000 + (income - slab3) * 0.15;
+                } else if (income <= slab5) {
+                    tax = 120000 + (income - slab4) * 0.20;
+                } else if (income <= slab6) {
+                    tax = 200000 + (income - slab5) * 0.25;
+                } else {
+                    tax = 300000 + (income - slab6) * 0.30;
+                }
+            } else if (ageGroup === '60to80') {
+                // Slightly different slabs for senior citizens under old regime (can be adjusted based on user preference for regime)
+                let slab_sc1 = 300000;
+                let slab_sc2 = 500000;
+                let slab_sc3 = 1000000;
+
+                if (income <= slab_sc1) {
+                    tax = 0;
+                } else if (income <= slab_sc2) {
+                    tax = (income - slab_sc1) * 0.05;
+                } else if (income <= slab_sc3) {
+                    tax = 10000 + (income - slab_sc2) * 0.20;
+                } else {
+                    tax = 110000 + (income - slab_sc3) * 0.30;
+                }
+            } else if (ageGroup === 'above80') {
+                // Different slabs for super senior citizens under old regime (can be adjusted based on user preference for regime)
+                let slab_ssc1 = 500000;
+                let slab_ssc2 = 1000000;
+
+                if (income <= slab_ssc1) {
+                    tax = 0;
+                } else if (income <= slab_ssc2) {
+                    tax = (income - slab_ssc1) * 0.20;
+                } else {
+                    tax = 100000 + (income - slab_ssc2) * 0.30;
+                }
+            }
+
+            // Adding Health and Education Cess of 4%
+            const cess = tax * 0.04;
+            const totalTax = tax + cess;
+
+            taxResultDiv.textContent = `Estimated Income Tax (including 4% cess): INR ${totalTax.toFixed(2)}`;
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

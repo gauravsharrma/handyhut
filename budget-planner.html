@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Monthly Budget Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Monthly Budget Planner</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Plan and track your monthly budget.</p>
+
+                <div class="mb-4">
+                    <label for="income" class="block text-sm font-medium text-gray-300">Monthly Income (AED)</label>
+                    <input type="number" id="income" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 6000">
+                </div>
+
+                <h2 class="text-xl font-semibold text-indigo-300 mt-6 mb-2">Expenses</h2>
+
+                <div id="expenses-container">
+                    <div class="flex space-x-4 mb-2">
+                        <input type="text" class="expense-name mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Expense Name (e.g., Rent)">
+                        <input type="number" class="expense-amount mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Amount (AED)">
+                    </div>
+                    <div class="flex space-x-4 mb-2">
+                        <input type="text" class="expense-name mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Expense Name (e.g., Groceries)">
+                        <input type="number" class="expense-amount mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Amount (AED)">
+                    </div>
+                    <div class="flex space-x-4 mb-2">
+                        <input type="text" class="expense-name mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Expense Name (e.g., Transport)">
+                        <input type="number" class="expense-amount mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Amount (AED)">
+                    </div>
+                    </div>
+
+                <button onclick="addExpenseField()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Add Expense</button>
+                <button onclick="calculateBudget()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mt-4">Calculate Budget</button>
+
+                <div id="budgetResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function addExpenseField() {
+            const expensesContainer = document.getElementById('expenses-container');
+            const newExpenseDiv = document.createElement('div');
+            newExpenseDiv.classList.add('flex', 'space-x-4', 'mb-2');
+            newExpenseDiv.innerHTML = `
+                <input type="text" class="expense-name mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Expense Name">
+                <input type="number" class="expense-amount mt-1 p-2 w-1/2 bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Amount (AED)">
+            `;
+            expensesContainer.appendChild(newExpenseDiv);
+        }
+
+        function calculateBudget() {
+            const income = parseFloat(document.getElementById('income').value);
+            const expenseAmounts = Array.from(document.querySelectorAll('.expense-amount')).map(input => parseFloat(input.value) || 0);
+            const totalExpenses = expenseAmounts.reduce((sum, amount) => sum + amount, 0);
+            const budgetResultDiv = document.getElementById('budgetResult');
+            const remainingBudget = income - totalExpenses;
+
+            if (isNaN(income)) {
+                budgetResultDiv.textContent = "Please enter a valid monthly income.";
+                return;
+            }
+
+            budgetResultDiv.textContent = `
+                Total Expenses: AED ${totalExpenses.toFixed(2)}, 
+                Remaining Budget: AED ${remainingBudget.toFixed(2)}
+            `;
+
+            if (remainingBudget < 0) {
+                budgetResultDiv.classList.remove('text-green-500');
+                budgetResultDiv.classList.add('text-red-500');
+            } else {
+                budgetResultDiv.classList.remove('text-red-500');
+                budgetResultDiv.classList.add('text-green-500');
+            }
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

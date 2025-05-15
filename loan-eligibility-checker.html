@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Loan Eligibility Checker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TR2F6D499L');
+</script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Loan Eligibility Checker</h1>
+            <div class="bg-gray-800 rounded-md shadow-md p-6">
+                <p class="text-gray-300 mb-4">Check your basic loan eligibility by providing the following details.</p>
+
+                <div class="mb-4">
+                    <label for="income" class="block text-sm font-medium text-gray-300">Monthly Income (AED)</label>
+                    <input type="number" id="income" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 5000">
+                </div>
+
+                <div class="mb-4">
+                    <label for="expenses" class="block text-sm font-medium text-gray-300">Monthly Expenses (AED)</label>
+                    <input type="number" id="expenses" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 2000">
+                </div>
+
+                <div class="mb-4">
+                    <label for="existingLoans" class="block text-sm font-medium text-gray-300">Total Monthly Payments for Existing Loans (AED)</label>
+                    <input type="number" id="existingLoans" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 500">
+                </div>
+
+                <div class="mb-4">
+                    <label for="loanAmount" class="block text-sm font-medium text-gray-300">Desired Loan Amount (AED)</label>
+                    <input type="number" id="loanAmount" class="mt-1 p-2 w-full bg-gray-700 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 50000">
+                </div>
+
+                <button onclick="checkEligibility()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Check Eligibility</button>
+
+                <div id="eligibilityResult" class="mt-6 text-gray-300 font-semibold"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        function checkEligibility() {
+            const income = parseFloat(document.getElementById('income').value);
+            const expenses = parseFloat(document.getElementById('expenses').value);
+            const existingLoans = parseFloat(document.getElementById('existingLoans').value);
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const eligibilityResultDiv = document.getElementById('eligibilityResult');
+
+            if (isNaN(income) || isNaN(expenses) || isNaN(existingLoans) || isNaN(loanAmount) || income < 0 || expenses < 0 || existingLoans < 0 || loanAmount <= 0) {
+                eligibilityResultDiv.textContent = "Please enter valid positive numbers for all fields.";
+                return;
+            }
+
+            // Basic eligibility criteria (can be adjusted based on typical lending practices)
+            const disposableIncome = income - expenses - existingLoans;
+            const loanToIncomeRatio = loanAmount / (income * 12); // Considering annual income
+
+            if (disposableIncome > 1000 && loanToIncomeRatio <= 2.5) {
+                eligibilityResultDiv.textContent = "Based on the information provided, you might be eligible for the loan. Please consult with a lender for a detailed assessment.";
+            } else {
+                eligibilityResultDiv.textContent = "Based on the information provided, you might not meet the basic eligibility criteria. Factors like credit score and other financial obligations are also considered by lenders.";
+            }
+        }
+    </script>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
