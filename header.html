@@ -2,16 +2,16 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <a href="/" class="text-xl font-bold hover:text-indigo-400 transition duration-300 ease-in-out">HandyHut</a>
         <nav class="hidden md:flex items-center space-x-4">
-            <div class="relative group" id="finance-menu">
+            <div class="relative group" data-menu-id="finance-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
-                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
+                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">EMI Calculator</a>
                     <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Currency Converter</a>
                 </div>
             </div>
-            <div class="relative group" id="utility-menu">
+            <div class="relative group" data-menu-id="utility-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Utility</button>
-                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
+                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Unit Converter</a>
                     <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Age & Date Difference</a>
                     <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Timer, Stopwatch & Countdown</a>
@@ -19,15 +19,15 @@
                     <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Text Tools</a>
                 </div>
             </div>
-            <div class="relative group" id="ai-menu">
+            <div class="relative group" data-menu-id="ai-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">AI</button>
-                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
+                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Prompt Engineering</a>
                 </div>
             </div>
-            <div class="relative group" id="health-menu">
+            <div class="relative group" data-menu-id="health-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Health</button>
-                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
+                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">BMI Calculator</a>
                 </div>
             </div>
@@ -49,4 +49,70 @@
             <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Health - BMI Calculator</a>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const menuId = menuGroup.dataset.menuId;
+                const dropdown = document.getElementById(menuId);
+                const button = menuGroup.querySelector('button'); // Target the button
+
+                if (dropdown && button) {
+                    let isDropdownOpen = false; // Track dropdown state
+
+                    const showDropdown = () => {
+                        dropdown.classList.remove('hidden');
+                        isDropdownOpen = true;
+                    };
+
+                    const hideDropdown = () => {
+                        dropdown.classList.add('hidden');
+                        isDropdownOpen = false;
+                    };
+
+                    // Desktop Hover
+                    if (window.innerWidth >= 768) { // Only apply hover on desktop
+                        menuGroup.addEventListener('mouseenter', showDropdown);
+                        menuGroup.addEventListener('mouseleave', hideDropdown);
+
+                        // Prevent accidental hiding when hovering over dropdown itself
+                        dropdown.addEventListener('mouseenter', showDropdown);
+                        dropdown.addEventListener('mouseleave', hideDropdown);
+                    } else {
+                        // Mobile Click (Toggle)
+                        button.addEventListener('click', (event) => {
+                            event.preventDefault(); // Prevent any default button behavior
+                            if (isDropdownOpen) {
+                                hideDropdown();
+                            } else {
+                                showDropdown();
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Close dropdowns on mobile menu open/close
+            mobileMenuButton.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    menuGroups.forEach(menuGroup => {
+                        const menuId = menuGroup.dataset.menuId;
+                        const dropdown = document.getElementById(menuId);
+                        if (dropdown) {
+                            dropdown.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
 </header>
