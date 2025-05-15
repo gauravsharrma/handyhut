@@ -2,16 +2,16 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <a href="/" class="text-xl font-bold hover:text-indigo-400 transition duration-300 ease-in-out">HandyHut</a>
         <nav class="hidden md:flex items-center space-x-4">
-            <div class="relative group">
+            <div class="relative group" id="finance-menu">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">EMI Calculator</a>
-                    <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Currency Converter</a>
+                    <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Currency Converter</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" id="utility-menu">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Utility</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Unit Converter</a>
                     <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Age & Date Difference</a>
                     <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Timer, Stopwatch & Countdown</a>
@@ -19,15 +19,15 @@
                     <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Text Tools</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" id="ai-menu">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">AI</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Prompt Engineering</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" id="health-menu">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Health</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">BMI Calculator</a>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         </button>
         <div id="mobileMenu" class="absolute top-full left-0 right-0 bg-gray-800 shadow-md z-20 py-2 flex-col items-center hidden md:hidden">
             <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Finance - EMI Calculator</a>
-            <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Finance - Currency Converter</a>
+            <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Finance - Currency Converter</a>
             <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Unit Converter</a>
             <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Age & Date Difference</a>
             <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Timer, Stopwatch & Countdown</a>
@@ -57,6 +57,39 @@
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+
+            // Get the menu elements
+            const financeMenu = document.getElementById('finance-menu');
+            const financeDropdown = document.getElementById('finance-dropdown');
+            const utilityMenu = document.getElementById('utility-menu');
+            const utilityDropdown = document.getElementById('utility-dropdown');
+            const aiMenu = document.getElementById('ai-menu');
+            const aiDropdown = document.getElementById('ai-dropdown');
+            const healthMenu = document.getElementById('health-menu');
+            const healthDropdown = document.getElementById('health-dropdown');
+
+            // Function to show a dropdown
+            const showDropdown = (dropdown) => {
+                dropdown.classList.remove('hidden');
+            };
+
+            // Function to hide a dropdown
+            const hideDropdown = (dropdown) => {
+                dropdown.classList.add('hidden');
+            };
+
+            // Add event listeners for each menu
+            financeMenu.addEventListener('mouseenter', () => showDropdown(financeDropdown));
+            financeMenu.addEventListener('mouseleave', () => hideDropdown(financeDropdown));
+
+            utilityMenu.addEventListener('mouseenter', () => showDropdown(utilityDropdown));
+            utilityMenu.addEventListener('mouseleave', () => hideDropdown(utilityDropdown));
+
+            aiMenu.addEventListener('mouseenter', () => showDropdown(aiDropdown));
+            aiMenu.addEventListener('mouseleave', () => hideDropdown(aiDropdown));
+
+            healthMenu.addEventListener('mouseenter', () => showDropdown(healthDropdown));
+            healthMenu.addEventListener('mouseleave', () => hideDropdown(healthDropdown));
         });
     </script>
 </header>
