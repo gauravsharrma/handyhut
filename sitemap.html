@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HandyHut - Sitemap</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        html { scroll-behavior: smooth; }
+        .sitemap-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .sitemap-list li {
+            margin-bottom: 0.5rem;
+        }
+        .sitemap-list li a {
+            color: #a1a1aa; /* Tailwind's gray-400 */
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        .sitemap-list li a:hover {
+            color: #6366f1; /* Tailwind's indigo-500 */
+        }
+        .sitemap-section-title {
+            font-size: 1.25rem; /* Tailwind's text-lg */
+            font-weight: bold; /* Tailwind's font-bold */
+            color: #d4d4d8; /* Tailwind's gray-300 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #4b5563; /* Tailwind's gray-600 */
+            padding-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section>
+            <h1 class="text-2xl font-bold text-indigo-400 mb-6">Sitemap</h1>
+            <p class="text-gray-300 mb-4">A complete list of pages and tools on HandyHut.</p>
+
+            <div class="mt-8">
+                <h2 class="sitemap-section-title">Main Pages</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/">Homepage</a></li>
+                </ul>
+
+                <h2 class="sitemap-section-title">Finance Tools</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/emi-calculator.html">EMI Calculator</a></li>
+                    <li><a href="/currency-converter.html">Currency Converter</a></li>
+                    <li><a href="/sip-calculator.html">SIP Calculator</a></li>
+                    <li><a href="/income-tax-calculator.html">Income Tax Calculator</a></li>
+                    <li><a href="/gst-calculator.html">GST Calculator</a></li>
+                    <li><a href="/loan-eligibility-checker.html">Loan Eligibility Checker</a></li>
+                    <li><a href="/budget-planner.html">Budget Planner</a></li>
+                </ul>
+
+                <h2 class="sitemap-section-title">Utility Tools</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/unit-converter.html">Unit Converter</a></li>
+                    <li><a href="/timer.html">Timer</a></li>
+                    <li><a href="/date-difference.html">Age &amp; Date Difference</a></li>
+                    <li><a href="/timer-stopwatch-countdown.html">Timer, Stopwatch &amp; Countdown</a></li>
+                    <li><a href="/qr-code-generator.html">QR Code Generator</a></li>
+                    <li><a href="/text-tools.html">Text Tools</a></li>
+                </ul>
+
+                <h2 class="sitemap-section-title">AI Tools</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/prompt-engineering.html">Prompt Engineering</a></li>
+                </ul>
+
+                <h2 class="sitemap-section-title">Health Tools</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/bmi-calculator.html">BMI Calculator</a></li>
+                    <li><a href="/bmr-calculator.html">BMR Calculator</a></li>
+                    <li><a href="/ideal-weight-calculator.html">Ideal Weight Calculator</a></li>
+                    <li><a href="/pregnancy-due-date-calculator.html">Pregnancy Due Date Calculator</a></li>
+                    <li><a href="/ovulation-fertility-calculator.html">Ovulation & Fertility Calculator</a></li>
+                    <li><a href="/calorie-burn-calculator.html">Calorie Burn Calculator</a></li>
+                    <li><a href="/water-intake-calculator.html">Water Intake Calculator</a></li>
+                </ul>
+
+                <h2 class="sitemap-section-title">Other Pages</h2>
+                <ul class="sitemap-list">
+                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="/sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+        loadHeader();
+        loadFooter();
+    </script>
+</body>
+</html>
