@@ -1,14 +1,115 @@
-<!DOCTYPE html>
-<html class="dark" lang="en">
+<!DOCTYPE html><html class="dark" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>HandyHut - Your Toolkit Online</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"/>
-    <!-- Styles and scripts omitted for brevity -->
+    <style>
+        html { scroll-behavior: smooth; }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .tool-card {
+            background-color: #1f2937;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .tool-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tool-card .p-6 {
+            flex-grow: 1;
+        }
+        .tool-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        .tool-card .tag {
+            margin-top: 0.5rem;
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TR2F6D499L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TR2F6D499L');
+    </script>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
-    <!-- Full HTML content already inserted in previous update -->
-    <!-- Omitted here to save space -->
+    <div id="header-container"></div>
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <section class="mb-10">
+            <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your One-Stop Shop for Handy Online Tools</h1>
+            <p class="text-lg text-gray-300">HandyHut provides a collection of useful tools right at your fingertips. Explore our growing library and simplify your daily tasks.</p>
+        </section>
+        <section class="tool-grid">
+            <!-- Top Popular Tools First -->
+            <a href="bmi-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">BMI Calculator</h2><p class="text-gray-400">Calculate your Body Mass Index (BMI) and find out your weight status.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="emi-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">EMI Calculator</h2><p class="text-gray-400">Calculate your Equated Monthly Installment (EMI) for loans.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="currency-converter.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Currency Converter</h2><p class="text-gray-400">Convert currencies quickly and easily.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="unit-converter.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Unit Converter</h2><p class="text-gray-400">Convert between various units of measurement.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="income-tax-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Income Tax Calculator</h2><p class="text-gray-400">Calculate your income tax liability.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="sip-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">SIP Calculator</h2><p class="text-gray-400">Calculate returns on your Systematic Investment Plan (SIP).</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="date-difference.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Age & Date Difference</h2><p class="text-gray-400">Calculate the difference between dates.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="timer-stopwatch-countdown.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Timer, Stopwatch & Countdown</h2><p class="text-gray-400">Versatile timer, stopwatch, and countdown tool.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="ideal-weight-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">Ideal Weight Calculator</h2><p class="text-gray-400">Determine your ideal weight range based on various factors.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="calorie-burn-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">Calorie Burn Calculator</h2><p class="text-gray-400">Calculate estimated calories burned during various activities.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="water-intake-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">Water Intake Calculator</h2><p class="text-gray-400">Calculate daily water intake recommendations for optimal hydration.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="bmr-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">BMR Calculator</h2><p class="text-gray-400">Calculate your Basal Metabolic Rate (BMR).</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="budget-planner.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Budget Planner</h2><p class="text-gray-400">Plan and manage your budget effectively.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="loan-eligibility-checker.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Loan Eligibility Checker</h2><p class="text-gray-400">Check your eligibility for various loans.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="gst-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">GST Calculator</h2><p class="text-gray-400">Calculate Goods and Services Tax (GST).</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+            <a href="pregnancy-due-date-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">Pregnancy Due Date Calculator</h2><p class="text-gray-400">Calculate the estimated due date for a pregnancy.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="ovulation-fertility-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">Ovulation & Fertility Calculator</h2><p class="text-gray-400">Estimate ovulation and fertile days to assist family planning.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+            <a href="text-tools.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Text Tools</h2><p class="text-gray-400">Various tools for text manipulation.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="timer.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Timer</h2><p class="text-gray-400">Set timers for various activities.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="qr-code-generator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">QR Code Generator</h2><p class="text-gray-400">Generate QR codes for various purposes.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+            <a href="prompt-engineering.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-blue-400 mb-2">Prompt Engineering</h2><p class="text-gray-400">Tools and resources for effective prompt engineering.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-blue-400 bg-blue-900">AI</span></div></div></a>
+            <a href="news-reader.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-teal-400 mb-2">News Reader</h2><p class="text-gray-400">Stay updated with the latest news from Times of India.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-teal-400 bg-teal-900">Information</span></div></div></a>
+        </section>
+    </main>
+    <div id="footer-container"></div>
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+        loadHeader();
+        loadFooter();
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+    </script>
 </body>
-</html>
+    </html>
