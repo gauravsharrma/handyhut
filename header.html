@@ -4,14 +4,14 @@
         <nav class="hidden md:flex items-center space-x-4">
             <div class="relative group" data-menu-id="finance-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
-                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
+                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">EMI Calculator</a>
                     <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Currency Converter</a>
                 </div>
             </div>
             <div class="relative group" data-menu-id="utility-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Utility</button>
-                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
+                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Unit Converter</a>
                     <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Age & Date Difference</a>
                     <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Timer, Stopwatch & Countdown</a>
@@ -21,13 +21,13 @@
             </div>
             <div class="relative group" data-menu-id="ai-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">AI</button>
-                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
+                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Prompt Engineering</a>
                 </div>
             </div>
             <div class="relative group" data-menu-id="health-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Health</button>
-                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
+                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden">
                     <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">BMI Calculator</a>
                 </div>
             </div>
@@ -63,10 +63,10 @@
             menuGroups.forEach(menuGroup => {
                 const menuId = menuGroup.dataset.menuId;
                 const dropdown = document.getElementById(menuId);
-                const button = menuGroup.querySelector('button'); // Target the button
+                const button = menuGroup.querySelector('button');
 
                 if (dropdown && button) {
-                    let isDropdownOpen = false; // Track dropdown state
+                    let isDropdownOpen = false;
 
                     const showDropdown = () => {
                         dropdown.classList.remove('hidden');
@@ -79,17 +79,17 @@
                     };
 
                     // Desktop Hover
-                    if (window.innerWidth >= 768) { // Only apply hover on desktop
+                    if (window.innerWidth >= 768) {
                         menuGroup.addEventListener('mouseenter', showDropdown);
                         menuGroup.addEventListener('mouseleave', hideDropdown);
 
-                        // Prevent accidental hiding when hovering over dropdown itself
+                        // Keep dropdown open if mouse is inside
                         dropdown.addEventListener('mouseenter', showDropdown);
                         dropdown.addEventListener('mouseleave', hideDropdown);
                     } else {
                         // Mobile Click (Toggle)
                         button.addEventListener('click', (event) => {
-                            event.preventDefault(); // Prevent any default button behavior
+                            event.preventDefault();
                             if (isDropdownOpen) {
                                 hideDropdown();
                             } else {
@@ -112,7 +112,6 @@
                     });
                 }
             });
-
         });
     </script>
 </header>
