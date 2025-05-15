@@ -1,210 +1,236 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>HandyHut - News Reader</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
+    <meta charset="UTF-8" />
+    <title>HandyHut - News Reader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* "Back to Top" button styles */
+        #back-to-top {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed positioning */
+            bottom: 20px;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            background-color: #8B5CF6;
+            /* Background color (purple from Tailwind) */
+            color: white;
+            /* Text color */
+            padding: 10px 15px;
+            /* Padding */
+            border-radius: 5px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Change cursor on hover */
+            opacity: 0.8;
+            /* Slight transparency */
+            transition: opacity 0.3s ease;
+            /* Smooth transition for opacity */
+        }
+
+        #back-to-top:hover {
+            opacity: 1;
+            /* Fully visible on hover */
+        }
+
+        /* Accordion styles */
+        .article-card {
+            border-bottom: 1px solid #4B5563;
+            /* Subtle divider */
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .article-header {
+            cursor: pointer;
+            /* Indicate it's clickable */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .article-content {
+            max-height: 0;
+            /* Initially hidden */
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            /* Smooth transition */
+            padding-top: 0.5rem;
+        }
+
+        .article-content.open {
+            max-height: 500px;
+            /* Or a large enough value */
+        }
+    </style>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-sans">
 
-<div id="header-container"></div>
+    <div id="header-container"></div>
 
-<main class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-  <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ News Reader</h1>
+    <main class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ News Reader</h1>
 
-  <!-- Filter Controls -->
-  <div class="mb-6 flex flex-wrap gap-4 items-center">
-    <label class="block">
-      <span class="text-sm text-gray-300">Category</span><br />
-      <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onCategoryChange()">
-        <option value="toi">Times of India</option>
-      </select>
-    </label>
+        <div class="mb-6 flex flex-wrap gap-4 items-center">
+            <label class="block">
+                <span class="text-sm text-gray-300">Category</span><br />
+                <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white"
+                    onchange="onCategoryChange()">
+                    <option value="toi">Times of India</option>
+                </select>
+            </label>
 
-    <label class="block">
-      <span class="text-sm text-gray-300">Subcategory</span><br />
-      <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onFeedSelect()">
-        <option value="top">Top Stories</option>
-        <option value="india">India</option>
-      </select>
-    </label>
-  </div>
-
-  <!-- Two-column layout -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Left: Article Descriptions -->
-    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto">
-      <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
-      <div id="news-list" class="space-y-4 text-sm"></div>
-    </section>
-
-    <!-- Right: Full Article + Reader -->
-    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto relative">
-      <h2 class="text-lg text-indigo-400 font-semibold mb-2">Full Article</h2>
-
-      <!-- Controls -->
-      <div class="flex justify-between items-center mb-4 text-sm text-gray-400">
-        <div>Font size:
-          <button onclick="changeFontSize(+1)">A+</button>
-          <button onclick="changeFontSize(-1)">A−</button>
+            <label class="block">
+                <span class="text-sm text-gray-300">Subcategory</span><br />
+                <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white"
+                    onchange="onFeedSelect()">
+                    <option value="top">Top Stories</option>
+                    <option value="india">India</option>
+                </select>
+            </label>
         </div>
-        <div class="space-x-2">
-          <button onclick="toggleView()">🔁 Toggle View</button>
-          <button onclick="prevSentence()">◀ Prev</button>
-          <button onclick="nextSentence()">Next ▶</button>
-        </div>
-      </div>
 
-      <!-- Full View -->
-      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line break-words rounded leading-relaxed p-2"></div>
+        <p class="text-sm text-gray-400 mb-4">Click on a news article below to read the complete news content. If you
+            scroll down and can't see the detailed or complete news, you can click on "Back to top" to read.</p>
 
-      <!-- Sentence View -->
-      <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded hidden leading-relaxed break-words"></div>
-    </section>
-  </div>
-</main>
+        <section class="bg-gray-800 p-4 rounded-md shadow-md">
+            <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
+            <div id="news-list" class="space-y-4 text-sm"></div>
+        </section>
 
-<div id="footer-container"></div>
 
-<script>
-  async function loadHeader() {
-    const response = await fetch('header.html');
-    document.getElementById('header-container').innerHTML = await response.text();
-  }
+        <div id="back-to-top" onclick="goToTop()">Back to Top</div>
 
-  async function loadFooter() {
-    const response = await fetch('footer.html');
-    document.getElementById('footer-container').innerHTML = await response.text();
-  }
+    </main>
 
-  loadHeader();
-  loadFooter();
+    <div id="footer-container"></div>
 
-  const feeds = {
-    toi: {
-      top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
-      india: "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
-    }
-  };
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            document.getElementById('header-container').innerHTML = await response.text();
+        }
 
-  const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
-  let sentenceIndex = 0;
-  let allSentences = [];
-  let fontSize = 16;
-  let isSentenceMode = false;
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            document.getElementById('footer-container').innerHTML = await response.text();
+        }
 
-  function onCategoryChange() {
-    onFeedSelect();
-  }
+        loadHeader();
+        loadFooter();
 
-  function onFeedSelect() {
-    const category = document.getElementById("category").value;
-    const subcategory = document.getElementById("subcategory").value;
-    const url = feeds[category][subcategory];
-    const proxyURL = proxyBase + encodeURIComponent(url);
+        const feeds = {
+            toi: {
+                top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+                india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
+            }
+        };
 
-    fetch(proxyURL)
-      .then(res => res.text())
-      .then(text => {
-        const xml = new DOMParser().parseFromString(text, "text/xml");
-        const items = xml.querySelectorAll("item");
-        const list = document.getElementById("news-list");
-        list.innerHTML = "";
-        document.getElementById("full-article").innerHTML = "Select an article to read.";
-        document.getElementById("sentence-view").innerHTML = "";
+        const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
 
-        items.forEach((item) => {
-          const title = item.querySelector("title").textContent;
-          const link = item.querySelector("link").textContent;
-          const description = item.querySelector("description").textContent;
+        function onCategoryChange() {
+            onFeedSelect();
+        }
 
-          const card = document.createElement("div");
-          card.className = "p-3 bg-gray-700 rounded cursor-pointer hover:bg-gray-600";
-          card.innerHTML = `<strong class="text-indigo-300">${title}</strong><p class="text-gray-400 mt-1">${description}</p>`;
-          card.onclick = () => loadFullArticle(link, title);
-          list.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error("RSS feed load error:", err);
-        document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
-      });
-  }
+        function onFeedSelect() {
+            const category = document.getElementById("category").value;
+            const subcategory = document.getElementById("subcategory").value;
+            const url = feeds[category][subcategory];
+            const proxyURL = proxyBase + encodeURIComponent(url);
 
-  function loadFullArticle(url, title) {
-    const proxyURL = proxyBase + encodeURIComponent(url);
+            fetch(proxyURL)
+                .then(res => res.text())
+                .then(text => {
+                    const xml = new DOMParser().parseFromString(text, "text/xml");
+                    const items = xml.querySelectorAll("item");
+                    const list = document.getElementById("news-list");
+                    list.innerHTML = "";
 
-    fetch(proxyURL)
-      .then(res => res.text())
-      .then(html => {
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        const mainDiv = doc.querySelector("div._s30J.clearfix");
-        const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
+                    items.forEach((item) => {
+                        const title = item.querySelector("title").textContent;
+                        const link = item.querySelector("link").textContent;
+                        const description = item.querySelector("description").textContent;
 
-        allSentences = textContent.match(/[^\.!\?]+[\.!\?]+/g) || [textContent];
-        sentenceIndex = 0;
+                        const card = document.createElement("div");
+                        card.className = "article-card p-3 bg-gray-700 rounded cursor-pointer hover:bg-gray-600";
+                        card.innerHTML = `
+                            <div class="article-header" onclick="toggleArticle(this.parentElement)">
+                                <strong class="text-indigo-300">${title}</strong>
+                                <span>▶</span>
+                            </div>
+                            <p class="text-gray-400 mt-1">${description}</p>
+                            <div class="article-content"></div>
+                        `;
+                        card.setAttribute('data-link', link); // Store the link
+                        list.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error("RSS feed load error:", err);
+                    document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+                });
+        }
 
-        document.getElementById("full-article").innerHTML = `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
-        document.getElementById("sentence-view").innerText = allSentences[0];
-        applyFontSize();
-        toggleView(false); // Reset to full view
-      })
-      .catch(err => {
-        console.error("Full article load error:", err);
-        document.getElementById("full-article").innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
-      });
-  }
+        function toggleArticle(articleElement) {
+            const contentElement = articleElement.querySelector(".article-content");
+            contentElement.classList.toggle("open"); // Toggle the 'open' class
 
-  function nextSentence() {
-    if (sentenceIndex < allSentences.length - 1) {
-      sentenceIndex++;
-      document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
-    }
-  }
+            const link = articleElement.getAttribute('data-link');
+            if (contentElement.classList.contains('open') && contentElement.innerHTML === '') {
+                loadFullArticle(link, contentElement);
+            }
+        }
 
-  function prevSentence() {
-    if (sentenceIndex > 0) {
-      sentenceIndex--;
-      document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
-    }
-  }
 
-  function changeFontSize(change) {
-    fontSize += change;
-    if (fontSize < 12) fontSize = 12;
-    if (fontSize > 28) fontSize = 28;
-    applyFontSize();
-  }
+        function loadFullArticle(url, contentElement) {
+            const proxyURL = proxyBase + encodeURIComponent(url);
 
-  function applyFontSize() {
-    const fullEl = document.getElementById("full-article");
-    const sentEl = document.getElementById("sentence-view");
+            fetch(proxyURL)
+                .then(res => res.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, "text/html");
+                    const mainDiv = doc.querySelector("div._s30J.clearfix");
+                    const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
 
-    fullEl.style.fontSize = fontSize + "px";
-    fullEl.style.lineHeight = "1.8";
-    fullEl.style.padding = "0.5rem";
+                    contentElement.innerHTML = `<p>${textContent}</p>`;
+                })
+                .catch(err => {
+                    console.error("Full article load error:", err);
+                    contentElement.innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
+                });
+        }
 
-    sentEl.style.fontSize = fontSize + "px";
-    sentEl.style.lineHeight = "1.8";
-    sentEl.style.padding = "0.5rem";
-  }
 
-  function toggleView(forceTo = null) {
-    const fullEl = document.getElementById("full-article");
-    const sentEl = document.getElementById("sentence-view");
+        function goToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
 
-    isSentenceMode = forceTo !== null ? forceTo : !isSentenceMode;
+        window.onscroll = function () {
+            scrollFunction()
+        };
 
-    fullEl.style.display = isSentenceMode ? "none" : "block";
-    sentEl.style.display = isSentenceMode ? "block" : "none";
-  }
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("back-to-top").style.display = "block";
+            } else {
+                document.getElementById("back-to-top").style.display = "none";
+            }
+        }
 
-  window.onload = onFeedSelect;
-</script>
+        window.onload = onFeedSelect;
+    </script>
 
 </body>
+
 </html>
