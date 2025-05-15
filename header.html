@@ -2,16 +2,16 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <a href="/" class="text-xl font-bold hover:text-indigo-400 transition duration-300 ease-in-out">HandyHut</a>
         <nav class="hidden md:flex items-center space-x-4">
-            <div class="relative group">
+            <div class="relative group" data-menu-target="finance-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="finance-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">EMI Calculator</a>
                     <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Currency Converter</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" data-menu-target="utility-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Utility</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="utility-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Unit Converter</a>
                     <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Age & Date Difference</a>
                     <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Timer, Stopwatch & Countdown</a>
@@ -19,15 +19,15 @@
                     <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Text Tools</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" data-menu-target="ai-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">AI</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="ai-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Prompt Engineering</a>
                 </div>
             </div>
-            <div class="relative group">
+            <div class="relative group" data-menu-target="health-dropdown">
                 <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Health</button>
-                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                <div id="health-dropdown" class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 hidden group-hover:block">
                     <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">BMI Calculator</a>
                 </div>
             </div>
@@ -56,6 +56,24 @@
 
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
+            });
+
+            // Enhanced Hover Logic
+            const menuGroups = document.querySelectorAll('.relative.group'); // Target the parent divs
+
+            menuGroups.forEach(menuGroup => {
+                const targetId = menuGroup.dataset.menuTarget; // Get the target ID
+                const dropdown = document.getElementById(targetId);
+
+                if (dropdown) {
+                    menuGroup.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
             });
         });
     </script>
