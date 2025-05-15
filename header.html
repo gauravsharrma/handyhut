@@ -56,59 +56,44 @@
 
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
+                // Close dropdowns on mobile menu toggle
+                const openDropdowns = document.querySelectorAll('.relative.group > div:not(.hidden)');
+                openDropdowns.forEach(dropdown => {
+                    dropdown.classList.add('hidden');
+                });
             });
 
             const menuGroups = document.querySelectorAll('.relative.group');
 
             menuGroups.forEach(menuGroup => {
-                const menuId = menuGroup.dataset.menuId;
-                const dropdown = document.getElementById(menuId);
+                const dropdown = menuGroup.querySelector('.absolute');
                 const button = menuGroup.querySelector('button');
 
                 if (dropdown && button) {
-                    let isDropdownOpen = false;
+                    let isHovered = false;
 
-                    const showDropdown = () => {
+                    menuGroup.addEventListener('mouseenter', () => {
+                        isHovered = true;
                         dropdown.classList.remove('hidden');
-                        isDropdownOpen = true;
-                    };
+                    });
 
-                    const hideDropdown = () => {
-                        dropdown.classList.add('hidden');
-                        isDropdownOpen = false;
-                    };
-
-                    // Desktop Hover
-                    if (window.innerWidth >= 768) {
-                        menuGroup.addEventListener('mouseenter', showDropdown);
-                        menuGroup.addEventListener('mouseleave', hideDropdown);
-
-                        // Keep dropdown open if mouse is inside
-                        dropdown.addEventListener('mouseenter', showDropdown);
-                        dropdown.addEventListener('mouseleave', hideDropdown);
-                    } else {
-                        // Mobile Click (Toggle)
-                        button.addEventListener('click', (event) => {
-                            event.preventDefault();
-                            if (isDropdownOpen) {
-                                hideDropdown();
-                            } else {
-                                showDropdown();
+                    menuGroup.addEventListener('mouseleave', () => {
+                        isHovered = false;
+                        // Introduce a small delay to allow mouse to enter the dropdown
+                        setTimeout(() => {
+                            if (!isHovered && !dropdown.matches(':hover')) {
+                                dropdown.classList.add('hidden');
                             }
-                        });
-                    }
-                }
-            });
+                        }, 100); // Adjust the delay (in milliseconds) as needed
+                    });
 
-            // Close dropdowns on mobile menu open/close
-            mobileMenuButton.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    menuGroups.forEach(menuGroup => {
-                        const menuId = menuGroup.dataset.menuId;
-                        const dropdown = document.getElementById(menuId);
-                        if (dropdown) {
-                            dropdown.classList.add('hidden');
-                        }
+                    dropdown.addEventListener('mouseenter', () => {
+                        isHovered = true;
+                    });
+
+                    dropdown.addEventListener('mouseleave', () => {
+                        isHovered = false;
+                        dropdown.classList.add('hidden');
                     });
                 }
             });
