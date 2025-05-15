@@ -14,6 +14,16 @@
         display: none;
       }
     }
+
+    /* Slide animation */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .submenu.open {
+      max-height: 500px; /* enough for multiple items */
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -21,18 +31,24 @@
 <header class="bg-gray-900 text-gray-100 py-4 shadow-md">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
     <a href="/" class="text-xl font-bold hover:text-indigo-400 transition">HandyHut</a>
+    
+    <!-- Desktop Menu -->
     <nav class="hidden md:flex items-center space-x-6">
-      <!-- Finance -->
       <div class="relative dropdown">
-        <button class="py-2 px-3 hover:text-indigo-400">Finance</button>
+        <button class="py-2 px-3 hover:text-indigo-400 flex items-center gap-1">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-6a2 2 0 012-2h10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Finance
+        </button>
         <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
           <a href="/emi-calculator.html" class="block px-4 py-2 text-sm hover:bg-gray-700">EMI Calculator</a>
           <a href="/currency-converter.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Currency Converter</a>
         </div>
       </div>
-      <!-- Utility -->
       <div class="relative dropdown">
-        <button class="py-2 px-3 hover:text-indigo-400">Utility</button>
+        <button class="py-2 px-3 hover:text-indigo-400 flex items-center gap-1">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Utility
+        </button>
         <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-56 dropdown-menu z-10">
           <a href="/unit-converter.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Unit Converter</a>
           <a href="/date-difference.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Age & Date Difference</a>
@@ -41,16 +57,20 @@
           <a href="/text-tools.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Text Tools</a>
         </div>
       </div>
-      <!-- AI -->
       <div class="relative dropdown">
-        <button class="py-2 px-3 hover:text-indigo-400">AI</button>
+        <button class="py-2 px-3 hover:text-indigo-400 flex items-center gap-1">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          AI
+        </button>
         <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
           <a href="/prompt-engineering.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Prompt Engineering</a>
         </div>
       </div>
-      <!-- Health -->
       <div class="relative dropdown">
-        <button class="py-2 px-3 hover:text-indigo-400">Health</button>
+        <button class="py-2 px-3 hover:text-indigo-400 flex items-center gap-1">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Health
+        </button>
         <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
           <a href="/bmi-calculator.html" class="block px-4 py-2 text-sm hover:bg-gray-700">BMI Calculator</a>
         </div>
@@ -66,24 +86,71 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu" class="hidden md:hidden px-4 py-4 bg-gray-800">
-    <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Finance - EMI Calculator</a>
-    <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Finance - Currency Converter</a>
-    <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Unit Converter</a>
-    <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Age & Date Difference</a>
-    <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Timer, Stopwatch & Countdown</a>
-    <a href="/qr-code-generator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - QR Code Generator</a>
-    <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Text Tools</a>
-    <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700">AI - Prompt Engineering</a>
-    <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Health - BMI Calculator</a>
+  <div id="mobileMenu" class="hidden md:hidden px-4 py-4 bg-gray-800 space-y-2">
+    <!-- Finance -->
+    <div>
+      <button class="w-full text-left font-semibold py-2 px-4 bg-gray-700 rounded submenu-toggle flex justify-between items-center">
+        <span>Finance</span>
+        <svg class="w-4 h-4 transform transition-transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="submenu">
+        <a href="/emi-calculator.html" class="block py-1 px-6 text-sm hover:bg-gray-700">EMI Calculator</a>
+        <a href="/currency-converter.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Currency Converter</a>
+      </div>
+    </div>
+
+    <!-- Utility -->
+    <div>
+      <button class="w-full text-left font-semibold py-2 px-4 bg-gray-700 rounded submenu-toggle flex justify-between items-center">
+        <span>Utility</span>
+        <svg class="w-4 h-4 transform transition-transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="submenu">
+        <a href="/unit-converter.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Unit Converter</a>
+        <a href="/date-difference.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Age & Date Difference</a>
+        <a href="/timer-stopwatch-countdown.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Timer, Stopwatch & Countdown</a>
+        <a href="/qr-code-generator.html" class="block py-1 px-6 text-sm hover:bg-gray-700">QR Code Generator</a>
+        <a href="/text-tools.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Text Tools</a>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div>
+      <button class="w-full text-left font-semibold py-2 px-4 bg-gray-700 rounded submenu-toggle flex justify-between items-center">
+        <span>AI</span>
+        <svg class="w-4 h-4 transform transition-transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="submenu">
+        <a href="/prompt-engineering.html" class="block py-1 px-6 text-sm hover:bg-gray-700">Prompt Engineering</a>
+      </div>
+    </div>
+
+    <!-- Health -->
+    <div>
+      <button class="w-full text-left font-semibold py-2 px-4 bg-gray-700 rounded submenu-toggle flex justify-between items-center">
+        <span>Health</span>
+        <svg class="w-4 h-4 transform transition-transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="submenu">
+        <a href="/bmi-calculator.html" class="block py-1 px-6 text-sm hover:bg-gray-700">BMI Calculator</a>
+      </div>
+    </div>
   </div>
 </header>
 
-<!-- JS to toggle mobile menu -->
+<!-- JavaScript -->
 <script>
-  document.getElementById('mobileMenuButton').addEventListener('click', function () {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('hidden');
+  document.getElementById('mobileMenuButton').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+
+  document.querySelectorAll('.submenu-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const submenu = btn.nextElementSibling;
+      submenu.classList.toggle('open');
+      const icon = btn.querySelector('svg');
+      icon.classList.toggle('rotate-180');
+    });
   });
 </script>
 
