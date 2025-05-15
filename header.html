@@ -1,7 +1,64 @@
-<header class="bg-gray-800 py-6 px-4 sm:px-6 lg:px-8 shadow-md">
-    <div class="container mx-auto flex justify-center items-center">
-        <a href="index.html" class="flex items-center">
-            <span class="text-xl font-bold text-indigo-500">HandyHut</span>
-        </a>
+<header class="bg-gray-900 text-gray-100 py-4 shadow-md">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold hover:text-indigo-400 transition duration-300 ease-in-out">HandyHut</a>
+        <nav class="hidden md:flex items-center space-x-4">
+            <div class="relative group">
+                <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
+                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                    <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">EMI Calculator</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Utility</button>
+                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                    <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Unit Converter</a>
+                    <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Age & Date Difference</a>
+                    <a href="/qr-code-generator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">QR Code Generator</a>
+                    <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Text Tools</a>
+                    <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Timer, Stopwatch & Countdown</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">AI</button>
+                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                    <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">Prompt Engineering</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Other</button>
+                <div class="absolute z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden mt-2 w-48 group-hover:block hidden">
+                    <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">BMI Calculator</a>
+                    <a href="/pdf-to-word.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">PDF to Word</a>
+                    <a href="/news-reader.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out">News Reader</a>
+                </div>
+            </div>
+        </nav>
+        <button id="mobileMenuButton" class="md:hidden text-gray-300 hover:text-indigo-400 focus:outline-none">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4 18h16v-2H4v2zm0-5h16v-2H4v2zm0-5h16V6H4v2z"/>
+            </svg>
+        </button>
+        <div id="mobileMenu" class="absolute top-full left-0 right-0 bg-gray-800 shadow-md z-20 py-2 flex-col items-center hidden md:hidden">
+            <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Finance - EMI Calculator</a>
+            <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Unit Converter</a>
+            <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Age & Date Difference</a>
+            <a href="/qr-code-generator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - QR Code Generator</a>
+            <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Text Tools</a>
+            <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Utility - Timer, Stopwatch & Countdown</a>
+            <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">AI - Prompt Engineering</a>
+            <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Other - BMI Calculator</a>
+            <a href="/pdf-to-word.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Other - PDF to Word</a>
+            <a href="/news-reader.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition duration-300 ease-in-out w-full text-center">Other - News Reader</a>
+        </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
 </header>
