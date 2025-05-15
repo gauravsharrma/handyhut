@@ -7,53 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     html { scroll-behavior: smooth; }
-
-    /* Style for the scrollable filter section */
-    #filter-container {
-      max-height: 300px; /* Or any suitable height */
-      overflow-y: auto; /* Enable vertical scrolling */
-      padding-right: 0.5rem; /* Space for the scrollbar */
-    }
-
-    /* Styles for sentence mode */
-    #sentence-view {
-      font-size: 16px;
-      line-height: 1.8;
-      padding: 0.5rem;
-    }
-
-    #full-article {
-      font-size: 16px;
-      line-height: 1.8;
-      padding: 0.5rem;
-    }
-
-    /* Style prev and next buttons */
-    #prev-sentence, #next-sentence {
-      background-color: #6366f1; /* Indigo-500 */
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      margin-top: 0.5rem;
-    }
-
-    #prev-sentence:disabled, #next-sentence:disabled {
-      background-color: #9ca3af; /* Gray-400 */
-      cursor: not-allowed;
-    }
-
-    /* Style font size buttons */
-    #font-smaller, #font-bigger {
-      background-color: #4f46e5; /* Indigo-600 */
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      margin-left: 0.5rem;
-    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -63,226 +16,153 @@
 <main class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
   <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ News Reader</h1>
 
-  <div class="mb-6 flex flex-wrap gap-4 items-start">
-    <div id="filter-container">  <label class="block">
-        <span class="text-sm text-gray-300">Category</span><br />
-        <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onCategoryChange()">
-          <option value="toi">Times of India</option>
-        </select>
-      </label>
+  <!-- Filter Controls -->
+  <div class="mb-6 flex flex-wrap gap-4 items-center">
+    <label class="block">
+      <span class="text-sm text-gray-300">Category</span><br />
+      <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onCategoryChange()">
+        <option value="toi">Times of India</option>
+      </select>
+    </label>
 
-      <label class="block">
-        <span class="text-sm text-gray-300">Subcategory</span><br />
-        <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onSubcategoryChange()">
-          <option value="">All</option>
-        </select>
-      </label>
+    <label class="block">
+      <span class="text-sm text-gray-300">Subcategory</span><br />
+      <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onFeedSelect()">
+        <option value="top">Top Stories</option>
+        <option value="india">India</option>
+      </select>
+    </label>
+  </div>
 
-      <label class="block">
-        <span class="text-sm text-gray-300">Search</span><br />
-        <input type="text" id="search" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" placeholder="Enter keywords" oninput="onSearchChange()" />
-      </label>
+  <!-- Two-column layout -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Left: Article Descriptions -->
+    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto">
+      <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
+      <div id="news-list" class="space-y-4 text-sm"></div>
+    </section>
 
-      <label class="block">
-        <span class="text-sm text-gray-300">From Date</span><br />
-        <input type="date" id="from-date" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onDateChange()" />
-      </label>
+    <!-- Right: Full Article + Reader -->
+    <section class="bg-gray-800 p-4 rounded-md shadow-md max-h-[75vh] overflow-y-auto relative">
+      <h2 class="text-lg text-indigo-400 font-semibold mb-2">Full Article</h2>
 
-      <label class="block">
-        <span class="text-sm text-gray-300">To Date</span><br />
-        <input type="date" id="to-date" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onDateChange()" />
-      </label>
-
-      <label class="block">
-        <span class="text-sm text-gray-300">Page Size</span><br />
-        <select id="page-size" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="loadNews()">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-        </select>
-      </label>
-
-      <div class="flex items-center mt-4">
-        <input type="checkbox" id="sentence-mode" class="mr-2" onchange="toggleView()" />
-        <label for="sentence-mode" class="text-sm text-gray-300">Sentence Mode</label>
-      </div>
-    </div> <div class="w-full md:w-3/4">
-      <div id="news-article">Loading...</div>
-
-      <div id="sentence-controls" class="mt-4 hidden">
-        <div id="sentence-view" class="bg-gray-800 rounded-md shadow-md p-4 mb-2"></div>
-        <div class="flex justify-between items-center">
-          <div>
-            <button id="prev-sentence" onclick="prevSentence()" disabled>Previous</button>
-            <button id="next-sentence" onclick="nextSentence()">Next</button>
-          </div>
-          <div>
-            <button id="font-smaller" onclick="changeFontSize(-2)">A-</button>
-            <button id="font-bigger" onclick="changeFontSize(2)">A+</button>
-          </div>
+      <!-- Controls -->
+      <div class="flex justify-between items-center mb-4 text-sm text-gray-400">
+        <div>Font size:
+          <button onclick="changeFontSize(+1)">A+</button>
+          <button onclick="changeFontSize(-1)">A−</button>
+        </div>
+        <div class="space-x-2">
+          <button onclick="toggleView()">🔁 Toggle View</button>
+          <button onclick="prevSentence()">◀ Prev</button>
+          <button onclick="nextSentence()">Next ▶</button>
         </div>
       </div>
 
-      <div id="full-article" class="bg-gray-800 rounded-md shadow-md p-4 mt-4"></div>
+      <!-- Full View -->
+      <div id="full-article" class="text-gray-300 text-sm whitespace-pre-line break-words rounded leading-relaxed p-2"></div>
 
-      </div>
+      <!-- Sentence View -->
+      <div id="sentence-view" class="text-gray-100 text-sm bg-gray-700 p-3 rounded hidden leading-relaxed break-words"></div>
+    </section>
   </div>
 </main>
 
 <div id="footer-container"></div>
 
 <script>
-  let allArticles = [];
-  let allSentences = [];
-  let sentenceIndex = 0;
-  let isSentenceMode = false;
-  let fontSize = 16;
-  let currentPage = 1;
+  async function loadHeader() {
+    const response = await fetch('header.html');
+    document.getElementById('header-container').innerHTML = await response.text();
+  }
 
-  async function loadNews() {
+  async function loadFooter() {
+    const response = await fetch('footer.html');
+    document.getElementById('footer-container').innerHTML = await response.text();
+  }
+
+  loadHeader();
+  loadFooter();
+
+  const feeds = {
+    toi: {
+      top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+      india: "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
+    }
+  };
+
+  const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
+  let sentenceIndex = 0;
+  let allSentences = [];
+  let fontSize = 16;
+  let isSentenceMode = false;
+
+  function onCategoryChange() {
+    onFeedSelect();
+  }
+
+  function onFeedSelect() {
     const category = document.getElementById("category").value;
     const subcategory = document.getElementById("subcategory").value;
-    const search = document.getElementById("search").value;
-    const fromDate = document.getElementById("from-date").value;
-    const toDate = document.getElementById("to-date").value;
-    const pageSize = document.getElementById("page-size").value;
+    const url = feeds[category][subcategory];
+    const proxyURL = proxyBase + encodeURIComponent(url);
 
-    let url = `https://newsapi.org/v2/everything?sources=${category}&pageSize=${pageSize}&apiKey=f92b7c6b54a840b2894541b6d2117565`;
+    fetch(proxyURL)
+      .then(res => res.text())
+      .then(text => {
+        const xml = new DOMParser().parseFromString(text, "text/xml");
+        const items = xml.querySelectorAll("item");
+        const list = document.getElementById("news-list");
+        list.innerHTML = "";
+        document.getElementById("full-article").innerHTML = "Select an article to read.";
+        document.getElementById("sentence-view").innerHTML = "";
 
-    if (subcategory) url += `&q=${subcategory}`;
-    if (search) url += `&q=${search}`;
-    if (fromDate) url += `&from=${fromDate}`;
-    if (toDate) url += `&to=${toDate}`;
+        items.forEach((item) => {
+          const title = item.querySelector("title").textContent;
+          const link = item.querySelector("link").textContent;
+          const description = item.querySelector("description").textContent;
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.articles) {
-        allArticles = data.articles;
-        displayArticles(data.articles);
-      } else {
-        document.getElementById("news-article").innerHTML = "<p>No articles found.</p>";
-      }
-    } catch (error) {
-      console.error("Error fetching news:", error);
-      document.getElementById("news-article").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
-    }
-  }
-
-  function displayArticles(articles) {
-    const newsContainer = document.getElementById("news-article");
-    newsContainer.innerHTML = "";
-
-    articles.forEach((article) => {
-      const articleDiv = document.createElement("div");
-      articleDiv.classList.add("mb-8", "p-4", "bg-gray-800", "rounded-md", "shadow-md");
-
-      const title = document.createElement("h2");
-      title.classList.add("text-xl", "font-bold", "mb-2", "text-indigo-400");
-      title.textContent = article.title;
-
-      const description = document.createElement("p");
-      description.classList.add("text-gray-400", "mb-4");
-      description.textContent = article.description;
-
-      const link = document.createElement("a");
-      link.href = article.url;
-      link.textContent = "Read More";
-      link.classList.add("text-blue-400", "hover:underline", "block");
-
-      articleDiv.appendChild(title);
-      articleDiv.appendChild(description);
-      articleDiv.appendChild(link);
-      newsContainer.appendChild(articleDiv);
-    });
-  }
-
-  async function onCategoryChange() {
-    loadNews();
-    const category = document.getElementById("category").value;
-    const subcategorySelect = document.getElementById("subcategory");
-
-    // Clear existing options
-    subcategorySelect.innerHTML = '<option value="">All</option>';
-
-    if (category === "toi") {
-      const subcategories = [
-        "India",
-        "Business",
-        "World",
-        "Politics",
-        "Technology",
-        "Entertainment",
-        "Sports",
-        "Science",
-        "Health",
-      ];
-      subcategories.forEach((sub) => {
-        const option = document.createElement("option");
-        option.value = sub.toLowerCase();
-        option.textContent = sub;
-        subcategorySelect.appendChild(option);
+          const card = document.createElement("div");
+          card.className = "p-3 bg-gray-700 rounded cursor-pointer hover:bg-gray-600";
+          card.innerHTML = `<strong class="text-indigo-300">${title}</strong><p class="text-gray-400 mt-1">${description}</p>`;
+          card.onclick = () => loadFullArticle(link, title);
+          list.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error("RSS feed load error:", err);
+        document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
       });
-    }
   }
 
-  function onSubcategoryChange() {
-    loadNews();
-  }
+  function loadFullArticle(url, title) {
+    const proxyURL = proxyBase + encodeURIComponent(url);
 
-  function onSearchChange() {
-    loadNews();
-  }
+    fetch(proxyURL)
+      .then(res => res.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const mainDiv = doc.querySelector("div._s30J.clearfix");
+        const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
 
-  function onDateChange() {
-    loadNews();
-  }
+        allSentences = textContent.match(/[^\.!\?]+[\.!\?]+/g) || [textContent];
+        sentenceIndex = 0;
 
-  function extractSentences(text) {
-    const sentences = text.match(/[^.!?]+[.!?]/g);
-    return sentences || [];
-  }
-
-  async function showFullArticle(url) {
-    try {
-      const response = await fetch(url);
-      const html = await response.text();
-
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-
-      // Attempt to extract the main article text
-      let articleText = "";
-      const paragraphs = doc.querySelectorAll("p"); // Or any other relevant selector
-      paragraphs.forEach((p) => {
-        articleText += p.textContent + " ";
+        document.getElementById("full-article").innerHTML = `<h3 class="text-indigo-300 font-semibold mb-2">${title}</h3><p>${textContent}</p>`;
+        document.getElementById("sentence-view").innerText = allSentences[0];
+        applyFontSize();
+        toggleView(false); // Reset to full view
+      })
+      .catch(err => {
+        console.error("Full article load error:", err);
+        document.getElementById("full-article").innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
       });
-
-      if (!articleText) {
-        articleText = "Could not extract full article text.";
-      }
-
-      document.getElementById("full-article").innerHTML = articleText;
-      allSentences = extractSentences(articleText);
-      sentenceIndex = 0;
-
-      if (isSentenceMode) {
-        toggleView(true); // Force sentence mode on
-      }
-      applyFontSize();
-
-    } catch (error) {
-      console.error("Error fetching full article:", error);
-      document.getElementById("full-article").innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
-    }
   }
 
   function nextSentence() {
     if (sentenceIndex < allSentences.length - 1) {
       sentenceIndex++;
       document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
-      updateSentenceButtons();
     }
   }
 
@@ -290,13 +170,7 @@
     if (sentenceIndex > 0) {
       sentenceIndex--;
       document.getElementById("sentence-view").innerText = allSentences[sentenceIndex];
-      updateSentenceButtons();
     }
-  }
-
-  function updateSentenceButtons() {
-    document.getElementById("prev-sentence").disabled = sentenceIndex === 0;
-    document.getElementById("next-sentence").disabled = sentenceIndex === allSentences.length - 1;
   }
 
   function changeFontSize(change) {
@@ -310,61 +184,26 @@
     const fullEl = document.getElementById("full-article");
     const sentEl = document.getElementById("sentence-view");
 
-    if (fullEl) {
-      fullEl.style.fontSize = fontSize + "px";
-      fullEl.style.lineHeight = "1.8";
-      fullEl.style.padding = "0.5rem";
-    }
+    fullEl.style.fontSize = fontSize + "px";
+    fullEl.style.lineHeight = "1.8";
+    fullEl.style.padding = "0.5rem";
 
-    if (sentEl) {
-      sentEl.style.fontSize = fontSize + "px";
-      sentEl.style.lineHeight = "1.8";
-      sentEl.style.padding = "0.5rem";
-    }
+    sentEl.style.fontSize = fontSize + "px";
+    sentEl.style.lineHeight = "1.8";
+    sentEl.style.padding = "0.5rem";
   }
 
   function toggleView(forceTo = null) {
     const fullEl = document.getElementById("full-article");
     const sentEl = document.getElementById("sentence-view");
-    const sentControls = document.getElementById("sentence-controls");
-    const sentenceModeCheckbox = document.getElementById("sentence-mode");
 
     isSentenceMode = forceTo !== null ? forceTo : !isSentenceMode;
-    sentenceModeCheckbox.checked = isSentenceMode;
 
-    if (isSentenceMode) {
-      fullEl.classList.add("hidden");
-      sentControls.classList.remove("hidden");
-      if (allSentences.length > 0) {
-        sentEl.innerText = allSentences[sentenceIndex];
-      } else {
-        sentEl.innerText = "Article not yet loaded.";
-      }
-      updateSentenceButtons();
-    } else {
-      fullEl.classList.remove("hidden");
-      sentControls.classList.add("hidden");
-    }
+    fullEl.style.display = isSentenceMode ? "none" : "block";
+    sentEl.style.display = isSentenceMode ? "block" : "none";
   }
 
-  async function loadHeader() {
-    const response = await fetch('header.html');
-    const text = await response.text();
-    document.getElementById('header-container').innerHTML = text;
-    // initializeMenu();  // If you have a menu initialization function
-  }
-
-  async function loadFooter() {
-    const response = await fetch('footer.html');
-    const text = await response.text();
-    document.getElementById('footer-container').innerHTML = text;
-  }
-
-  loadHeader();
-  loadFooter();
-
-  // Initial load
-  onCategoryChange();
+  window.onload = onFeedSelect;
 </script>
 
 </body>
