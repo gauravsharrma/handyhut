@@ -149,20 +149,7 @@
 
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
-        async function loadHeader() {
-            const response = await fetch('header.html');
-            const text = await response.text();
-            document.getElementById('header-container').innerHTML = text;
-        }
 
-        async function loadFooter() {
-            const response = await fetch('footer.html');
-            const text = await response.text();
-            document.getElementById('footer-container').innerHTML = text;
-        }
-
-        loadHeader();
-        loadFooter();
 
         const qrCodeDiv = document.getElementById('qrcode');
         const qrcodeContainer = document.getElementById('qrcode-container');
@@ -246,6 +233,41 @@
             downloadQRLink.href = dataURL;
         }
     </script>
+<script>
+    async function loadHeader() {
+        const response = await fetch('header.html');
+        const text = await response.text();
+        document.getElementById('header-container').innerHTML = text;
+        initializeMenu(); // Crucial: Initialize menu after header load
+    }
 
+    async function loadFooter() {
+        const response = await fetch('footer.html');
+        const text = await response.text();
+        document.getElementById('footer-container').innerHTML = text;
+    }
+
+    loadHeader();
+    loadFooter();
+
+    function initializeMenu() {
+        const menuGroups = document.querySelectorAll('.relative.group');
+
+        menuGroups.forEach(menuGroup => {
+            const button = menuGroup.querySelector('button');
+            const dropdown = menuGroup.querySelector('.absolute');
+
+            if (button && dropdown) {
+                button.addEventListener('mouseenter', () => {
+                    dropdown.classList.remove('hidden');
+                });
+
+                menuGroup.addEventListener('mouseleave', () => {
+                    dropdown.classList.add('hidden');
+                });
+            }
+        });
+    }
+</script>
 </body>
 </html>
