@@ -1,62 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandyHut Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .dropdown-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+
 <header class="bg-gray-900 text-gray-100 py-4 shadow-md">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold hover:text-indigo-400 transition duration-300 ease-in-out">HandyHut</a>
-        <nav class="hidden md:flex items-center space-x-4">
-            <!-- Example for Finance -->
-            <div class="relative group">
-                <button class="py-2 px-3 hover:text-indigo-400 transition duration-300 ease-in-out">Finance</button>
-                <div class="absolute top-full left-0 z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition">EMI Calculator</a>
-                    <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700 transition">Currency Converter</a>
-                </div>
-            </div>
-
-            <!-- Repeat the same structure for Utility, AI, Health -->
-            <div class="relative group">
-                <button class="py-2 px-3 hover:text-indigo-400 transition">Utility</button>
-                <div class="absolute top-full left-0 z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Unit Converter</a>
-                    <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Age & Date Difference</a>
-                    <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Timer, Stopwatch & Countdown</a>
-                    <a href="/qr-code-generator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">QR Code Generator</a>
-                    <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Text Tools</a>
-                </div>
-            </div>
-
-            <div class="relative group">
-                <button class="py-2 px-3 hover:text-indigo-400 transition">AI</button>
-                <div class="absolute top-full left-0 z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Prompt Engineering</a>
-                </div>
-            </div>
-
-            <div class="relative group">
-                <button class="py-2 px-3 hover:text-indigo-400 transition">Health</button>
-                <div class="absolute top-full left-0 z-10 bg-gray-800 rounded-md shadow-lg overflow-hidden w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">BMI Calculator</a>
-                </div>
-            </div>
-        </nav>
-
-        <button id="mobileMenuButton" class="md:hidden text-gray-300 hover:text-indigo-400 focus:outline-none">
-            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M4 18h16v-2H4v2zm0-5h16v-2H4v2zm0-5h16V6H4v2z"/>
-            </svg>
-        </button>
-        <div id="mobileMenu" class="absolute top-full left-0 right-0 bg-gray-800 shadow-md z-20 py-2 flex-col items-center hidden md:hidden">
-            <!-- Mobile links remain unchanged -->
-            <!-- (your mobile menu links here) -->
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <a href="/" class="text-xl font-bold hover:text-indigo-400 transition">HandyHut</a>
+    <nav class="hidden md:flex items-center space-x-6">
+      <!-- Finance -->
+      <div class="relative dropdown">
+        <button class="py-2 px-3 hover:text-indigo-400">Finance</button>
+        <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
+          <a href="/emi-calculator.html" class="block px-4 py-2 text-sm hover:bg-gray-700">EMI Calculator</a>
+          <a href="/currency-converter.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Currency Converter</a>
         </div>
-    </div>
+      </div>
+      <!-- Utility -->
+      <div class="relative dropdown">
+        <button class="py-2 px-3 hover:text-indigo-400">Utility</button>
+        <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-56 dropdown-menu z-10">
+          <a href="/unit-converter.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Unit Converter</a>
+          <a href="/date-difference.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Age & Date Difference</a>
+          <a href="/timer-stopwatch-countdown.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Timer, Stopwatch & Countdown</a>
+          <a href="/qr-code-generator.html" class="block px-4 py-2 text-sm hover:bg-gray-700">QR Code Generator</a>
+          <a href="/text-tools.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Text Tools</a>
+        </div>
+      </div>
+      <!-- AI -->
+      <div class="relative dropdown">
+        <button class="py-2 px-3 hover:text-indigo-400">AI</button>
+        <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
+          <a href="/prompt-engineering.html" class="block px-4 py-2 text-sm hover:bg-gray-700">Prompt Engineering</a>
+        </div>
+      </div>
+      <!-- Health -->
+      <div class="relative dropdown">
+        <button class="py-2 px-3 hover:text-indigo-400">Health</button>
+        <div class="absolute top-full left-0 bg-gray-800 shadow-lg rounded-md w-48 dropdown-menu z-10">
+          <a href="/bmi-calculator.html" class="block px-4 py-2 text-sm hover:bg-gray-700">BMI Calculator</a>
+        </div>
+      </div>
+    </nav>
 
-    <!-- Optional JS to handle mobile menu toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobileMenuButton');
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        });
-    </script>
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuButton" class="md:hidden text-gray-300 hover:text-indigo-400 focus:outline-none">
+      <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 18h16v-2H4v2zm0-5h16v-2H4v2zm0-5h16V6H4v2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden px-4 py-4 bg-gray-800">
+    <a href="/emi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Finance - EMI Calculator</a>
+    <a href="/currency-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Finance - Currency Converter</a>
+    <a href="/unit-converter.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Unit Converter</a>
+    <a href="/date-difference.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Age & Date Difference</a>
+    <a href="/timer-stopwatch-countdown.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Timer, Stopwatch & Countdown</a>
+    <a href="/qr-code-generator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - QR Code Generator</a>
+    <a href="/text-tools.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Utility - Text Tools</a>
+    <a href="/prompt-engineering.html" class="block py-2 px-4 text-sm hover:bg-gray-700">AI - Prompt Engineering</a>
+    <a href="/bmi-calculator.html" class="block py-2 px-4 text-sm hover:bg-gray-700">Health - BMI Calculator</a>
+  </div>
 </header>
+
+<!-- JS to toggle mobile menu -->
+<script>
+  document.getElementById('mobileMenuButton').addEventListener('click', function () {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+  });
+</script>
+
+</body>
+</html>
