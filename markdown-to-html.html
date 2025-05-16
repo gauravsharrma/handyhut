@@ -25,7 +25,7 @@
             min-height: 150px;
         }
 
-        .convert-button {
+        .view-button {
             background-color: #6d28d9;
             color: white;
             padding: 0.5rem 1rem;
@@ -33,19 +33,11 @@
             border-radius: 0.25rem;
             cursor: pointer;
             transition: background-color 0.2s ease-in-out;
+            margin-top: 0.5rem;
         }
 
-        .convert-button:hover {
+        .view-button:hover {
             background-color: #553c9a;
-        }
-
-        #html-output {
-            margin-top: 1rem;
-            padding: 1rem;
-            background-color: #111827;
-            border-radius: 0.5rem;
-            color: #f3f4f6;
-            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -58,11 +50,7 @@
         <div class="converter-container">
             <label for="markdown-input" class="block text-gray-300 mb-2">Enter Markdown:</label>
             <textarea id="markdown-input" placeholder="Enter your Markdown text here..."></textarea>
-            <button class="convert-button" onclick="convertToHTML()">Convert to HTML</button>
-            <div id="html-output" class="mt-4">
-                <label for="html-output-text" class="block text-gray-300 mb-2">HTML Output:</label>
-                <pre><code id="html-output-text"></code></pre>
-            </div>
+            <button class="view-button" onclick="viewHTML()">View HTML in New Tab</button>
         </div>
     </main>
 
@@ -80,6 +68,7 @@
             const response = await fetch('footer.html');
             const text = await response.text();
             document.getElementById('footer-container').innerHTML = text;
+            initializeMenu();
         }
 
         function initializeMenu() {
@@ -104,9 +93,8 @@
         loadHeader();
         loadFooter();
 
-        function convertToHTML() {
+        function viewHTML() {
             const markdownText = document.getElementById('markdown-input').value;
-            const htmlOutput = document.getElementById('html-output-text');
 
             // Basic Markdown to HTML conversion (can be improved with a library)
             let html = markdownText
@@ -128,7 +116,9 @@
             // Handle line breaks
             html = html.replace(/\n/g, '<br>');
 
-            htmlOutput.textContent = html;
+            const newTab = window.open();
+            newTab.document.write(html);
+            newTab.document.close();
         }
     </script>
 </body>
