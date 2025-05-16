@@ -10,5 +10,94 @@
 
     <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
         </div>
+
     <script src="tools.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuButton = document.getElementById('mobileMenuButton');
+            const menu = document.getElementById('mobileMenu');
+            const desktopNav = document.getElementById('desktop-nav');
+
+            let navCategories = [];
+            if (tools && Array.isArray(tools)) {
+                 navCategories = [...new Set(tools.map(tool => tool.category))];
+            }
+
+            // Generate Desktop Navigation
+            if (desktopNav) {
+                desktopNav.innerHTML = navCategories.map(category => `
+                    <div class="relative group">
+                        <button class="py-2 px-3 hover:text-${getCategoryColor(category)}-400">${category}</button>
+                        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block px-4 py-2 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                // **Initialize Desktop Submenu Hover Here!**
+                const desktopMenuItemsWithSubmenus = document.querySelectorAll('#desktop-nav .relative.group');
+                desktopMenuItemsWithSubmenus.forEach(menuItem => {
+                    menuItem.addEventListener('mouseenter', () => {
+                        const submenu = menuItem.querySelector('.absolute');
+                        if (submenu) {
+                            submenu.classList.remove('hidden');
+                        }
+                    });
+                    menuItem.addEventListener('mouseleave', () => {
+                        const submenu = menuItem.querySelector('.absolute');
+                        if (submenu) {
+                            submenu.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+
+            // Generate Mobile Navigation
+            if (menu) {
+                menu.innerHTML = navCategories.map(category => `
+                    <div>
+                        <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">${category}</button>
+                        <div class="hidden ml-4 mt-2 space-y-1 submenu">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                // **Initialize Mobile Menu Toggle Here!**
+                if (menuButton) {
+                    menuButton.addEventListener('click', () => {
+                        menu.classList.toggle('hidden');
+                    });
+                }
+
+                const submenuToggles = document.querySelectorAll('.submenu-toggle');
+                submenuToggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const submenu = toggle.nextElementSibling;
+                        if (submenu) submenu.classList.toggle('hidden');
+                    });
+                });
+            }
+
+
+        });
+
+         // Helper function to get category color
+         function getCategoryColor(category) {
+            switch (category) {
+                case "Finance": return "green";
+                case "Utility": return "yellow";
+                case "AI": return "blue";
+                case "Health": return "purple";
+                case "Information": return "teal";
+                default: return "gray"; // Default color
+            }
+        }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6241814460621346"
+       crossorigin="anonymous"></script>
 </header>
