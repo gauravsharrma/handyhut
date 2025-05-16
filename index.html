@@ -10,14 +10,19 @@
 </head>
 
 <body class="bg-gray-900 text-gray-100 font-sans">
-    <script src="tools.js"></script>  <div id="header-container"></div>
+    <script src="tools.js"></script>
+    <div id="header-container"></div>
     <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section class="mb-10">
             <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your
                 One-Stop Shop for Handy Online Tools</h1>
-            <p class="text-lg text-gray-300">HandyHut provides a collection
+            <p class="text-lg text-gray-300 mb-4">HandyHut provides a collection
                 of useful tools right at your fingertips. Explore our growing
                 library and simplify your daily tasks.</p>
+            <div class="mb-4">
+                <input type="text" id="searchInput" placeholder="Search tools..."
+                    class="bg-gray-800 text-gray-100 border border-gray-700 rounded py-2 px-4 w-full focus:outline-none focus:border-indigo-500">
+            </div>
         </section>
         <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="tool-grid">
         </section>
@@ -56,10 +61,12 @@
             });
         }
 
-        // Generate tool cards dynamically
         const toolGrid = document.getElementById('tool-grid');
-        if (toolGrid) {
-            tools.forEach(tool => {
+        const searchInput = document.getElementById('searchInput');
+
+        function displayTools(toolsToDisplay) {
+            toolGrid.innerHTML = ''; // Clear previous cards
+            toolsToDisplay.forEach(tool => {
                 const card = document.createElement('a');
                 card.href = tool.url;
                 card.classList.add('tool-card');
@@ -75,6 +82,26 @@
                 toolGrid.appendChild(card);
             });
         }
+
+        // Initial display of tools
+        if (toolGrid && typeof tools !== 'undefined' && Array.isArray(tools)) {
+            displayTools(tools);
+
+            // Add event listener for search
+            searchInput.addEventListener('input', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredTools = tools.filter(tool =>
+                    tool.name.toLowerCase().includes(searchTerm) ||
+                    tool.description.toLowerCase().includes(searchTerm) ||
+                    tool.category.toLowerCase().includes(searchTerm) ||
+                    (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+                );
+                displayTools(filteredTools);
+            });
+        } else {
+            console.error("Could not load tools or tool grid not found.");
+        }
+
 
         // Helper function to get category color (you can customize these)
         function getCategoryColor(category) {
