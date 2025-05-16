@@ -36,7 +36,7 @@
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
 
-    <div id="header-container"></div>
+    <script src="tools.js"></script>  <div id="header-container"></div>
 
     <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section>
@@ -50,7 +50,6 @@
 
     <div id="footer-container"></div>
 
-    <script src="tools.js"></script>
     <script>
         async function loadHeader() {
             const response = await fetch('header.html');
@@ -98,21 +97,23 @@
 
         // Group tools by category
         const toolsByCategory = {};
-        tools.forEach(tool => {
-            if (!toolsByCategory[tool.category]) {
-                toolsByCategory[tool.category] = [];
-            }
-            toolsByCategory[tool.category].push(tool);
-        });
+        if (tools) {  // Check if tools is defined
+            tools.forEach(tool => {
+                if (!toolsByCategory[tool.category]) {
+                    toolsByCategory[tool.category] = [];
+                }
+                toolsByCategory[tool.category].push(tool);
+            });
 
-        // Add tools to sitemap
-        for (const category in toolsByCategory) {
-            sitemapHTML += `
-                <h2 class="sitemap-section-title">${category} Tools</h2>
-                <ul class="sitemap-list">
-                    ${toolsByCategory[category].map(tool => `<li><a href="${tool.url}">${tool.name}</a></li>`).join('')}
-                </ul>
-            `;
+            // Add tools to sitemap
+            for (const category in toolsByCategory) {
+                sitemapHTML += `
+                    <h2 class="sitemap-section-title">${category} Tools</h2>
+                    <ul class="sitemap-list">
+                        ${toolsByCategory[category].map(tool => `<li><a href="${tool.url}">${tool.name}</a></li>`).join('')}
+                    </ul>
+                `;
+            }
         }
 
         sitemapHTML += `
