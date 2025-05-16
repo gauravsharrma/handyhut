@@ -2,14 +2,14 @@
     <div class="container mx-auto px-4 flex items-center justify-between">
         <a href="/" class="text-xl font-bold hover:text-indigo-400">HandyHut</a>
         <nav class="hidden md:flex space-x-6" id="desktop-nav">
-            </nav>
+        </nav>
         <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
             <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
     </div>
 
     <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
-        </div>
+    </div>
 
     <script src="tools.js"></script>
     <script>
@@ -36,7 +36,7 @@
                     </div>
                 `).join('');
 
-                // **Initialize Desktop Submenu Hover Here!**
+                // Initialize Desktop Submenu Hover  <-- UNCOMMENTED and CORRECTED
                 const desktopMenuItemsWithSubmenus = document.querySelectorAll('#desktop-nav .relative.group');
                 desktopMenuItemsWithSubmenus.forEach(menuItem => {
                     menuItem.addEventListener('mouseenter', () => {
@@ -66,24 +66,21 @@
                         </div>
                     </div>
                 `).join('');
+            }
 
-                // **Initialize Mobile Menu Toggle Here!**
-                if (menuButton) {
-                    menuButton.addEventListener('click', () => {
-                        menu.classList.toggle('hidden');
-                    });
-                }
-
-                const submenuToggles = document.querySelectorAll('.submenu-toggle');
-                submenuToggles.forEach(toggle => {
-                    toggle.addEventListener('click', () => {
-                        const submenu = toggle.nextElementSibling;
-                        if (submenu) submenu.classList.toggle('hidden');
-                    });
+            if (menuButton && menu) {
+                menuButton.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
                 });
             }
 
-
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const submenu = toggle.nextElementSibling;
+                    if (submenu) submenu.classList.toggle('hidden');
+                });
+            });
         });
 
          // Helper function to get category color
