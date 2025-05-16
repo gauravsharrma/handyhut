@@ -91,6 +91,15 @@
         #full-article-popup .article-content {
             max-height: none;
             /* Full content visible */
+            word-wrap: break-word;
+            /* Wrap long words */
+            max-width: 60ch;
+            /* Limit characters per line (CSS 'ch' unit) */
+            margin: 0 auto;
+            /* Center the content */
+            font-size: 1.25rem;
+            /* Default font size (20px) */
+            line-height: 1.6;
         }
 
         #close-popup-btn {
@@ -112,6 +121,23 @@
             cursor: pointer;
             margin-top: 0.5rem;
             display: inline-block;
+        }
+
+        #font-controls {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #font-controls button {
+            background-color: #4B5563;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
         }
     </style>
 </head>
@@ -160,6 +186,10 @@
     <div id="full-article-popup">
         <span id="close-popup-btn" onclick="closeFullArticlePopup()">×</span>
         <div class="article-content"></div>
+        <div id="font-controls">
+            <button onclick="adjustFontSize(1)">+</button>
+            <button onclick="adjustFontSize(-1)">-</button>
+        </div>
     </div>
 
     <script>
@@ -258,6 +288,8 @@
                 });
         }
 
+        let currentFontSize = 1.25; // Initial font size (20px)
+
         function showFullArticlePopup(url) {
             const popup = document.getElementById('full-article-popup');
             const contentDiv = popup.querySelector('.article-content');
@@ -265,10 +297,20 @@
 
             contentDiv.innerHTML = '<p>Loading...</p>';
             loadFullArticle(url, contentDiv);
+
+            // Reset font size when showing popup
+            currentFontSize = 1.25;
+            contentDiv.style.fontSize = `${currentFontSize}rem`;
         }
 
         function closeFullArticlePopup() {
             document.getElementById('full-article-popup').style.display = 'none';
+        }
+
+        function adjustFontSize(increment) {
+            currentFontSize += 0.1 * increment;
+            const contentDiv = document.querySelector('#full-article-popup .article-content');
+            contentDiv.style.fontSize = `${currentFontSize}rem`;
         }
 
 
