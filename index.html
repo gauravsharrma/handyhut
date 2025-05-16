@@ -41,7 +41,60 @@
             const response = await fetch('header.html');
             const text = await response.text();
             document.getElementById('header-container').innerHTML = text;
-            initializeMenu(); // Make sure this function is defined (it will be in header.html)
+            initializeMenu(); // Initialize dropdowns (if any)
+
+            // --- MOVE HEADER MENU GENERATION HERE ---
+            const menuButton = document.getElementById('mobileMenuButton');
+            const menu = document.getElementById('mobileMenu');
+            const desktopNav = document.getElementById('desktop-nav');
+
+            let navCategories = [];
+            if (tools && Array.isArray(tools)) {
+                 navCategories = [...new Set(tools.map(tool => tool.category))];
+            }
+
+            // Generate Desktop Navigation
+            if (desktopNav) {
+                desktopNav.innerHTML = navCategories.map(category => `
+                    <div class="relative group">
+                        <button class="py-2 px-3 hover:text-${getCategoryColor(category)}-400">${category}</button>
+                        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block px-4 py-2 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Generate Mobile Navigation
+            if (menu) {
+                menu.innerHTML = navCategories.map(category => `
+                    <div>
+                        <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">${category}</button>
+                        <div class="hidden ml-4 mt-2 space-y-1 submenu">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            if (menuButton && menu) {
+                menuButton.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const submenu = toggle.nextElementSibling;
+                    if (submenu) submenu.classList.toggle('hidden');
+                });
+            });
+            // --- END OF MOVED CODE ---
         }
         async function loadFooter() {
             const response = await fetch('footer.html');
