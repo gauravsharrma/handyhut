@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade/GPA/Percentage Calculator - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .calculator-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #d1d5db;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+
+        .calculate-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .calculate-button:hover {
+            background-color: #553c9a;
+        }
+
+        #result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Grade / GPA / Percentage Calculator</h1>
+        <div class="calculator-container">
+            <div id="input-fields">
+                <div class="input-group">
+                    <label for="marks1" class="input-label">Subject 1 Marks</label>
+                    <input type="number" id="marks1" class="input-field" placeholder="Enter marks">
+                </div>
+                <div class="input-group">
+                    <label for="total1" class="input-label">Subject 1 Total Marks</label>
+                    <input type="number" id="total1" class="input-field" value="100" placeholder="Total marks">
+                </div>
+            </div>
+            <button class="calculate-button" onclick="addSubject()">Add Subject</button>
+            <button class="calculate-button" onclick="calculate()">Calculate</button>
+            <div id="result" class="mt-4"></div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+
+        loadHeader();
+        loadFooter();
+
+        let subjectCount = 1;
+
+        function addSubject() {
+            subjectCount++;
+            const inputFields = document.getElementById('input-fields');
+            const newMarksInput = document.createElement('div');
+            newMarksInput.classList.add('input-group');
+            newMarksInput.innerHTML = `
+                <label for="marks${subjectCount}" class="input-label">Subject ${subjectCount} Marks</label>
+                <input type="number" id="marks${subjectCount}" class="input-field" placeholder="Enter marks">
+            `;
+            const newTotalInput = document.createElement('div');
+            newTotalInput.classList.add('input-group');
+            newTotalInput.innerHTML = `
+                <label for="total${subjectCount}" class="input-label">Subject ${subjectCount} Total Marks</label>
+                <input type="number" id="total${subjectCount}" class="input-field" value="100" placeholder="Total marks">
+            `;
+            inputFields.appendChild(newMarksInput);
+            inputFields.appendChild(newTotalInput);
+        }
+
+        function calculate() {
+            let totalObtained = 0;
+            let totalMax = 0;
+
+            for (let i = 1; i <= subjectCount; i++) {
+                const marks = parseFloat(document.getElementById(`marks${i}`).value) || 0;
+                const total = parseFloat(document.getElementById(`total${i}`).value) || 100; // Default to 100 to avoid division by zero
+                totalObtained += marks;
+                totalMax += total;
+            }
+
+            const percentage = (totalObtained / totalMax) * 100;
+            let grade = "";
+
+            if (percentage >= 90) {
+                grade = "A+";
+            } else if (percentage >= 80) {
+                grade = "A";
+            } else if (percentage >= 70) {
+                grade = "B";
+            } else if (percentage >= 60) {
+                grade = "C";
+            } else if (percentage >= 50) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            let gpa = (percentage / 10) || 0; // Basic GPA calculation (adjust as needed)
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p>Total Marks Obtained: ${totalObtained}</p>
+                <p>Total Maximum Marks: ${totalMax}</p>
+                <p>Percentage: ${percentage.toFixed(2)}%</p>
+                <p>Grade: ${grade}</p>
+                <p>GPA: ${gpa.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>

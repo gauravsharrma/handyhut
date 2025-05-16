@@ -173,6 +173,41 @@ const tools = [
         description: "Convert times between different timezones.",
         category: "Utility",
         tags: ["Utility", "Converter"]
+    },
+    {
+        name: "Grade / GPA Calculator",
+        url: "grade-calculator.html",
+        description: "Calculate grades, GPA, and percentages.",
+        category: "Utility",
+        tags: ["Utility", "Education", "Calculator"]
+    },
+    {
+        name: "Typing Speed Test",
+        url: "typing-test.html",
+        description: "Test your typing speed and accuracy.",
+        category: "Utility",
+        tags: ["Utility", "Productivity"]
+    },
+    {
+        name: "Plagiarism Checker",
+        url: "plagiarism-checker.html",
+        description: "Check text for potential plagiarism.",
+        category: "Utility",
+        tags: ["Utility", "Writing", "Education"]
+    },
+    {
+        name: "Readability Checker",
+        url: "readability-checker.html",
+        description: "Check the readability of your text.",
+        category: "Utility",
+        tags: ["Utility", "Writing", "Education"]
+    },
+    {
+        name: "Flashcard Generator",
+        url: "flashcard-generator.html",
+        description: "Create custom flashcards for studying.",
+        category: "Utility",
+        tags: ["Utility", "Education", "Study"]
     }
     //  ADD NEW TOOLS HERE!  This is the only place you'll need to update.
 ];

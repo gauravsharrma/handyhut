@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .typing-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #text-display {
+            background-color: #111827;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.75rem;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+
+        #text-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin-bottom: 0.75rem;
+        }
+
+        .results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Typing Speed Test</h1>
+        <div class="typing-container">
+            <div id="text-display"></div>
+            <textarea id="text-input" rows="4" placeholder="Start typing here..."></textarea>
+            <button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onclick="startTest()">Start Test</button>
+            <div class="results">
+                <p>Time: <span id="time">0s</span></p>
+                <p>Words Per Minute (WPM): <span id="wpm">0</span></p>
+                <p>Accuracy: <span id="accuracy">0%</span></p>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+
+        loadHeader();
+        loadFooter();
+
+        const textDisplay = document.getElementById('text-display');
+        const textInput = document.getElementById('text-input');
+        const timeDisplay = document.getElementById('time');
+        const wpmDisplay = document.getElementById('wpm');
+        const accuracyDisplay = document.getElementById('accuracy');
+
+        let testText = "";
+        let startTime;
+        let elapsedTime = 0;
+        let timer;
+        let started = false;
+
+        const sampleTexts = [
+            "The quick brown fox jumps over the lazy dog.",
+            "Programming is a great skill to learn in the 21st century.",
+            "Practice makes perfect, especially when it comes to typing.",
+            "The best way to predict the future is to create it.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts."
+        ];
+
+        function getRandomText() {
+            return sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+        }
+
+        function startTest() {
+            if (started) return;
+            started = true;
+
+            textInput.value = "";
+            textInput.focus();
+            testText = getRandomText();
+            textDisplay.innerText = testText;
+
+            startTime = new Date();
+            timer = setInterval(updateTime, 1000);
+
+            textInput.addEventListener('input', checkInput);
+        }
+
+        function checkInput() {
+            const typedText = textInput.value;
+
+            if (typedText.length === testText.length) {
+                finishTest();
+            } else {
+                highlightText(typedText);
+            }
+        }
+
+        function highlightText(typedText) {
+            let highlightedText = "";
+            for (let i = 0; i < testText.length; i++) {
+                if (i < typedText.length) {
+                    if (typedText[i] === testText[i]) {
+                        highlightedText += `<span class="text-green-400">${testText[i]}</span>`;
+                    } else {
+                        highlightedText += `<span class="text-red-400">${testText[i]}</span>`;
+                    }
+                } else {
+                    highlightedText += testText[i];
+                }
+            }
+            textDisplay.innerHTML = highlightedText;
+        }
+
+        function updateTime() {
+            elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            timeDisplay.innerText = elapsedTime + "s";
+        }
+
+        function finishTest() {
+            clearInterval(timer);
+            const typedText = textInput.value;
+            const wordsTyped = typedText.split(/\s+/).filter(word => word).length;
+            const rawWPM = (wordsTyped / elapsedTime) * 60;
+
+            let correctChars = 0;
+            for (let i = 0; i < testText.length; i++) {
+                if (typedText[i] === testText[i]) {
+                    correctChars++;
+                }
+            }
+            const accuracy = (correctChars / testText.length) * 100;
+
+            wpmDisplay.innerText = Math.round(rawWPM);
+            accuracyDisplay.innerText = accuracy.toFixed(2) + "%";
+
+            textInput.removeEventListener('input', checkInput);
+            started = false;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readability Checker - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .checker-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #text-to-analyze {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin-bottom: 0.75rem;
+            min-height: 150px;
+        }
+
+        #analyze-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        #analyze-button:hover {
+            background-color: #553c9a;
+        }
+
+        #readability-results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Readability Checker</h1>
+        <div class="checker-container">
+            <textarea id="text-to-analyze" placeholder="Enter text to check readability..."></textarea>
+            <button id="analyze-button" onclick="checkReadability()">Check Readability</button>
+            <div id="readability-results">
+                </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+
+        loadHeader();
+        loadFooter();
+
+        function checkReadability() {
+            const text = document.getElementById('text-to-analyze').value;
+            const resultsDiv = document.getElementById('readability-results');
+
+            if (!text) {
+                resultsDiv.innerHTML = "<p>Please enter text to analyze.</p>";
+                return;
+            }
+
+            //  Simplified Flesch-Kincaid Grade Level Calculation
+            const sentences = text.split('. ').length;
+            const words = text.split(' ').length;
+            const characters = text.length;
+            let syllables = 0;
+
+            //  Crude syllable counting (this is a simplification!)
+            const wordsArray = text.split(' ');
+            for (let i = 0; i < wordsArray.length; i++) {
+                let word = wordsArray[i].toLowerCase();
+                if (word.length <= 3) {
+                    syllables += 1;
+                } else {
+                    syllables += word.match(/[aeiouy]{1,2}/g)?.length || 0;
+                }
+            }
+
+
+            const gradeLevel = (0.39 * (words / sentences)) + (11.8 * (syllables / words)) - 15.59;
+
+            resultsDiv.innerHTML = `
+                <p>Approximate Grade Level: ${gradeLevel.toFixed(2)}</p>
+                <p>(Note: This is a simplified calculation. More accurate results may require advanced analysis.)</p>
+            `;
+
+            //  *** PLACEHOLDER FOR ADVANCED ANALYSIS  ***
+            //  For a more comprehensive check, you might want to:
+            //  -  Calculate other readability indices (e.g., SMOG, Coleman-Liau)
+            //  -  Analyze sentence structure, word complexity, etc. (often server-side)
+            //  -  Consider using a readability library or API
+        }
+    </script>
+</body>
+
+</html>

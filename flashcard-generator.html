@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Generator - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .generator-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin-bottom: 0.75rem;
+        }
+
+        .add-card-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .add-card-button:hover {
+            background-color: #553c9a;
+        }
+
+        #flashcards-container {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .flashcard {
+            background-color: #111827;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Flashcard Generator</h1>
+        <div class="generator-container">
+            <input type="text" id="front-input" class="card-input" placeholder="Front of Card">
+            <input type="text" id="back-input" class="card-input" placeholder="Back of Card">
+            <button class="add-card-button" onclick="addFlashcard()">Add Card</button>
+            <div id="flashcards-container">
+                </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+        loadHeader();
+        loadFooter();
+
+        const frontInput = document.getElementById('front-input');
+        const backInput = document.getElementById('back-input');
+        const flashcardsContainer = document.getElementById('flashcards-container');
+
+        function addFlashcard() {
+            const frontText = frontInput.value.trim();
+            const backText = backInput.value.trim();
+
+            if (frontText && backText) {
+                const card = document.createElement('div');
+                card.classList.add('flashcard');
+                card.innerHTML = frontText;
+
+                card.addEventListener('click', () => {
+                    if (card.innerHTML === frontText) {
+                        card.innerHTML = backText;
+                    } else {
+                        card.innerHTML = frontText;
+                    }
+                    card.classList.toggle('flipped');
+                });
+
+                flashcardsContainer.appendChild(card);
+                frontInput.value = "";
+                backInput.value = "";
+            } else {
+                alert("Please enter text for both sides of the card.");
+            }
+        }
+    </script>
+</body>
+
+</html>
