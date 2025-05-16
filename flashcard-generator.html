@@ -50,7 +50,8 @@
             border-radius: 0.5rem;
             padding: 1rem;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.5s ease-in-out, box-shadow 0.2s ease-in-out;
+            transform-style: preserve-3d;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             min-height: 100px;
             display: flex;
@@ -58,6 +59,25 @@
             justify-content: center;
             text-align: center;
             word-wrap: break-word;
+            position: relative;
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: #374151;
         }
 
         .flashcard.flipped {
@@ -129,14 +149,19 @@
             if (frontText && backText) {
                 const card = document.createElement('div');
                 card.classList.add('flashcard');
-                card.innerHTML = frontText;
+
+                const frontFace = document.createElement('div');
+                frontFace.classList.add('flashcard-front');
+                frontFace.innerHTML = frontText;
+
+                const backFace = document.createElement('div');
+                backFace.classList.add('flashcard-back');
+                backFace.innerHTML = backText;
+
+                card.appendChild(frontFace);
+                card.appendChild(backFace);
 
                 card.addEventListener('click', () => {
-                    if (card.innerHTML === frontText) {
-                        card.innerHTML = backText;
-                    } else {
-                        card.innerHTML = frontText;
-                    }
                     card.classList.toggle('flipped');
                 });
 
