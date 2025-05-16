@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to HTML Converter - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .converter-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin-bottom: 0.75rem;
+            min-height: 150px;
+        }
+
+        .convert-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .convert-button:hover {
+            background-color: #553c9a;
+        }
+
+        #html-output {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Markdown to HTML Converter</h1>
+        <div class="converter-container">
+            <label for="markdown-input" class="block text-gray-300 mb-2">Enter Markdown:</label>
+            <textarea id="markdown-input" placeholder="Enter your Markdown text here..."></textarea>
+            <button class="convert-button" onclick="convertToHTML()">Convert to HTML</button>
+            <div id="html-output" class="mt-4">
+                <label for="html-output-text" class="block text-gray-300 mb-2">HTML Output:</label>
+                <pre><code id="html-output-text"></code></pre>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+        loadHeader();
+        loadFooter();
+
+        function convertToHTML() {
+            const markdownText = document.getElementById('markdown-input').value;
+            const htmlOutput = document.getElementById('html-output-text');
+
+            // Basic Markdown to HTML conversion (can be improved with a library)
+            let html = markdownText
+                .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+                .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+                .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+                .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                .replace(/\*(.*?)\*/g, '<i>$1</i>')
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                .replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>')
+                .replace(/^---$/gm, '<hr>');
+
+            // Handle unordered lists
+            html = html.replace(/^- (.*)$/gm, (match, p1) => `<li>${p1}</li>`);
+            html = html.replace(/<\/li>\n<li>/g, '</li><li>'); // Clean up consecutive list items
+            const ulRegex = /(<li>.*?<\/li>(\n|$))+/g;
+            html = html.replace(ulRegex, (match) => `<ul>${match}</ul>`);
+
+            // Handle line breaks
+            html = html.replace(/\n/g, '<br>');
+
+            htmlOutput.textContent = html;
+        }
+    </script>
+</body>
+
+</html>

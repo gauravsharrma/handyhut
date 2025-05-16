@@ -208,6 +208,34 @@ const tools = [
         description: "Create custom flashcards for studying.",
         category: "Utility",
         tags: ["Utility", "Education", "Study"]
+    },
+    {
+        name: "Markdown to HTML",
+        url: "markdown-to-html.html",
+        description: "Convert Markdown text to HTML.",
+        category: "Utility",
+        tags: ["Utility", "Text", "Converter"]
+    },
+    {
+        name: "Password Generator",
+        url: "password-generator.html",
+        description: "Generate strong and secure passwords with customizable options.",
+        category: "Utility",
+        tags: ["Utility", "Security"]
+    },
+    {
+        name: "PDF Tools",
+        url: "pdf-tools.html",
+        description: "Compress or merge PDF files.",
+        category: "Utility",
+        tags: ["Utility", "PDF"]
+    }, 
+    {
+        name: "Resume Analyzer (ATS Check)",
+        url: "resume-analyzer.html",
+        description: "Check your resume for ATS compatibility.",
+        category: "Utility",
+        tags: ["Utility", "Career"]
     }
     //  ADD NEW TOOLS HERE!  This is the only place you'll need to update.
 ];

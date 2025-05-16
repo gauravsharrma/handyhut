@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Tools - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .pdf-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload {
+            margin-bottom: 0.75rem;
+        }
+
+        .action-select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.25rem;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin-bottom: 0.75rem;
+        }
+
+        .process-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .process-button:hover {
+            background-color: #553c9a;
+        }
+
+        #results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">PDF Tools</h1>
+        <div class="pdf-container">
+            <div class="file-upload">
+                <label for="pdf-files" class="block text-gray-300 mb-2">Select PDF Files:</label>
+                <input type="file" id="pdf-files" class="w-full" multiple accept=".pdf">
+            </div>
+            <select id="pdf-action" class="action-select">
+                <option value="compress">Compress</option>
+                <option value="merge">Merge</option>
+            </select>
+            <button class="process-button" onclick="processPDFs()">Process PDFs</button>
+            <div id="results">
+                </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+
+        loadHeader();
+        loadFooter();
+
+        function processPDFs() {
+            const fileInput = document.getElementById('pdf-files');
+            const actionSelect = document.getElementById('pdf-action');
+            const resultsDiv = document.getElementById('results');
+            const files = fileInput.files;
+            const action = actionSelect.value;
+
+            if (files.length === 0) {
+                resultsDiv.innerHTML = "<p>Please select PDF files to process.</p>";
+                return;
+            }
+
+            // *** PLACEHOLDER FOR BACKEND OR CLIENT-SIDE LIBRARY INTEGRATION  ***
+            //
+            //  Backend Example (using fetch):
+            //  const formData = new FormData();
+            //  for (let i = 0; i < files.length; i++) {
+            //      formData.append('pdfFiles', files[i]);
+            //  }
+            //  formData.append('action', action);
+            //
+            //  fetch('/api/process-pdf', {
+            //      method: 'POST',
+            //      body: formData
+            //  })
+            //  .then(response => response.blob()) // Or response.json(), depending on server response
+            //  .then(blob => {
+            //      //  Create a download link for the processed file
+            //      const url = window.URL.createObjectURL(blob);
+            //      const a = document.createElement('a');
+            //      a.href = url;
+            //      a.download = `processed.${action === 'merge' ? 'merged' : 'compressed'}.pdf`;
+            //      document.body.appendChild(a);
+            //      a.click();
+            //      a.remove();
+            //      window.URL.revokeObjectURL(url);
+            //  })
+            //  .catch(error => {
+            //      resultsDiv.innerHTML = "<p>Error processing PDFs.</p>";
+            //      console.error(error);
+            //  });
+
+            //  Client-Side Library Example (very basic - compression might be limited):
+            //  If using a library like PDF.js, you'd need to:
+            //  1.  Import the library.
+            //  2.  Load the PDF files.
+            //  3.  Perform the compression/merge operations (library-specific code).
+            //  4.  Generate a new PDF file (or blob).
+            //  5.  Create a download link.
+
+            //  For now, just a placeholder message:
+            resultsDiv.innerHTML = `<p>PDF ${action} in progress... (Backend or library integration required)</p>`;
+        }
+    </script>
+</body>
+
+</html>

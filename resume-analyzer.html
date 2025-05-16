@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .analyzer-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload {
+            margin-bottom: 0.75rem;
+        }
+
+        .analyze-button {
+            background-color: #6d28d9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .analyze-button:hover {
+            background-color: #553c9a;
+        }
+
+        #analysis-results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #111827;
+            border-radius: 0.5rem;
+            color: #f3f4f6;
+        }
+
+        .ats-feedback {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        .ats-good {
+            background-color: #166534;
+            color: #d1e7dd;
+        }
+
+        .ats-warning {
+            background-color: #a16207;
+            color: #fef3c7;
+        }
+
+        .ats-error {
+            background-color: #7f1d1d;
+            color: #fecaca;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-6 px-4">
+        <h1 class="text-2xl font-bold mb-4">Resume Analyzer (ATS Check)</h1>
+        <div class="analyzer-container">
+            <div class="file-upload">
+                <label for="resume-file" class="block text-gray-300 mb-2">Upload Resume (PDF or DOCX):</label>
+                <input type="file" id="resume-file" class="w-full" accept=".pdf,.docx">
+            </div>
+            <button class="analyze-button" onclick="analyzeResume()">Analyze Resume</button>
+            <div id="analysis-results">
+                </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu();
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+
+        loadHeader();
+        loadFooter();
+
+        function analyzeResume() {
+            const fileInput = document.getElementById('resume-file');
+            const resultsDiv = document.getElementById('analysis-results');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                resultsDiv.innerHTML = "<p>Please upload a resume file.</p>";
+                return;
+            }
+
+            // *** PLACEHOLDER FOR BACKEND OR ADVANCED CLIENT-SIDE ANALYSIS  ***
+            //
+            //  Backend Approach (using fetch):
+            //  const formData = new FormData();
+            //  formData.append('resume', file);
+            //
+            //  fetch('/api/analyze-resume', {
+            //      method: 'POST',
+            //      body: formData
+            //  })
+            //  .then(response => response.json())
+            //  .then(data => {
+            //      displayAnalysisResults(data); // Function to display results
+            //  })
+            //  .catch(error => {
+            //      resultsDiv.innerHTML = "<p>Error analyzing resume.</p>";
+            //      console.error(error);
+            //  });
+
+            //  Simplified Client-Side (Illustrative - very limited ATS check):
+            //  This is just to give an idea.  Real ATS analysis is much more complex.
+            const filename = file.name.toLowerCase();
+            let basicFeedback = [];
+
+            if (!filename.endsWith('.pdf') && !filename.endsWith('.docx')) {
+                basicFeedback.push({ type: 'error', message: "File format should be PDF or DOCX." });
+            } else {
+                basicFeedback.push({ type: 'good', message: "Acceptable file format." });
+            }
+
+            if (file.size > 1024 * 1024) { // 1MB limit (adjust as needed)
+                basicFeedback.push({ type: 'warning', message: "File size is large. ATS may have trouble parsing." });
+            } else {
+                basicFeedback.push({ type: 'good', message: "File size is within a reasonable limit." });
+            }
+
+            displayBasicAnalysisResults(basicFeedback);
+        }
+
+        function displayBasicAnalysisResults(results) {
+            const resultsDiv = document.getElementById('analysis-results');
+            let html = "<h3>Basic ATS Check:</h3>";
+            if (results.length === 0) {
+                html += "<p>No issues found (basic check).</p>";
+            } else {
+                results.forEach(item => {
+                    let classType = `ats-${item.type}`;
+                    html += `<div class="ats-feedback ${classType}">${item.message}</div>`;
+                });
+            }
+            resultsDiv.innerHTML = html;
+        }
+
+        //  Placeholder function for displaying more detailed analysis
+        //  (This would be used with a backend or advanced client-side library)
+        function displayAnalysisResults(data) {
+            const resultsDiv = document.getElementById('analysis-results');
+            //  Process and display the detailed analysis from 'data'
+            //  Example:
+            //  resultsDiv.innerHTML = JSON.stringify(data, null, 2);
+            resultsDiv.innerHTML = "<p>Detailed analysis results would be displayed here (backend integration needed).</p>";
+        }
+    </script>
+</body>
+
+</html>
