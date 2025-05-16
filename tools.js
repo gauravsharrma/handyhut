@@ -176,3 +176,5 @@ const tools = [
     }
     //  ADD NEW TOOLS HERE!  This is the only place you'll need to update.
 ];
+
+export default tools;
