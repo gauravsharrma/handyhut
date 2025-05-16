@@ -6,27 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HandyHut - Your One-Stop Shop for Online Tools</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Custom styles */
-        .tool-card {
-            display: block;
-            border-radius: 0.5rem;
-            background-color: #1e293b;
-            /* Tailwind's gray-800 */
-            margin-bottom: 1rem;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-
-        .tool-card:hover {
-            transform: translateY(-0.25rem);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .tag {
-            margin-top: 0.75rem;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -43,13 +23,13 @@
         </section>
     </main>
     <div id="footer-container"></div>
+    <script src="tools.js"></script> <!- - Moved this line up - ->
     <script>
         async function loadHeader() {
             const response = await fetch('header.html');
             const text = await response.text();
             document.getElementById('header-container').innerHTML = text;
         }
-
         async function loadFooter() {
             const response = await fetch('footer.html');
             const text = await response.text();
@@ -61,21 +41,23 @@
 
         // Generate tool cards dynamically
         const toolGrid = document.getElementById('tool-grid');
-        tools.forEach(tool => {
-            const card = document.createElement('a');
-            card.href = tool.url;
-            card.classList.add('tool-card');
-            card.innerHTML = `
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-${getCategoryColor(tool.category)}-400 mb-2">${tool.name}</h2>
-                    <p class="text-gray-400">${tool.description}</p>
-                    <div class="tag">
-                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-${getCategoryColor(tool.category)}-400 bg-${getCategoryColor(tool.category)}-900\">${tool.category}</span>
+        if (toolGrid) {
+            tools.forEach(tool => {
+                const card = document.createElement('a');
+                card.href = tool.url;
+                card.classList.add('tool-card');
+                card.innerHTML = `
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-${getCategoryColor(tool.category)}-400 mb-2">${tool.name}</h2>
+                        <p class="text-gray-400">${tool.description}</p>
+                        <div class="tag">
+                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-${getCategoryColor(tool.category)}-400 bg-${getCategoryColor(tool.category)}-900">${tool.category}</span>
+                        </div>
                     </div>
-                </div>
-            `;
-            toolGrid.appendChild(card);
-        });
+                `;
+                toolGrid.appendChild(card);
+            });
+        }
 
         // Helper function to get category color (you can customize these)
         function getCategoryColor(category) {
