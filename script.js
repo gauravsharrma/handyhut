@@ -20,6 +20,7 @@ async function init() {
             navCategories = [...new Set(tools.map(tool => tool.category))];
         }
 
+        // Generate Desktop Navigation
         if (desktopNav) {
             desktopNav.innerHTML = navCategories.map(category => `
                     <div class="relative group">
@@ -33,6 +34,7 @@ async function init() {
                 `).join('');
         }
 
+        // Generate Mobile Navigation
         if (menu) {
             menu.innerHTML = navCategories.map(category => `
                     <div>
@@ -40,9 +42,10 @@ async function init() {
                         <div class="hidden ml-4 mt-2 space-y-1 submenu">
                             ${tools.filter(tool => tool.category === category).map(tool => `
                                 <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
-                            </div>
+                            `).join('')}
                         </div>
-                    `).join('');
+                    </div>
+                `).join('');
         }
 
         if (menuButton && menu) {
@@ -57,15 +60,16 @@ async function init() {
                 const submenu = toggle.nextElementSibling;
                 if (submenu) submenu.classList.toggle('hidden');
             });
-        }
+        });
 
         // Generate Tool Cards
         const toolGrid = document.getElementById('tool-grid');
-        tools.forEach(tool => {
-            const card = document.createElement('a');
-            card.href = tool.url;
-            card.classList.add('tool-card');
-            card.innerHTML = `
+        if (toolGrid) { // Make sure toolGrid exists before trying to use it
+            tools.forEach(tool => {
+                const card = document.createElement('a');
+                card.href = tool.url;
+                card.classList.add('tool-card');
+                card.innerHTML = `
                     <div class="p-6">
                         <h2 class="text-xl font-semibold text-${getCategoryColor(tool.category)}-400 mb-2">${tool.name}</h2>
                         <p class="text-gray-400">${tool.description}</p>
@@ -74,8 +78,10 @@ async function init() {
                         </div>
                     </div>
                 `;
-            toolGrid.appendChild(card);
-        });
+                toolGrid.appendChild(card);
+            });
+        }
+
 
     } catch (error) {
         console.error("Initialization failed:", error);
@@ -87,17 +93,11 @@ init();
 // Helper function to get category color
 function getCategoryColor(category) {
     switch (category) {
-        case "Finance":
-            return "green";
-        case "Utility":
-            return "yellow";
-        case "AI":
-            return "blue";
-        case "Health":
-            return "purple";
-        case "Information":
-            return "teal";
-        default:
-            return "gray";
+        case "Finance": return "green";
+        case "Utility": return "yellow";
+        case "AI": return "blue";
+        case "Health": return "purple";
+        case "Information": return "teal";
+        default: return "gray";
     }
 }
