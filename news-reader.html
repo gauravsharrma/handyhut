@@ -71,6 +71,48 @@
             max-height: 500px;
             /* Or a large enough value */
         }
+
+        /* Full Screen Popup Styles */
+        #full-article-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Dark overlay */
+            color: white;
+            overflow: auto;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        #full-article-popup .article-content {
+            max-height: none;
+            /* Full content visible */
+        }
+
+        #close-popup-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        #view-full-article-btn {
+            background-color: #6D28D9;
+            /* Tailwind purple-600 */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            /* Tailwind rounded-md */
+            cursor: pointer;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
     </style>
 </head>
 
@@ -100,7 +142,8 @@
             </label>
         </div>
 
-<p class="text-md text-yellow-200 mb-4 font-semibold">Click on the news article headlines below to read the complete news content.</p>
+        <p class="text-md text-yellow-200 mb-4 font-semibold">Click on the news article headlines below to read the complete
+            news content.</p>
 
         <section class="bg-gray-800 p-4 rounded-md shadow-md">
             <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
@@ -113,6 +156,11 @@
     </main>
 
     <div id="footer-container"></div>
+
+    <div id="full-article-popup">
+        <span id="close-popup-btn" onclick="closeFullArticlePopup()">×</span>
+        <div class="article-content"></div>
+    </div>
 
     <script>
         async function loadHeader() {
@@ -169,6 +217,7 @@
                             </div>
                             <p class="text-gray-400 mt-1">${description}</p>
                             <div class="article-content"></div>
+                            <button id="view-full-article-btn" onclick="showFullArticlePopup('${link}')">View Full Article</button>
                         `;
                         card.setAttribute('data-link', link); // Store the link
                         list.appendChild(card);
@@ -186,7 +235,7 @@
 
             const link = articleElement.getAttribute('data-link');
             if (contentElement.classList.contains('open') && contentElement.innerHTML === '') {
-                loadFullArticle(link, contentElement);
+                //loadFullArticle(link, contentElement); //  No longer loading here, handled by button
             }
         }
 
@@ -207,6 +256,19 @@
                     console.error("Full article load error:", err);
                     contentElement.innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
                 });
+        }
+
+        function showFullArticlePopup(url) {
+            const popup = document.getElementById('full-article-popup');
+            const contentDiv = popup.querySelector('.article-content');
+            popup.style.display = 'block';
+
+            contentDiv.innerHTML = '<p>Loading...</p>';
+            loadFullArticle(url, contentDiv);
+        }
+
+        function closeFullArticlePopup() {
+            document.getElementById('full-article-popup').style.display = 'none';
         }
 
 
