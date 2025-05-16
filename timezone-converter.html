@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Meeting Planner - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css">
+    <style>
+        /* Custom styles for better readability */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6366f1;
+            /* Indigo-500 */
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4b5563;
+            /* Gray-600 */
+            padding-bottom: 0.5rem;
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a78bfa;
+            /* Purple-400 */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .planner-container {
+            background-color: #2d3748;
+            /* Gray-700 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .planner-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e5e7eb;
+            /* Gray-200 */
+        }
+
+        .planner-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #4a5568;
+            /* Gray-600 */
+            border-radius: 0.25rem;
+            background-color: #1a202c;
+            /* Gray-900 */
+            color: #f7fafc;
+            /* Gray-100 */
+        }
+
+        .planner-button {
+            background-color: #6366f1;
+            /* Indigo-500 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .planner-button:hover {
+            background-color: #4f46e5;
+            /* Indigo-600 */
+        }
+
+        #meetingResult {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #81e9ff;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+            color: #f7fafc;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #f7fafc;
+        }
+
+        .select2-dropdown {
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+        }
+
+        .select2-results__option {
+            color: #f7fafc;
+        }
+
+        .select2-results__option--highlighted {
+            background-color: #6366f1;
+        }
+
+        /* Fix for the search input text color */
+        .select2-search__field {
+            color: #e5e7eb !important;
+            /* Ensure text is always visible */
+            background-color: #1a202c !important;
+            /* Keep the background consistent */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container">
+        <section>
+            <h1 class="section-title">Global Meeting Planner: Find the Perfect Time Across Time Zones</h1>
+            <p class="text-lg text-gray-300 mb-4">
+                Effortlessly coordinate meetings with colleagues and clients around the world. Our Global Meeting Planner simplifies the complex task of finding a time that works for everyone, considering time zones, countries, and major cities.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">How to Use the Global Meeting Planner</h2>
+            <div class="planner-container">
+                <label for="timeZone1" class="planner-label">Your Time Zone / City / Country:</label>
+                <select id="timeZone1" class="planner-input select2"></select>
+
+                <label for="timeZone2" class="planner-label">Participant's Time Zone / City / Country:</label>
+                <select id="timeZone2" class="planner-input select2"></select>
+
+                <label for="meetingTime" class="planner-label">Preferred Meeting Time (Your Time):</label>
+                <input type="time" id="meetingTime" class="planner-input">
+
+                <button onclick="calculateMeetingTime()" class="planner-button">Find Equivalent Time</button>
+                <div id="meetingResult" class="mt-4 font-semibold text-teal-300"></div>
+            </div>
+            <p class="text-gray-400 mb-4">
+                Enter your location (time zone, city, or country) and the participant's location to find the equivalent meeting time. The search is flexible - start typing a time zone, a major city, or a country name.
+            </p>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data-10-year-range.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+
+            <script>
+                $(document).ready(function() {
+                    // Populate time zone select elements with a wider range of options including cities and countries
+                    let timeZones = moment.tz.names();
+                    let enhancedTimeZones = [];
+
+                    timeZones.forEach(zone => {
+                        enhancedTimeZones.push({
+                            id: zone,
+                            text: zone
+                        });
+
+                        // Add major cities (this is a simplified example - a more comprehensive list might be needed)
+                        let city = zone.split('/').pop().replace(/_/g, ' ');
+                        if (city !== zone) {
+                            enhancedTimeZones.push({
+                                id: zone,
+                                text: city + ' (' + zone + ')'
+                            });
+                        }
+
+                        // Add country (simplified - might need a more robust country-to-timezone mapping)
+                        let country = zone.split('/')[0];
+                        enhancedTimeZones.push({
+                            id: zone,
+                            text: country + ' (' + zone + ')'
+                        });
+                    });
+
+                    // Remove duplicates
+                    const uniqueEnhancedTimeZones = Array.from(new Set(enhancedTimeZones.map(a => a.text)))
+                        .map(text => {
+                            return enhancedTimeZones.find(a => a.text === text)
+                        });
+
+                    uniqueEnhancedTimeZones.sort((a, b) => a.text.localeCompare(b.text));
+
+                    $('#timeZone1').select2({
+                        data: uniqueEnhancedTimeZones,
+                        placeholder: "Select your time zone, city, or country",
+                        allowClear: true,
+                        width: '100%'
+                    });
+
+                    $('#timeZone2').select2({
+                        data: uniqueEnhancedTimeZones,
+                        placeholder: "Select participant's time zone, city, or country",
+                        allowClear: true,
+                        width: '100%'
+                    });
+                });
+
+                function calculateMeetingTime() {
+                    const timeZone1 = document.getElementById('timeZone1').value;
+                    const timeZone2 = document.getElementById('timeZone2').value;
+                    const meetingTime = document.getElementById('meetingTime').value;
+                    const meetingResultDiv = document.getElementById('meetingResult');
+
+                    if (!timeZone1 || !timeZone2 || !meetingTime) {
+                        meetingResultDiv.textContent = "Please select time zones and enter a meeting time.";
+                        return;
+                    }
+
+                    const [hours, minutes] = meetingTime.split(':');
+                    const yourMoment = moment.tz(timeZone1).hour(hours).minute(minutes);
+                    const theirTime = yourMoment.clone().tz(timeZone2).format('h:mm A z');
+
+                    meetingResultDiv.textContent = `
+                        Meeting Time: ${meetingTime} in ${timeZone1} is equivalent to ${theirTime} in ${timeZone2}.
+                    `;
+                }
+            </script>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">Understanding Time Zones: A Quick Guide</h2>
+            <p class="text-gray-400 mb-4">
+                Time zones are regions of the globe that observe a uniform standard time for legal, commercial, and social purposes. Most time zones are offset from Coordinated Universal Time (UTC) by a whole number of hours (UTC-12 to UTC+14). Some zones, however, are offset by 30 or 45 minutes.
+            </p>
+            <p class="text-gray-400 mb-4">
+                Daylight Saving Time (DST) is a practice of advancing clocks one hour during the summer months and reverting them in the fall. This is not universally observed, adding another layer of complexity to global time coordination.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="subsection-title">Tips for Scheduling Global Meetings</h2>
+            <ul class="list-disc list-inside text-gray-400 mb-4">
+                <li><strong>Consider Working Hours:</strong> Be mindful of typical working hours in each time zone to avoid scheduling meetings too early or too late.</li>
+                <li><strong>Factor in DST:</strong> Remember that some regions observe Daylight Saving Time, which can shift time zone offsets.</li>
+                <li><strong>Use a Time Zone Converter:</strong> Tools like this one can help you quickly find equivalent times.</li>
+                <li><strong>Communicate Clearly:</strong> Always specify the time zone when sending meeting invitations to avoid confusion.</li>
+                <li><strong>Be Flexible:</strong> If possible, rotate meeting times to accommodate different participants' schedules.</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+        loadHeader();
+        loadFooter();
+    </script>
+</body>
+
+</html>

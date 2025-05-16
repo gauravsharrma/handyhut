@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator - HandyHut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Consistent custom styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4b5563;
+            padding-bottom: 0.5rem;
+        }
+
+        .calculator-container {
+            background-color: #2d3748;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e5e7eb;
+        }
+
+        .calculator-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #4a5568;
+            border-radius: 0.25rem;
+            background-color: #1a202c;
+            color: #f7fafc;
+        }
+
+        .calculator-button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .calculator-button:hover {
+            background-color: #4f46e5;
+        }
+
+        .calculator-result {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #81e9ff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="header-container"></div>
+
+    <main class="container">
+        <section>
+            <h1 class="section-title">Tip Calculator</h1>
+            <p class="text-lg text-gray-300 mb-4">
+                Easily calculate the tip for your bill.
+            </p>
+        </section>
+
+        <section>
+            <div class="calculator-container">
+                <label for="billAmount" class="calculator-label">Bill Amount:</label>
+                <input type="number" id="billAmount" class="calculator-input" placeholder="Enter bill amount">
+
+                <label for="tipPercentage" class="calculator-label">Tip Percentage:</label>
+                <input type="number" id="tipPercentage" class="calculator-input" placeholder="Enter tip percentage (e.g., 15)">
+
+                <button onclick="calculateTip()" class="calculator-button">Calculate Tip</button>
+
+                <div id="tipResult" class="calculator-result"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            const text = await response.text();
+            document.getElementById('header-container').innerHTML = text;
+            initializeMenu(); // Crucial: Initialize menu after header load
+        }
+
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            const text = await response.text();
+            document.getElementById('footer-container').innerHTML = text;
+        }
+
+        function initializeMenu() {
+            const menuGroups = document.querySelectorAll('.relative.group');
+
+            menuGroups.forEach(menuGroup => {
+                const button = menuGroup.querySelector('button');
+                const dropdown = menuGroup.querySelector('.absolute');
+
+                if (button && dropdown) {
+                    button.addEventListener('mouseenter', () => {
+                        dropdown.classList.remove('hidden');
+                    });
+
+                    menuGroup.addEventListener('mouseleave', () => {
+                        dropdown.classList.add('hidden');
+                    });
+                }
+            });
+        }
+
+        function calculateTip() {
+            const billAmount = parseFloat(document.getElementById('billAmount').value);
+            const tipPercentage = parseFloat(document.getElementById('tipPercentage').value);
+            const tipResultDiv = document.getElementById('tipResult');
+
+            if (isNaN(billAmount) || isNaN(tipPercentage)) {
+                tipResultDiv.textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            const tipAmount = (billAmount * tipPercentage) / 100;
+            tipResultDiv.textContent = `Tip Amount: $${tipAmount.toFixed(2)}`;
+        }
+
+        loadHeader();
+        loadFooter();
+    </script>
+</body>
+
+</html>

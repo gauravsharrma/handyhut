@@ -1,132 +1,85 @@
 <header class="bg-gray-900 text-white py-4 shadow-md">
-  <div class="container mx-auto px-4 flex items-center justify-between">
-    <a href="/" class="text-xl font-bold hover:text-indigo-400">HandyHut</a>
-    <nav class="hidden md:flex space-x-6">
-      <div class="relative group">
-        <button class="py-2 px-3 hover:text-green-400">Finance</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
-          <a href="/emi-calculator.html" class="block px-4 py-2 hover:bg-gray-700">EMI Calculator</a>
-          <a href="/currency-converter.html" class="block px-4 py-2 hover:bg-gray-700">Currency Converter</a>
-          <a href="/sip-calculator.html" class="block px-4 py-2 hover:bg-gray-700">SIP Calculator</a>
-          <a href="/income-tax-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Income Tax Calculator</a>
-          <a href="/gst-calculator.html" class="block px-4 py-2 hover:bg-gray-700">GST Calculator</a>
-          <a href="/loan-eligibility-checker.html" class="block px-4 py-2 hover:bg-gray-700">Loan Eligibility Checker</a>
-          <a href="/budget-planner.html" class="block px-4 py-2 hover:bg-gray-700">Budget Planner</a>
-        </div>
-      </div>
-      <div class="relative group">
-        <button class="py-2 px-3 hover:text-yellow-400">Utility</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-56 hidden group-hover:block z-20">
-          <a href="/unit-converter.html" class="block px-4 py-2 hover:bg-gray-700">Unit Converter</a>
-          <a href="/timer.html" class="block px-4 py-2 hover:bg-gray-700">Timer</a>
-          <a href="/date-difference.html" class="block px-4 py-2 hover:bg-gray-700">Age &amp; Date Difference</a>
-          <a href="/timer-stopwatch-countdown.html" class="block px-4 py-2 hover:bg-gray-700">Timer, Stopwatch &amp; Countdown</a>
-          <a href="/qr-code-generator.html" class="block px-4 py-2 hover:bg-gray-700">QR Code Generator</a>
-          <a href="/text-tools.html" class="block px-4 py-2 hover:bg-gray-700">Text Tools</a>
-        </div>
-      </div>
-      <div class="relative group">
-        <button class="py-2 px-3 hover:text-blue-400">AI</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
-          <a href="/prompt-engineering.html" class="block px-4 py-2 hover:bg-gray-700">Prompt Engineering</a>
-        </div>
-      </div>
-      <div class="relative group">
-        <button class="py-2 px-3 hover:text-purple-400">Health</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
-          <a href="/bmi-calculator.html" class="block px-4 py-2 hover:bg-gray-700">BMI Calculator</a>
-          <a href="/bmr-calculator.html" class="block px-4 py-2 hover:bg-gray-700">BMR Calculator</a>
-          <a href="/ideal-weight-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Ideal Weight Calculator</a>
-          <a href="/pregnancy-due-date-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Pregnancy Due Date Calculator</a>
-          <a href="/ovulation-fertility-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Ovulation &amp; Fertility Calculator</a>
-          <a href="/calorie-burn-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Calorie Burn Calculator</a>
-          <a href="/water-intake-calculator.html" class="block px-4 py-2 hover:bg-gray-700">Water Intake Calculator</a>
-        </div>
-      </div>
-      <div class="relative group">
-        <button class="py-2 px-3 hover:text-teal-400">Information</button>
-        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
-          <a href="/news-reader.html" class="block px-4 py-2 hover:bg-gray-700">News Reader</a>
-        </div>
-      </div>
-    </nav>
-    <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
-      <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-  </div>
+    <div class="container mx-auto px-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold hover:text-indigo-400">HandyHut</a>
+        <nav class="hidden md:flex space-x-6" id="desktop-nav">
+            </nav>
+        <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </div>
 
-  <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
-    <div>
-      <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Finance</button>
-      <div class="hidden ml-4 mt-2 space-y-1 submenu">
-        <a href="/emi-calculator.html" class="block py-2 px-6 hover:bg-gray-700">EMI Calculator</a>
-        <a href="/currency-converter.html" class="block py-2 px-6 hover:bg-gray-700">Currency Converter</a>
-        <a href="/sip-calculator.html" class="block py-2 px-6 hover:bg-gray-700">SIP Calculator</a>
-        <a href="/income-tax-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Income Tax Calculator</a>
-        <a href="/gst-calculator.html" class="block py-2 px-6 hover:bg-gray-700">GST Calculator</a>
-        <a href="/loan-eligibility-checker.html" class="block py-2 px-6 hover:bg-gray-700">Loan Eligibility Checker</a>
-        <a href="/budget-planner.html" class="block py-2 px-6 hover:bg-gray-700">Budget Planner</a>
-      </div>
-    </div>
-    <div>
-      <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Utility</button>
-      <div class="hidden ml-4 mt-2 space-y-1 submenu">
-        <a href="/unit-converter.html" class="block py-2 px-6 hover:bg-gray-700">Unit Converter</a>
-        <a href="/timer.html" class="block py-2 px-6 hover:bg-gray-700">Timer</a>
-        <a href="/date-difference.html" class="block py-2 px-6 hover:bg-gray-700">Age &amp; Date Difference</a>
-        <a href="/timer-stopwatch-countdown.html" class="block py-2 px-6 hover:bg-gray-700">Timer, Stopwatch &amp; Countdown</a>
-        <a href="/qr-code-generator.html" class="block py-2 px-6 hover:bg-gray-700">QR Code Generator</a>
-        <a href="/text-tools.html" class="block py-2 px-6 hover:bg-gray-700">Text Tools</a>
-      </div>
-    </div>
-    <div>
-      <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">AI</button>
-      <div class="hidden ml-4 mt-2 space-y-1 submenu">
-        <a href="/prompt-engineering.html" class="block py-2 px-6 hover:bg-gray-700">Prompt Engineering</a>
-      </div>
-    </div>
-    <div>
-      <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Health</button>
-      <div class="hidden ml-4 mt-2 space-y-1 submenu">
-        <a href="/bmi-calculator.html" class="block py-2 px-6 hover:bg-gray-700">BMI Calculator</a>
-        <a href="/bmr-calculator.html" class="block py-2 px-6 hover:bg-gray-700">BMR Calculator</a>
-        <a href="/ideal-weight-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Ideal Weight Calculator</a>
-        <a href="/pregnancy-due-date-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Pregnancy Due Date Calculator</a>
-        <a href="/ovulation-fertility-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Ovulation &amp; Fertility Calculator</a>
-        <a href="/calorie-burn-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Calorie Burn Calculator</a>
-        <a href="/water-intake-calculator.html" class="block py-2 px-6 hover:bg-gray-700">Water Intake Calculator</a>
-      </div>
-    </div>
-    <div>
-      <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">Information</button>
-      <div class="hidden ml-4 mt-2 space-y-1 submenu">
-        <a href="/news-reader.html" class="block py-2 px-6 hover:bg-gray-700">News Reader</a>
-      </div>
-    </div>
-  </div>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
+        </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const menuButton = document.getElementById('mobileMenuButton');
-      const menu = document.getElementById('mobileMenu');
-      const submenuToggles = document.querySelectorAll('.submenu-toggle');
+    <script src="tools.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuButton = document.getElementById('mobileMenuButton');
+            const menu = document.getElementById('mobileMenu');
+            const desktopNav = document.getElementById('desktop-nav');
 
-      if (menuButton && menu) {
-        menuButton.addEventListener('click', () => {
-          menu.classList.toggle('hidden');
+            let navCategories = [];
+            if (tools && Array.isArray(tools)) {
+                 navCategories = [...new Set(tools.map(tool => tool.category))];
+            }
+
+            // Generate Desktop Navigation
+            if (desktopNav) {
+                desktopNav.innerHTML = navCategories.map(category => `
+                    <div class="relative group">
+                        <button class="py-2 px-3 hover:text-${getCategoryColor(category)}-400">${category}</button>
+                        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block px-4 py-2 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+
+            // Generate Mobile Navigation
+            if (menu) {
+                menu.innerHTML = navCategories.map(category => `
+                    <div>
+                        <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">${category}</button>
+                        <div class="hidden ml-4 mt-2 space-y-1 submenu">
+                            ${tools.filter(tool => tool.category === category).map(tool => `
+                                <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+
+            if (menuButton && menu) {
+                menuButton.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const submenu = toggle.nextElementSibling;
+                    if (submenu) submenu.classList.toggle('hidden');
+                });
+            });
         });
-      }
 
-      submenuToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          const submenu = toggle.nextElementSibling;
-          if (submenu) submenu.classList.toggle('hidden');
-        });
-      });
-    });
-
-    
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6241814460621346"
-     crossorigin="anonymous"></script>
+         // Helper function to get category color
+         function getCategoryColor(category) {
+            switch (category) {
+                case "Finance": return "green";
+                case "Utility": return "yellow";
+                case "AI": return "blue";
+                case "Health": return "purple";
+                case "Information": return "teal";
+                default: return "gray"; // Default color
+            }
+        }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6241814460621346"
+       crossorigin="anonymous"></script>
 </header>
