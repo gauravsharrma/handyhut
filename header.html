@@ -1,106 +1,96 @@
+
 <header class="bg-gray-900 text-white py-4 shadow-md">
-    <div class="container mx-auto px-4 flex items-center justify-between">
-<a href="/" class="flex items-center space-x-3">
-  <img src="handyhut1.png" alt="HandyHut Logo" class="h-10 md:h-12 w-auto">
-  <span class="text-white text-2xl font-semibold tracking-tight">handyhut</span>
-</a>
+  <div class="container mx-auto px-4 flex items-center justify-between">
+    <a href="/" class="flex items-center space-x-4" style="height:64px">
+      <svg role="img" viewBox="0 0 225 64" height="64" class="w-auto">
+        <title>HandyHut Logo</title>
+        <text x="0" y="50" font-size="40" fill="white" font-family="Verdana, Geneva, sans-serif" font-weight="bold">handyhut</text>
+      </svg>
+    </a>
+    <nav class="hidden md:flex space-x-6" id="desktop-nav"></nav>
+    <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
+      <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
 
+  <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3"></div>
 
+  <script src="tools.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuButton = document.getElementById('mobileMenuButton');
+      const menu = document.getElementById('mobileMenu');
+      const desktopNav = document.getElementById('desktop-nav');
 
-        <nav class="hidden md:flex space-x-6" id="desktop-nav">
-        </nav>
-        <button id="mobileMenuButton" class="md:hidden text-white hover:text-indigo-400">
-            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-    </div>
+      let navCategories = [];
+      if (tools && Array.isArray(tools)) {
+        navCategories = [...new Set(tools.map(tool => tool.category))];
+      }
 
-    <div id="mobileMenu" class="hidden md:hidden px-4 pt-4 pb-6 bg-gray-800 space-y-3">
-    </div>
+      if (desktopNav) {
+        desktopNav.innerHTML = navCategories.map(category => `
+          <div class="relative group">
+            <button class="py-2 px-3 hover:text-${getCategoryColor(category)}-400">${category}</button>
+            <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
+              ${tools.filter(tool => tool.category === category).map(tool => `
+                <a href="${tool.url}" class="block px-4 py-2 hover:bg-gray-700">${tool.name}</a>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
 
-    <script src="tools.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuButton = document.getElementById('mobileMenuButton');
-            const menu = document.getElementById('mobileMenu');
-            const desktopNav = document.getElementById('desktop-nav');
-
-            let navCategories = [];
-            if (tools && Array.isArray(tools)) {
-                 navCategories = [...new Set(tools.map(tool => tool.category))];
-            }
-
-            // Generate Desktop Navigation
-            if (desktopNav) {
-                desktopNav.innerHTML = navCategories.map(category => `
-                    <div class="relative group">
-                        <button class="py-2 px-3 hover:text-${getCategoryColor(category)}-400">${category}</button>
-                        <div class="absolute top-full left-0 bg-gray-800 mt-0 rounded shadow-lg w-48 hidden group-hover:block z-20">
-                            ${tools.filter(tool => tool.category === category).map(tool => `
-                                <a href="${tool.url}" class="block px-4 py-2 hover:bg-gray-700">${tool.name}</a>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-
-                // Initialize Desktop Submenu Hover  <-- UNCOMMENTED and CORRECTED
-                const desktopMenuItemsWithSubmenus = document.querySelectorAll('#desktop-nav .relative.group');
-                desktopMenuItemsWithSubmenus.forEach(menuItem => {
-                    menuItem.addEventListener('mouseenter', () => {
-                        const submenu = menuItem.querySelector('.absolute');
-                        if (submenu) {
-                            submenu.classList.remove('hidden');
-                        }
-                    });
-                    menuItem.addEventListener('mouseleave', () => {
-                        const submenu = menuItem.querySelector('.absolute');
-                        if (submenu) {
-                            submenu.classList.add('hidden');
-                        }
-                    });
-                });
-            }
-
-            // Generate Mobile Navigation
-            if (menu) {
-                menu.innerHTML = navCategories.map(category => `
-                    <div>
-                        <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">${category}</button>
-                        <div class="hidden ml-4 mt-2 space-y-1 submenu">
-                            ${tools.filter(tool => tool.category === category).map(tool => `
-                                <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            if (menuButton && menu) {
-                menuButton.addEventListener('click', () => {
-                    menu.classList.toggle('hidden');
-                });
-            }
-
-            const submenuToggles = document.querySelectorAll('.submenu-toggle');
-            submenuToggles.forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    const submenu = toggle.nextElementSibling;
-                    if (submenu) submenu.classList.toggle('hidden');
-                });
-            });
+        const desktopMenuItemsWithSubmenus = document.querySelectorAll('#desktop-nav .relative.group');
+        desktopMenuItemsWithSubmenus.forEach(menuItem => {
+          menuItem.addEventListener('mouseenter', () => {
+            const submenu = menuItem.querySelector('.absolute');
+            if (submenu) submenu.classList.remove('hidden');
+          });
+          menuItem.addEventListener('mouseleave', () => {
+            const submenu = menuItem.querySelector('.absolute');
+            if (submenu) submenu.classList.add('hidden');
+          });
         });
+      }
 
-         // Helper function to get category color
-         function getCategoryColor(category) {
-            switch (category) {
-                case "Finance": return "green";
-                case "Utility": return "yellow";
-                case "AI": return "blue";
-                case "Health": return "purple";
-                case "Information": return "teal";
-                default: return "gray"; // Default color
-            }
-        }
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6241814460621346"
-       crossorigin="anonymous"></script>
+      if (menu) {
+        menu.innerHTML = navCategories.map(category => `
+          <div>
+            <button class="w-full text-left py-2 px-4 bg-gray-700 rounded submenu-toggle">${category}</button>
+            <div class="hidden ml-4 mt-2 space-y-1 submenu">
+              ${tools.filter(tool => tool.category === category).map(tool => `
+                <a href="${tool.url}" class="block py-2 px-6 hover:bg-gray-700">${tool.name}</a>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (menuButton && menu) {
+        menuButton.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+      }
+
+      const submenuToggles = document.querySelectorAll('.submenu-toggle');
+      submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const submenu = toggle.nextElementSibling;
+          if (submenu) submenu.classList.toggle('hidden');
+        });
+      });
+    });
+
+    function getCategoryColor(category) {
+      switch (category) {
+        case "Finance": return "green";
+        case "Utility": return "yellow";
+        case "AI": return "blue";
+        case "Health": return "purple";
+        case "Information": return "teal";
+        default: return "gray";
+      }
+    }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6241814460621346"
+    crossorigin="anonymous"></script>
 </header>
