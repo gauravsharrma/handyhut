@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <title>HandyHut1 - News Reader</title>
+  <title>HandyHut - News Reader</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
@@ -111,11 +111,11 @@
   </div>
   <script>
     const feeds = {
-      toi: {
-        top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
-        india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
-      }
-    };
+  toi: {
+    top: "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+    india: "https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
+  }
+};
     const proxyBase = "https://corsproxy.io/?";
 
     async function loadHeader() {
