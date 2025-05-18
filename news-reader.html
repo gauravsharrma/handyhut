@@ -233,7 +233,7 @@
     };
   // ========== AI ACTIONS ===========
 
-const openRouterAPIKey = "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";
+const openRouterAPIKey = localStorage.getItem('openrouter_api_key') || "";
 const openRouterAPIBase = "https://openrouter.ai/api/v1/chat/completions";
 
 async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
@@ -257,7 +257,11 @@ async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
     const reply = data.choices?.[0]?.message?.content || "No response.";
     responseBox.innerText = reply;
   } catch (err) {
-    responseBox.innerText = "⚠️ Error: " + err.message;
+    if (err.message.includes('401')) {
+      responseBox.innerText = "⚠️ Unauthorized: Invalid or missing OpenRouter API key.";
+    } else {
+      responseBox.innerText = "⚠️ Error: " + err.message;
+    }
   }
 }
 
