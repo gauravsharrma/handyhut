@@ -110,113 +110,128 @@
     </div>
   </div>
   <script>
-    const openRouterAPIKey = "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";
-    const openRouterAPIBase = "https://openrouter.ai/api/v1/chat/completions";
-
-    async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
-      const responseBox = document.getElementById('ai-response');
-      responseBox.innerText = "⏳ Processing...";
-      try {
-        const res = await fetch(openRouterAPIBase, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${openRouterAPIKey}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: model,
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 600,
-            temperature: 0.5
-          })
-        });
-        const data = await res.json();
-        const reply = data.choices?.[0]?.message?.content || "No response.";
-        responseBox.innerText = reply;
-      } catch (err) {
-        responseBox.innerText = "⚠️ Error: " + err.message;
+    const feeds = {
+      toi: {
+        top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+        india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
       }
+    };
+    const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
+
+    async function loadHeader() {
+      const response = await fetch('header.html');
+      document.getElementById('header-container').innerHTML = await response.text();
     }
 
-    function summarizeArticle() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText;
-      callOpenRouter("Summarize this news article:\n" + article);
+    async function loadFooter() {
+      const response = await fetch('footer.html');
+      document.getElementById('footer-container').innerHTML = await response.text();
     }
 
-    function extractGlossary() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText;
-      callOpenRouter("Extract and explain glossary terms from this article:\n" + article);
+    function onCategoryChange() {
+      onFeedSelect();
     }
 
-    async function speakArticle() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText.slice(0, 3000);
-      const responseBox = document.getElementById('ai-response');
-      responseBox.innerText = "⏳ Generating audio...";
-      try {
-        const res = await fetch("https://openrouter.ai/api/v1/audio/speech", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${openRouterAPIKey}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: "openai/tts-1",
-            input: article,
-            voice: "nova"
-          })
+    function onFeedSelect() {
+      const category = document.getElementById("category").value;
+      const subcategory = document.getElementById("subcategory").value;
+      const url = feeds[category][subcategory];
+      const proxyURL = proxyBase + encodeURIComponent(url);
+
+      fetch(proxyURL)
+        .then(res => res.text())
+        .then(text => {
+          const xml = new DOMParser().parseFromString(text, "text/xml");
+          const items = xml.querySelectorAll("item");
+          const list = document.getElementById("news-list");
+          list.innerHTML = "";
+
+          items.forEach((item) => {
+            const title = item.querySelector("title").textContent;
+            const link = item.querySelector("link").textContent;
+            const description = item.querySelector("description").textContent;
+
+            const card = document.createElement("div");
+            card.className = "article-card p-3 bg-gray-700 rounded cursor-pointer hover:bg-gray-600";
+            card.innerHTML = `
+              <div class="article-header" onclick="toggleArticle(this.parentElement)">
+                <strong class="text-indigo-300">${title}</strong>
+                <span>▶</span>
+              </div>
+              <p class="text-gray-400 mt-1">${description}</p>
+              <div class="article-content"></div>
+              <button class="mt-2 bg-indigo-700 text-white px-4 py-2 rounded" onclick="showFullArticlePopup('${link}')">View Full Article</button>
+            `;
+            card.setAttribute('data-link', link);
+            list.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error("RSS feed load error:", err);
+          document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
         });
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        const audio = new Audio(url);
-        audio.play();
-        responseBox.innerText = "▶️ Playing audio...";
-      } catch (err) {
-        responseBox.innerText = "⚠️ Audio Error: " + err.message;
-      }
     }
 
-    async function summarizeArticleToNewTab() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText;
-      const prompt = "Summarize this news article:\n" + article;
+    function toggleArticle(articleElement) {
+      const contentElement = articleElement.querySelector(".article-content");
+      contentElement.classList.toggle("open");
+    }
 
-      try {
-        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${openRouterAPIKey}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: "mistralai/mistral-7b-instruct",
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 600,
-            temperature: 0.5
-          })
+    function loadFullArticle(url, contentElement) {
+      const proxyURL = proxyBase + encodeURIComponent(url);
+      fetch(proxyURL)
+        .then(res => res.text())
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const mainDiv = doc.querySelector("div._s30J.clearfix");
+          const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
+          contentElement.innerHTML = `<p>${textContent}</p>`;
+        })
+        .catch(err => {
+          console.error("Full article load error:", err);
+          contentElement.innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
         });
-
-        const data = await res.json();
-        const summary = data.choices?.[0]?.message?.content || "No summary returned.";
-
-        const newTab = window.open("", "_blank");
-        newTab.document.write(`
-          <html>
-            <head>
-              <title>News Summary</title>
-              <style>
-                body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; color: #333; }
-                h2 { color: #4B5563; }
-              </style>
-            </head>
-            <body>
-              <h2>📝 Summary</h2>
-              <p>${summary.replace(/\n/g, "<br>")}</p>
-            </body>
-          </html>
-        `);
-      } catch (error) {
-        alert("Error generating summary: " + error.message);
-      }
     }
+
+    let currentFontSize = 1.25;
+    function showFullArticlePopup(url) {
+      const popup = document.getElementById('full-article-popup');
+      const contentDiv = popup.querySelector('.article-content');
+      popup.style.display = 'block';
+      contentDiv.innerHTML = '<p>Loading...</p>';
+      loadFullArticle(url, contentDiv);
+      currentFontSize = 1.25;
+      contentDiv.style.fontSize = `${currentFontSize}rem`;
+    }
+
+    function closeFullArticlePopup() {
+      document.getElementById('full-article-popup').style.display = 'none';
+    }
+
+    function adjustFontSize(increment) {
+      currentFontSize += 0.1 * increment;
+      const contentDiv = document.querySelector('#full-article-popup .article-content');
+      contentDiv.style.fontSize = `${currentFontSize}rem`;
+    }
+
+    function goToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+    window.onscroll = function () {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("back-to-top").style.display = "block";
+      } else {
+        document.getElementById("back-to-top").style.display = "none";
+      }
+    };
+
+    window.onload = function () {
+      loadHeader();
+      loadFooter();
+      onFeedSelect();
+    };
   </script>
 </body>
 </html>
