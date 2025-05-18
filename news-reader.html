@@ -99,8 +99,7 @@
     <div class="article-content"></div>
     <div class="mt-6 flex flex-col gap-3 items-center">
       <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="summarizeArticle()">📝 Summarize</button>
-      <button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="speakArticle()">🔊 Listen</button>
-      <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="extractGlossary()">📚 Glossary</button>
+            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="extractGlossary()">📚 Glossary</button>
       <button class="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded w-full max-w-md" onclick="summarizeArticleToNewTab()">🔎 Open Summary in New Tab</button>
     </div>
     <div id="ai-response" class="mt-4 text-sm text-gray-200 whitespace-pre-wrap"></div>
@@ -270,33 +269,6 @@ function summarizeArticle() {
 function extractGlossary() {
   const article = document.querySelector('#full-article-popup .article-content').innerText;
   callOpenRouter("Extract and explain glossary terms from this article:\n" + article);
-}
-
-async function speakArticle() {
-  const article = document.querySelector('#full-article-popup .article-content').innerText.slice(0, 3000);
-  const responseBox = document.getElementById('ai-response');
-  responseBox.innerText = "⏳ Generating audio...";
-  try {
-    const res = await fetch("https://openrouter.ai/api/v1/audio/speech", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openRouterAPIKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "openai/tts-1",
-        input: article,
-        voice: "nova"
-      })
-    });
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    audio.play();
-    responseBox.innerText = "▶️ Playing audio...";
-  } catch (err) {
-    responseBox.innerText = "⚠️ Audio Error: " + err.message;
-  }
 }
 
 async function summarizeArticleToNewTab() {
