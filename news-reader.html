@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <title>HandyHut - News Reader</title>
+  <title>HandyHut1 - News Reader</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
   <style>
@@ -116,7 +116,7 @@
         india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
       }
     };
-	const proxyBase = "https://corsproxy.io/?";
+    const proxyBase = "https://corsproxy.io/?";
 
     async function loadHeader() {
       const response = await fetch('header.html');
@@ -178,7 +178,7 @@
     }
 
     function loadFullArticle(url, contentElement) {
-      const proxyURL = proxyBase + url;
+      const proxyURL = proxyBase + encodeURIComponent(url);
       fetch(proxyURL)
         .then(res => res.text())
         .then(html => {
