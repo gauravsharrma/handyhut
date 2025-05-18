@@ -136,7 +136,7 @@
       const category = document.getElementById("category").value;
       const subcategory = document.getElementById("subcategory").value;
       const url = feeds[category][subcategory];
-      const proxyURL = proxyBase + encodeURIComponent(url);
+      const proxyURL = proxyBase + url;
 
       fetch(proxyURL)
         .then(res => res.text())
