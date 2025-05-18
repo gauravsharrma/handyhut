@@ -264,14 +264,12 @@ async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
 
 function summarizeArticle() {
   const article = document.querySelector('#full-article-popup .article-content').innerText;
-  callOpenRouter("Summarize this news article:
-" + article);
+  callOpenRouter("Summarize this news article:\n" + article);
 }
 
 function extractGlossary() {
   const article = document.querySelector('#full-article-popup .article-content').innerText;
-  callOpenRouter("Extract and explain glossary terms from this article:
-" + article);
+  callOpenRouter("Extract and explain glossary terms from this article:\n" + article);
 }
 
 async function speakArticle() {
@@ -303,8 +301,7 @@ async function speakArticle() {
 
 async function summarizeArticleToNewTab() {
   const article = document.querySelector('#full-article-popup .article-content').innerText;
-  const prompt = "Summarize this news article:
-" + article;
+  const prompt = "Summarize this news article:\n" + article;
   try {
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -333,8 +330,7 @@ async function summarizeArticleToNewTab() {
         </head>
         <body>
           <h2>📝 Summary</h2>
-          <p>${summary.replace(/
-/g, "<br>")}</p>
+          <p>${summary.replace(/\n/g, "<br>")}</p>
         </body>
       </html>
     `);
