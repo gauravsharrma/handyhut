@@ -178,7 +178,7 @@
     }
 
     function loadFullArticle(url, contentElement) {
-      const proxyURL = proxyBase + encodeURIComponent(url);
+      const proxyURL = proxyBase + url;
       fetch(proxyURL)
         .then(res => res.text())
         .then(html => {
