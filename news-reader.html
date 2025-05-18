@@ -232,6 +232,116 @@
       loadFooter();
       onFeedSelect();
     };
-  </script>
+  // ========== AI ACTIONS ===========
+
+const openRouterAPIKey = "your_openrouter_api_key_here";
+const openRouterAPIBase = "https://openrouter.ai/api/v1/chat/completions";
+
+async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
+  const responseBox = document.getElementById('ai-response');
+  responseBox.innerText = "⏳ Processing...";
+  try {
+    const res = await fetch(openRouterAPIBase, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${openRouterAPIKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 600,
+        temperature: 0.5
+      })
+    });
+    const data = await res.json();
+    const reply = data.choices?.[0]?.message?.content || "No response.";
+    responseBox.innerText = reply;
+  } catch (err) {
+    responseBox.innerText = "⚠️ Error: " + err.message;
+  }
+}
+
+function summarizeArticle() {
+  const article = document.querySelector('#full-article-popup .article-content').innerText;
+  callOpenRouter("Summarize this news article:
+" + article);
+}
+
+function extractGlossary() {
+  const article = document.querySelector('#full-article-popup .article-content').innerText;
+  callOpenRouter("Extract and explain glossary terms from this article:
+" + article);
+}
+
+async function speakArticle() {
+  const article = document.querySelector('#full-article-popup .article-content').innerText.slice(0, 3000);
+  const responseBox = document.getElementById('ai-response');
+  responseBox.innerText = "⏳ Generating audio...";
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/audio/speech", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${openRouterAPIKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "openai/tts-1",
+        input: article,
+        voice: "nova"
+      })
+    });
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play();
+    responseBox.innerText = "▶️ Playing audio...";
+  } catch (err) {
+    responseBox.innerText = "⚠️ Audio Error: " + err.message;
+  }
+}
+
+async function summarizeArticleToNewTab() {
+  const article = document.querySelector('#full-article-popup .article-content').innerText;
+  const prompt = "Summarize this news article:
+" + article;
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${openRouterAPIKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "mistralai/mistral-7b-instruct",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 600,
+        temperature: 0.5
+      })
+    });
+    const data = await res.json();
+    const summary = data.choices?.[0]?.message?.content || "No summary returned.";
+    const newTab = window.open("", "_blank");
+    newTab.document.write(`
+      <html>
+        <head>
+          <title>News Summary</title>
+          <style>
+            body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; color: #333; }
+            h2 { color: #4B5563; }
+          </style>
+        </head>
+        <body>
+          <h2>📝 Summary</h2>
+          <p>${summary.replace(/
+/g, "<br>")}</p>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    alert("Error generating summary: " + error.message);
+  }
+}
+</script>
 </body>
 </html>
