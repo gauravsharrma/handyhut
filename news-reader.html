@@ -112,11 +112,11 @@
   <script>
     const feeds = {
   toi: {
-    top: "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
-    india: "https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
+    top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+    india: "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms"
   }
 };
-    const proxyBase = "https://corsproxy.io/?";
+    const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
 
     async function loadHeader() {
       const response = await fetch('header.html');
@@ -136,7 +136,7 @@
       const category = document.getElementById("category").value;
       const subcategory = document.getElementById("subcategory").value;
       const url = feeds[category][subcategory];
-      const proxyURL = proxyBase + url;
+      const proxyURL = proxyBase + encodeURIComponent(url);
 
       fetch(proxyURL)
         .then(res => res.text())
