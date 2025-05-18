@@ -1,84 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Story Summary</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>
-    const API_KEY = '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'; // Replace with your OpenRouter API key
-    const MODEL = 'mistralai/mixtral-8x7b-instruct';
-
-    async function queryOpenRouter(prompt) {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          messages: [
-            { role: "system", content: "You are a helpful assistant" },
-            { role: "user", content: prompt }
-          ],
-          max_tokens: 800
-        })
-      });
-      const data = await res.json();
-      return data.choices?.[0]?.message?.content || "No response.";
-    }
-
-    async function loadAIContent() {
-      const article = localStorage.getItem('articleText');
-      document.getElementById('original').textContent = article;
-
-      const summaryPrompt = `Summarize the following article in 2–3 sentences and give 5 key points:\n\n${article}`;
-      const glossaryPrompt = `Extract key terms from this article. For each term provide:\n- Meaning\n- One synonym\n- One antonym (if any)\n- Idiom (if applicable)\n- Sentence usage\n\n${article}`;
-
-      document.getElementById('summary').textContent = "Loading summary...";
-      document.getElementById('glossary').textContent = "Loading glossary...";
-
-      const summary = await queryOpenRouter(summaryPrompt);
-      const glossary = await queryOpenRouter(glossaryPrompt);
-
-      document.getElementById('summary').innerHTML = summary.replace(/\n/g, "<br>");
-      document.getElementById('glossary').innerHTML = glossary.replace(/\n/g, "<br>");
-    }
-
-    function playAudio() {
-      const utterance = new SpeechSynthesisUtterance(localStorage.getItem('articleText'));
-      utterance.lang = 'en-US';
-      speechSynthesis.speak(utterance);
-    }
-
-    window.onload = loadAIContent;
-  </script>
+  <meta charset="UTF-8">
+  <title>AI News Feed Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; background: #f4f4f9; padding: 20px; }
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+    .news-item { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    button { background: #6b46c1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
     h2 { color: #4B0082; }
-    .section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    button { background: #6b46c1; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="section">
-    <h2>📝 Original Article</h2>
-    <p id="original"></p>
-  </div>
+  <h2>📰 Times of India - Top Stories</h2>
+  <div id="news-container">Loading...</div>
 
-  <div class="section">
-    <h2>🔊 Audio Playback</h2>
-    <button onclick="playAudio()">▶️ Play Article Audio</button>
-  </div>
+  <script>
+    async function loadRSS() {
+      const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
+      const feedUrl = "http://timesofindia.indiatimes.com/rssfeedstopstories.cms";
+      const fullUrl = proxyUrl + encodeURIComponent(feedUrl);
 
-  <div class="section">
-    <h2>🧠 AI Summary</h2>
-    <p id="summary">Loading...</p>
-  </div>
+      const response = await fetch(fullUrl);
+      const text = await response.text();
+      const xml = new window.DOMParser().parseFromString(text, "text/xml");
+      const items = xml.querySelectorAll("item");
 
-  <div class="section">
-    <h2>📘 Key Terms & Usage</h2>
-    <p id="glossary">Loading...</p>
-  </div>
+      const container = document.getElementById("news-container");
+      container.innerHTML = "";
+
+      items.forEach(item => {
+        const title = item.querySelector("title").textContent;
+        const description = item.querySelector("description").textContent;
+        const link = item.querySelector("link").textContent;
+
+        const div = document.createElement("div");
+        div.className = "news-item";
+        div.innerHTML = `
+          <strong>${title}</strong>
+          <p>${description}</p>
+          <button onclick="openAISummary('${encodeURIComponent(link)}', \`${encodeURIComponent(description)}\`)">
+            AI Summary & Audio
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function openAISummary(link, description) {
+      localStorage.setItem('articleLink', decodeURIComponent(link));
+      localStorage.setItem('articleText', decodeURIComponent(description));
+      window.open('ai-summary.html', '_blank');
+    }
+
+    loadRSS();
+  </script>
 </body>
 </html>
