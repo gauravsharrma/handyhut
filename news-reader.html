@@ -1,178 +1,339 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>HandyHut - News Reader</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    html { scroll-behavior: smooth; }
-    #back-to-top {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #8B5CF6;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
-    }
-    #back-to-top:hover { opacity: 1; }
-    .article-card { border-bottom: 1px solid #4B5563; margin-bottom: 1rem; padding-bottom: 1rem; }
-    .article-header { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .article-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-top: 0.5rem; }
-    .article-content.open { max-height: 500px; }
-    #full-article-popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-      overflow: auto;
-      z-index: 1000;
-      padding: 2rem;
-    }
-    #full-article-popup .article-content {
-      max-height: none;
-      word-wrap: break-word;
-      max-width: 60ch;
-      margin: 0 auto;
-      font-size: 1.25rem;
-      line-height: 1.6;
-    }
-    #close-popup-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: white; }
-    #view-full-article-btn {
-      background-color: #6D28D9;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      display: inline-block;
-    }
-    #font-controls { position: absolute; bottom: 1rem; right: 1rem; display: flex; gap: 0.5rem; }
-    #font-controls button {
-      background-color: #4B5563;
-      color: white;
-      border: none;
-      padding: 0.25rem 0.5rem;
-      cursor: pointer;
-      border-radius: 0.25rem;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <title>HandyHut - News Reader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* "Back to Top" button styles */
+        #back-to-top {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed positioning */
+            bottom: 20px;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            background-color: #8B5CF6;
+            /* Background color (purple from Tailwind) */
+            color: white;
+            /* Text color */
+            padding: 10px 15px;
+            /* Padding */
+            border-radius: 5px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Change cursor on hover */
+            opacity: 0.8;
+            /* Slight transparency */
+            transition: opacity 0.3s ease;
+            /* Smooth transition for opacity */
+        }
+
+        #back-to-top:hover {
+            opacity: 1;
+            /* Fully visible on hover */
+        }
+
+        /* Accordion styles */
+        .article-card {
+            border-bottom: 1px solid #4B5563;
+            /* Subtle divider */
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .article-header {
+            cursor: pointer;
+            /* Indicate it's clickable */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .article-content {
+            max-height: 0;
+            /* Initially hidden */
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            /* Smooth transition */
+            padding-top: 0.5rem;
+        }
+
+        .article-content.open {
+            max-height: 500px;
+            /* Or a large enough value */
+        }
+
+        /* Full Screen Popup Styles */
+        #full-article-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Dark overlay */
+            color: white;
+            overflow: auto;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        #full-article-popup .article-content {
+            max-height: none;
+            /* Full content visible */
+            word-wrap: break-word;
+            /* Wrap long words */
+            max-width: 60ch;
+            /* Limit characters per line (CSS 'ch' unit) */
+            margin: 0 auto;
+            /* Center the content */
+            font-size: 1.25rem;
+            /* Default font size (20px) */
+            line-height: 1.6;
+        }
+
+        #close-popup-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        #view-full-article-btn {
+            background-color: #6D28D9;
+            /* Tailwind purple-600 */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            /* Tailwind rounded-md */
+            cursor: pointer;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        #font-controls {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #font-controls button {
+            background-color: #4B5563;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+    </style>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <div id="header-container"></div>
-  <main class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ News Reader</h1>
-    <div class="mb-6 flex flex-wrap gap-4 items-center">
-      <label class="block">
-        <span class="text-sm text-gray-300">Category</span><br />
-        <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onCategoryChange()">
-          <option value="toi">Times of India</option>
-        </select>
-      </label>
-      <label class="block">
-        <span class="text-sm text-gray-300">Subcategory</span><br />
-        <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white" onchange="onFeedSelect()">
-          <option value="top">Top Stories</option>
-          <option value="india">India</option>
-        </select>
-      </label>
+
+    <div id="header-container"></div>
+
+    <main class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ News Reader</h1>
+
+        <div class="mb-6 flex flex-wrap gap-4 items-center">
+            <label class="block">
+                <span class="text-sm text-gray-300">Category</span><br />
+                <select id="category" class="bg-gray-800 border border-gray-600 p-2 rounded text-white"
+                    onchange="onCategoryChange()">
+                    <option value="toi">Times of India</option>
+                </select>
+            </label>
+
+            <label class="block">
+                <span class="text-sm text-gray-300">Subcategory</span><br />
+                <select id="subcategory" class="bg-gray-800 border border-gray-600 p-2 rounded text-white"
+                    onchange="onFeedSelect()">
+                    <option value="top">Top Stories</option>
+                    <option value="india">India</option>
+                </select>
+            </label>
+        </div>
+
+        <p class="text-md text-yellow-200 mb-4 font-semibold">Click on the news article headlines below to read the complete
+            news content.</p>
+
+        <section class="bg-gray-800 p-4 rounded-md shadow-md">
+            <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
+            <div id="news-list" class="space-y-4 text-sm"></div>
+        </section>
+
+
+        <div id="back-to-top" onclick="goToTop()">Back to Top</div>
+
+    </main>
+
+    <div id="footer-container"></div>
+
+    <div id="full-article-popup">
+        <span id="close-popup-btn" onclick="closeFullArticlePopup()">×</span>
+        <div class="article-content"></div>
+        <div id="font-controls">
+            <button onclick="adjustFontSize(1)">+</button>
+            <button onclick="adjustFontSize(-1)">-</button>
+        </div>
     </div>
-    <p class="text-md text-yellow-200 mb-4 font-semibold">Click on the news article headlines below to read the complete news content.</p>
-    <section class="bg-gray-800 p-4 rounded-md shadow-md">
-      <h2 class="text-lg text-yellow-400 font-semibold mb-2">Articles</h2>
-      <div id="news-list" class="space-y-4 text-sm"></div>
-    </section>
-    <div id="back-to-top" onclick="goToTop()">Back to Top</div>
-  </main>
-  <div id="footer-container"></div>
-  <div id="full-article-popup">
-    <span id="close-popup-btn" onclick="closeFullArticlePopup()">×</span>
-    <div class="article-content"></div>
-    <div class="mt-6 flex flex-col gap-3 items-center">
-      <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="summarizeArticle()">📝 Summarize</button>
-      <button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="speakArticle()">🔊 Listen</button>
-      <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded w-full max-w-md" onclick="extractGlossary()">📚 Glossary</button>
-    </div>
-    <div id="ai-response" class="mt-4 text-sm text-gray-200 whitespace-pre-wrap"></div>
-    <div id="font-controls">
-      <button onclick="adjustFontSize(1)">+</button>
-      <button onclick="adjustFontSize(-1)">-</button>
-    </div>
-  </div>
-  <script>
-    const openRouterAPIKey = "your_openrouter_api_key_here";
-    const openRouterAPIBase = "https://openrouter.ai/api/v1/chat/completions";
 
-    async function callOpenRouter(prompt, model = "mistralai/mistral-7b-instruct") {
-      const responseBox = document.getElementById('ai-response');
-      responseBox.innerText = "⏳ Processing...";
-      try {
-        const res = await fetch(openRouterAPIBase, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${openRouterAPIKey}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: model,
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 600,
-            temperature: 0.5
-          })
-        });
-        const data = await res.json();
-        const reply = data.choices?.[0]?.message?.content || "No response.";
-        responseBox.innerText = reply;
-      } catch (err) {
-        responseBox.innerText = "⚠️ Error: " + err.message;
-      }
-    }
+    <script>
+        async function loadHeader() {
+            const response = await fetch('header.html');
+            document.getElementById('header-container').innerHTML = await response.text();
+        }
 
-    function summarizeArticle() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText;
-      callOpenRouter("Summarize this news article:\n" + article);
-    }
+        async function loadFooter() {
+            const response = await fetch('footer.html');
+            document.getElementById('footer-container').innerHTML = await response.text();
+        }
 
-    function extractGlossary() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText;
-      callOpenRouter("Extract and explain glossary terms from this article:\n" + article);
-    }
+        loadHeader();
+        loadFooter();
 
-    async function speakArticle() {
-      const article = document.querySelector('#full-article-popup .article-content').innerText.slice(0, 3000);
-      const responseBox = document.getElementById('ai-response');
-      responseBox.innerText = "⏳ Generating audio...";
-      try {
-        const res = await fetch("https://openrouter.ai/api/v1/audio/speech", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${openRouterAPIKey}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: "openai/tts-1",
-            input: article,
-            voice: "nova"
-          })
-        });
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        const audio = new Audio(url);
-        audio.play();
-        responseBox.innerText = "▶️ Playing audio...";
-      } catch (err) {
-        responseBox.innerText = "⚠️ Audio Error: " + err.message;
-      }
-    }
-  </script>
+        const feeds = {
+            toi: {
+                top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+                india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
+            }
+        };
+
+        const proxyBase = "https://api.codetabs.com/v1/proxy/?quest=";
+
+        function onCategoryChange() {
+            onFeedSelect();
+        }
+
+        function onFeedSelect() {
+            const category = document.getElementById("category").value;
+            const subcategory = document.getElementById("subcategory").value;
+            const url = feeds[category][subcategory];
+            const proxyURL = proxyBase + encodeURIComponent(url);
+
+            fetch(proxyURL)
+                .then(res => res.text())
+                .then(text => {
+                    const xml = new DOMParser().parseFromString(text, "text/xml");
+                    const items = xml.querySelectorAll("item");
+                    const list = document.getElementById("news-list");
+                    list.innerHTML = "";
+
+                    items.forEach((item) => {
+                        const title = item.querySelector("title").textContent;
+                        const link = item.querySelector("link").textContent;
+                        const description = item.querySelector("description").textContent;
+
+                        const card = document.createElement("div");
+                        card.className = "article-card p-3 bg-gray-700 rounded cursor-pointer hover:bg-gray-600";
+                        card.innerHTML = `
+                            <div class="article-header" onclick="toggleArticle(this.parentElement)">
+                                <strong class="text-indigo-300">${title}</strong>
+                                <span>▶</span>
+                            </div>
+                            <p class="text-gray-400 mt-1">${description}</p>
+                            <div class="article-content"></div>
+                            <button id="view-full-article-btn" onclick="showFullArticlePopup('${link}')">View Full Article</button>
+                        `;
+                        card.setAttribute('data-link', link); // Store the link
+                        list.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error("RSS feed load error:", err);
+                    document.getElementById("news-list").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+                });
+        }
+
+        function toggleArticle(articleElement) {
+            const contentElement = articleElement.querySelector(".article-content");
+            contentElement.classList.toggle("open"); // Toggle the 'open' class
+
+            const link = articleElement.getAttribute('data-link');
+            if (contentElement.classList.contains('open') && contentElement.innerHTML === '') {
+                //loadFullArticle(link, contentElement); //  No longer loading here, handled by button
+            }
+        }
+
+
+        function loadFullArticle(url, contentElement) {
+            const proxyURL = proxyBase + encodeURIComponent(url);
+
+            fetch(proxyURL)
+                .then(res => res.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, "text/html");
+                    const mainDiv = doc.querySelector("div._s30J.clearfix");
+                    const textContent = mainDiv ? mainDiv.innerText.trim() : "Unable to extract main content.";
+
+                    contentElement.innerHTML = `<p>${textContent}</p>`;
+                })
+                .catch(err => {
+                    console.error("Full article load error:", err);
+                    contentElement.innerHTML = `<p class="text-red-400">Failed to load article.</p>`;
+                });
+        }
+
+        let currentFontSize = 1.25; // Initial font size (20px)
+
+        function showFullArticlePopup(url) {
+            const popup = document.getElementById('full-article-popup');
+            const contentDiv = popup.querySelector('.article-content');
+            popup.style.display = 'block';
+
+            contentDiv.innerHTML = '<p>Loading...</p>';
+            loadFullArticle(url, contentDiv);
+
+            // Reset font size when showing popup
+            currentFontSize = 1.25;
+            contentDiv.style.fontSize = `${currentFontSize}rem`;
+        }
+
+        function closeFullArticlePopup() {
+            document.getElementById('full-article-popup').style.display = 'none';
+        }
+
+        function adjustFontSize(increment) {
+            currentFontSize += 0.1 * increment;
+            const contentDiv = document.querySelector('#full-article-popup .article-content');
+            contentDiv.style.fontSize = `${currentFontSize}rem`;
+        }
+
+
+        function goToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("back-to-top").style.display = "block";
+            } else {
+                document.getElementById("back-to-top").style.display = "none";
+            }
+        }
+
+        window.onload = onFeedSelect;
+    </script>
+
 </body>
+
 </html>
