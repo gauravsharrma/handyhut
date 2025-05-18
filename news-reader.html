@@ -1,83 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pakistan IMF News Summary</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>HandyHut - Smart News Reader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { scroll-behavior: smooth; font-family: sans-serif; }
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8B5CF6;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        #back-to-top:hover { opacity: 1; }
+        .article-card {
+            border-bottom: 1px solid #4B5563;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #1f2937;
+            border-radius: 8px;
+        }
+        .summary-box, .glossary-box {
+            background: white;
+            color: black;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans p-4">
+<body class="bg-gray-900 text-gray-100">
+    <main class="container mx-auto py-8 px-4">
+        <h1 class="text-2xl font-bold text-indigo-400 mb-4">🗞️ HandyHut - Smart News Reader</h1>
 
-  <div class="max-w-4xl mx-auto space-y-6">
-    <header class="flex justify-between items-center">
-      <h1 class="text-2xl font-bold">News Article: IMF Conditions for Pakistan</h1>
-      <button onclick="summarizeArticle()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
-        Summarize News
-      </button>
-    </header>
+        <section class="mb-6">
+            <h2 class="text-yellow-300 text-lg mb-2">Summary (via OpenRouter API)</h2>
+            <div class="summary-box" id="summary">Loading summary...</div>
+        </section>
 
-    <section id="news-article" class="bg-white p-4 rounded shadow">
-      <p id="article-text" class="whitespace-pre-wrap">
-The International Monetary Fund (IMF) has significantly expanded its bailout program requirements for Pakistan, adding 11 new conditions and bringing the total to 50 structural benchmarks and conditions. According to the Express Tribune, among the key new requirements, Pakistan must secure parliamentary approval for a Rs 17.6 trillion budget, implement higher debt servicing surcharges on electricity bills, and remove restrictions on the import of used cars older than three years.
+        <section class="mb-6">
+            <h2 class="text-yellow-300 text-lg mb-2">🔊 Audio</h2>
+            <audio id="audio" controls>
+                <source src="news_audio.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
 
-The IMF has also expressed concern about the potential impact of rising India-Pakistan tensions on the program's success. The IMF’s staff-level report, released on Saturday, cautioned, “Rising tensions between India and Pakistan, if sustained or deteriorate further, could heighten risks to the fiscal, external and reform goals of the programme.”
+        <section class="mb-6">
+            <h2 class="text-yellow-300 text-lg mb-2">Glossary of Key Terms</h2>
+            <div class="glossary-box" id="glossary">Loading glossary...</div>
+        </section>
 
-Here are IMF’s 11 new conditions for Pakistan:
-1. Parliamentary approval of Rs 17.6 trillion federal budget.
-2. Pakistan must pass a new budget for FY 2025–26 in line with IMF programme targets by June 2025.
-3. Agricultural Income Tax reform at provincial level – laws by June.
-4. Governance action plan – publish strategy based on IMF’s diagnostic.
-5. Post-2027 financial sector strategy.
-6. Annual electricity tariff rebasing by July.
-7. Semi-annual Gas Tariff Adjustment by Feb 2026.
-8. Make Captive power levy ordinance permanent by May.
-9. Remove Rs 3.21/unit debt servicing surcharge cap.
-10. Phase-out STZ fiscal incentives by 2035.
-11. Liberalise used car import (up to 5 years old) via legislation by July.
-12. Allocate Rs 1.07 trillion for development in budget.
-      </p>
-    </section>
+        <section class="mb-6">
+            <h2 class="text-yellow-300 text-lg mb-2">Live News (RSS)</h2>
+            <div class="flex gap-4 mb-4">
+                <select id="subcategory" class="bg-gray-700 text-white p-2 rounded" onchange="loadRSS()">
+                    <option value="top">Top Stories</option>
+                    <option value="india">India</option>
+                </select>
+            </div>
+            <div id="rss-news"></div>
+        </section>
+        <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</div>
+    </main>
 
-    <section id="summary-section" class="bg-yellow-50 p-4 rounded shadow hidden">
-      <h2 class="font-bold text-lg mb-2">AI-Generated Summary:</h2>
-      <p id="summary-text" class="text-gray-800"></p>
-    </section>
-  </div>
+    <script>
+        const API_KEY = 'YOUR_API_KEY_HERE';
+        const MODEL = 'mistralai/mixtral-8x7b-instruct';
+        const ARTICLE = `The International Monetary Fund (IMF) has significantly expanded its bailout program requirements for Pakistan...`;
 
-  <script>
-    async function summarizeArticle() {
-      const article = document.getElementById('article-text').innerText;
-      const summarySection = document.getElementById('summary-section');
-      const summaryText = document.getElementById('summary-text');
+        async function queryOpenRouter(prompt) {
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    max_tokens: 800,
+                    messages: [
+                        { role: "system", content: "You are a helpful educational assistant." },
+                        { role: "user", content: prompt }
+                    ]
+                })
+            });
 
-      summaryText.innerText = "Summarizing... Please wait.";
+            const data = await response.json();
+            return data.choices?.[0]?.message?.content || "No response.";
+        }
 
-      try {
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Authorization": "Bearer YOUR_OPENROUTER_API_KEY",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: "mistralai/mixtral-8x7b-instruct",
-            messages: [
-              { role: "system", content: "You are an expert summarizer." },
-              { role: "user", content: `Please summarize the following article in 5-7 bullet points:\n\n${article}` }
-            ]
-          })
-        });
+        async function loadSummaryAndGlossary() {
+            const summaryPrompt = `Summarize the following news article in 2–3 informative sentences and provide 5 key bullet points:\n${ARTICLE}`;
+            const glossaryPrompt = `Extract key terms and provide:\n- Meaning\n- Synonym\n- Antonym\n- Idiom (if any)\n- Sentence\n\nArticle:\n${ARTICLE}`;
 
-        const data = await response.json();
-        const summary = data.choices[0].message.content;
-        summaryText.innerText = summary;
-        summarySection.classList.remove('hidden');
+            document.getElementById("summary").innerText = "Fetching summary...";
+            document.getElementById("glossary").innerText = "Fetching glossary...";
 
-      } catch (error) {
-        summaryText.innerText = "Error summarizing article.";
-        console.error(error);
-      }
-    }
-  </script>
+            const [summary, glossary] = await Promise.all([
+                queryOpenRouter(summaryPrompt),
+                queryOpenRouter(glossaryPrompt)
+            ]);
+
+            document.getElementById("summary").innerHTML = summary.replace(/\n/g, "<br>");
+            document.getElementById("glossary").innerHTML = glossary.replace(/\n/g, "<br>");
+        }
+
+        async function loadRSS() {
+            const feeds = {
+                top: "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+                india: "http://timesofindia.com/rssfeeds/-2128936835.cms"
+            };
+            const feedUrl = feeds[document.getElementById("subcategory").value];
+            const proxyURL = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(feedUrl)}`;
+
+            const res = await fetch(proxyURL);
+            const text = await res.text();
+            const xml = new DOMParser().parseFromString(text, "text/xml");
+            const items = xml.querySelectorAll("item");
+
+            const container = document.getElementById("rss-news");
+            container.innerHTML = "";
+
+            items.forEach(item => {
+                const title = item.querySelector("title").textContent;
+                const desc = item.querySelector("description").textContent;
+                const link = item.querySelector("link").textContent;
+
+                const div = document.createElement("div");
+                div.className = "article-card";
+                div.innerHTML = `<h3 class="text-indigo-300 font-semibold">${title}</h3><p class="text-sm text-gray-400">${desc}</p><a href="${link}" target="_blank" class="text-blue-300 underline">Read more</a>`;
+                container.appendChild(div);
+            });
+        }
+
+        window.onload = () => {
+            loadSummaryAndGlossary();
+            loadRSS();
+        };
+    </script>
 </body>
 </html>
