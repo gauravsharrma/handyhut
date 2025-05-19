@@ -35,34 +35,46 @@
     </div>
 
     <script>
-        async function fetchArticleSummary(articleUrl, articleText) {
+        async function fetchArticleSummary(articleText) {
             const summaryDiv = document.getElementById('article-summary');
             summaryDiv.textContent = 'Loading summary...';
 
-            //  **IMPORTANT:** Replace this with the actual URL of your backend endpoint
-            const backendSummaryEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBfL02fCov6TNa3fkOI81RsZGWhg3j1rxg`;
+            const GEMINI_API_KEY = 'AIzaSyBfL02fCov6TNa3fkOI81RsZGWhg3j1rxg'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
+            const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
             try {
-                const response = await fetch(backendSummaryEndpoint, {
+                const response = await fetch(geminiApiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        url: articleUrl,
-                        text: articleText // Send the article text to the backend
+                        contents: [{
+                            parts: [{
+                                text: `Summarize this news article: ${articleText}`
+                            }]
+                        }]
                     })
                 });
 
                 if (!response.ok) {
-                    console.error(`Failed to fetch summary: ${response.status}`);
-                    summaryDiv.textContent = 'Failed to load summary.';
+                    console.error(`Gemini API Error: ${response.status}`, await response.text());
+                    summaryDiv.textContent = 'Failed to load summary from Gemini API.';
                     return;
                 }
+
                 const data = await response.json();
-                summaryDiv.textContent = data.summary; //  Assuming your backend returns { summary: "..." }
+                // **IMPORTANT:** Adjust this based on the actual Gemini API response structure.
+                try {
+                    const summary = data.candidates[0].content.parts[0].text;
+                    summaryDiv.textContent = summary;
+                } catch (error) {
+                    console.error('Error parsing Gemini response:', error, data);
+                    summaryDiv.textContent = 'Error processing summary.';
+                }
+
             } catch (error) {
-                console.error("Error fetching summary:", error);
+                console.error("Error calling Gemini API:", error);
                 summaryDiv.textContent = 'Error loading summary.';
             }
         }
@@ -73,8 +85,7 @@
             const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
             const fullArticleUrl = proxyUrl + encodeURIComponent(articleUrl);
             const articleDiv = document.getElementById('article-text');
-
-            let extractedArticleText = ""; // Store extracted text for summary
+            let extractedArticleText = "";
 
             try {
                 const response = await fetch(fullArticleUrl);
@@ -91,14 +102,14 @@
                     const images = mainDiv.querySelectorAll('img');
                     images.forEach(img => img.remove());
                     articleDiv.innerHTML = mainDiv.innerHTML;
-                    extractedArticleText = mainDiv.textContent; // Extract text for summary
+                    extractedArticleText = mainDiv.textContent;
                 } else {
                     console.warn("Main article content selector not found. Displaying full article without specific extraction.");
                     const bodyWithoutImages = doc.body.cloneNode(true);
                     const bodyImages = bodyWithoutImages.querySelectorAll('img');
                     bodyImages.forEach(img => img.remove());
                     articleDiv.innerHTML = bodyWithoutImages.innerHTML;
-                    extractedArticleText = bodyWithoutImages.textContent; // Extract from body
+                    extractedArticleText = bodyWithoutImages.textContent;
                 }
 
                 const paragraphs = articleDiv.querySelectorAll('p');
@@ -114,16 +125,17 @@
 
                 articleDiv.style.textAlign = 'center';
 
+                // Fetch the summary after extracting the article text
+                if (articleText) { // Check if we have extracted text
+                    fetchArticleSummary(extractedArticleText);
+                } else {
+                    document.getElementById('article-summary').textContent = 'Could not extract article text for summary.';
+                }
+
             } catch (error) {
                 console.error("Error fetching and extracting article:", error);
                 articleDiv.textContent = "Error fetching article.";
-            }
-
-            // Fetch the summary after extracting the article text
-            if (articleUrl) {
-                fetchArticleSummary(articleUrl, extractedArticleText);
-            } else {
-                document.getElementById('article-summary').textContent = 'No article URL provided.';
+                document.getElementById('article-summary').textContent = 'Could not fetch article to summarize.';
             }
         }
 
