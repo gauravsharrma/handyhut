@@ -90,13 +90,13 @@
         async function fetchArticleSummary(articleText) {
             const summaryDiv = document.getElementById('article-summary');
             const summaryHtmlDiv = document.getElementById('article-summary-html');
-            summaryDiv.style.display = 'block'; // Show loading message
-            summaryHtmlDiv.style.display = 'none'; // Hide HTML div initially
+            summaryDiv.style.display = 'block';
+            summaryHtmlDiv.style.display = 'none';
             summaryDiv.textContent = 'Loading summary...';
-
-            const GEMINI_API_KEY = 'AIzaSyCExGubSSk7lp2MzC-lbyFXhO6-rgcB0gg'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
+        
+            const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
             const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-
+        
             try {
                 const response = await fetch(geminiApiUrl, {
                     method: 'POST',
@@ -111,25 +111,30 @@
                         }]
                     })
                 });
-
+        
                 if (!response.ok) {
                     console.error(`Gemini API Error: ${response.status}`, await response.text());
                     summaryDiv.textContent = 'Failed to load summary from Gemini API.';
                     return;
                 }
-
+        
                 const data = await response.json();
                 try {
-                    const markdownSummary = data.candidates[0].content.parts[0].text;
-                    const htmlSummary = marked.parse(markdownSummary);
-                    summaryHtmlDiv.innerHTML = htmlSummary;
-                    summaryDiv.style.display = 'none'; // Hide loading message
-                    summaryHtmlDiv.style.display = 'block'; // Show HTML summary
+                    if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts.length > 0) {
+                        const markdownSummary = data.candidates[0].content.parts[0].text;
+                        const htmlSummary = marked.parse(markdownSummary);
+                        summaryHtmlDiv.innerHTML = htmlSummary;
+                        summaryDiv.style.display = 'none';
+                        summaryHtmlDiv.style.display = 'block';
+                    } else {
+                        console.warn("Gemini API response has no valid summary content:", data);
+                        summaryDiv.textContent = "No summary received.";
+                    }
                 } catch (error) {
                     console.error('Error parsing Gemini response:', error, data);
                     summaryDiv.textContent = 'Error processing summary.';
                 }
-
+        
             } catch (error) {
                 console.error("Error calling Gemini API:", error);
                 summaryDiv.textContent = 'Error loading summary.';
