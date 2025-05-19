@@ -72,10 +72,10 @@
     <div class="container mx-auto bg-white rounded-lg shadow-md p-8 max-w-3xl">
         <section class="mb-8 p-4 bg-gray-50 rounded-md shadow-inner">
             <h2 class="text-xl font-semibold text-indigo-600 mb-2 text-center">Article Summary</h2>
-            <div id="article-summary" class="text-gray-700 leading-relaxed text-center">
+            <div id="article-summary" class="text-gray-700 leading-relaxed text-center" style="display: block;">
                 Loading summary...
             </div>
-            <div id="article-summary-html"></div>
+            <div id="article-summary-html" style="display: none;"></div>
         </section>
 
         <section>
@@ -106,7 +106,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `summarize this news article. dont miss out on any important points or messages or topics . also provide key terms and phrases, difficult words along with their meanings, synonyms and antonyms, idioms, sentence usage: ${articleText}`
+                                text: `Summarize this news article: ${articleText}`
                             }]
                         }]
                     })
