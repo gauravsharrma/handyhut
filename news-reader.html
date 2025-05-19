@@ -7,7 +7,7 @@
     <style>
         body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
         .news-item { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        button { background: #6b46c1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        button { background: #6b46c1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-right: 5px; }
         h2 { color: #4B0082; }
     </style>
 </head>
@@ -39,18 +39,23 @@
                 div.innerHTML = `
                     <strong>${title}</strong>
                     <p>${description}</p>
-                    <button data-article-link="${encodeURIComponent(link)}">
-                        AI Summary & Audio
+                    <button class="view-article" data-article-link="${encodeURIComponent(link)}">
+                        View News Article
+                    </button>
+                    <button class="view-article-text" data-article-link="${encodeURIComponent(link)}">
+                        View Article Text
                     </button>
                 `;
                 container.appendChild(div);
             });
 
-            // Add event listener after the buttons are created
             container.addEventListener('click', function(event) {
-                if (event.target.tagName === 'BUTTON' && event.target.textContent.trim() === 'AI Summary & Audio') {
+                if (event.target.classList.contains('view-article')) {
                     const articleLink = decodeURIComponent(event.target.dataset.articleLink);
                     openArticleInNewTab(articleLink);
+                } else if (event.target.classList.contains('view-article-text')) {
+                    const articleLink = decodeURIComponent(event.target.dataset.articleLink);
+                    openArticleTextTab(articleLink);
                 }
             });
         }
@@ -89,6 +94,10 @@
             } catch (error) {
                 console.error("Error fetching or displaying the article:", error);
             }
+        }
+
+        function openArticleTextTab(articleLink) {
+            window.open(`news-article.html?url=${encodeURIComponent(articleLink)}`, '_blank');
         }
 
         loadRSS();
