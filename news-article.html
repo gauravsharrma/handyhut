@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +8,73 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Merriweather', serif; /* A good serif font for reading */
+            font-family: 'Merriweather', serif;
+            /* A good serif font for reading */
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 py-10">
     <div class="container mx-auto bg-white rounded-lg shadow-md p-8 max-w-3xl">
-        <div id="article-text" class="text-lg text-gray-800 leading-relaxed text-center">
-            Loading article text...
-        </div>
+        <section class="mb-8 p-4 bg-gray-50 rounded-md shadow-inner">
+            <h2 class="text-xl font-semibold text-indigo-600 mb-2 text-center">Article Summary</h2>
+            <div id="article-summary" class="text-gray-700 leading-relaxed text-center">
+                Loading summary...
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-semibold text-indigo-600 mb-4 text-center">Original Article Text</h2>
+            <div id="article-text" class="text-lg text-gray-800 leading-relaxed text-center">
+                Loading article text...
+            </div>
+        </section>
     </div>
 
     <script>
+        async function fetchArticleSummary(articleUrl, articleText) {
+            const summaryDiv = document.getElementById('article-summary');
+            summaryDiv.textContent = 'Loading summary...';
+
+            //  **IMPORTANT:** Replace this with the actual URL of your backend endpoint
+            const backendSummaryEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBfL02fCov6TNa3fkOI81RsZGWhg3j1rxg`;
+
+            try {
+                const response = await fetch(backendSummaryEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: articleUrl,
+                        text: articleText // Send the article text to the backend
+                    })
+                });
+
+                if (!response.ok) {
+                    console.error(`Failed to fetch summary: ${response.status}`);
+                    summaryDiv.textContent = 'Failed to load summary.';
+                    return;
+                }
+                const data = await response.json();
+                summaryDiv.textContent = data.summary; //  Assuming your backend returns { summary: "..." }
+            } catch (error) {
+                console.error("Error fetching summary:", error);
+                summaryDiv.textContent = 'Error loading summary.';
+            }
+        }
+
         async function fetchAndExtractArticle() {
             const urlParams = new URLSearchParams(window.location.search);
             const articleUrl = urlParams.get('url');
             const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
             const fullArticleUrl = proxyUrl + encodeURIComponent(articleUrl);
             const articleDiv = document.getElementById('article-text');
+
+            let extractedArticleText = ""; // Store extracted text for summary
 
             try {
                 const response = await fetch(fullArticleUrl);
@@ -39,30 +86,24 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(articleHTML, 'text/html');
 
-                // Attempt to extract the main article content
                 const mainDiv = doc.querySelector("div._s30J.clearfix");
                 if (mainDiv) {
-                    // Remove images from the extracted content
                     const images = mainDiv.querySelectorAll('img');
                     images.forEach(img => img.remove());
-
-                    // Set the extracted content
                     articleDiv.innerHTML = mainDiv.innerHTML;
+                    extractedArticleText = mainDiv.textContent; // Extract text for summary
                 } else {
                     console.warn("Main article content selector not found. Displaying full article without specific extraction.");
                     const bodyWithoutImages = doc.body.cloneNode(true);
                     const bodyImages = bodyWithoutImages.querySelectorAll('img');
                     bodyImages.forEach(img => img.remove());
                     articleDiv.innerHTML = bodyWithoutImages.innerHTML;
-                    // Or a simpler fallback:
-                    // articleDiv.textContent = "Could not extract main article content.";
+                    extractedArticleText = bodyWithoutImages.textContent; // Extract from body
                 }
 
-                // Further style adjustments after content is loaded
                 const paragraphs = articleDiv.querySelectorAll('p');
                 paragraphs.forEach(p => {
-                    p.classList.add('mb-4', 'text-justify'); // Add margin and justify text
-                    // Wrap text to limit line length (more robust than CSS alone for dynamic content)
+                    p.classList.add('mb-4', 'text-justify');
                     p.innerHTML = p.textContent.replace(/([^\s]{120})/g, '$1<wbr>');
                 });
 
@@ -71,15 +112,23 @@
                     h.classList.add('text-indigo-700', 'font-bold', 'mt-6', 'mb-2', 'text-center');
                 });
 
-                // Center all direct text nodes and elements within article-text
                 articleDiv.style.textAlign = 'center';
+
             } catch (error) {
                 console.error("Error fetching and extracting article:", error);
                 articleDiv.textContent = "Error fetching article.";
+            }
+
+            // Fetch the summary after extracting the article text
+            if (articleUrl) {
+                fetchArticleSummary(articleUrl, extractedArticleText);
+            } else {
+                document.getElementById('article-summary').textContent = 'No article URL provided.';
             }
         }
 
         fetchAndExtractArticle();
     </script>
 </body>
+
 </html>
