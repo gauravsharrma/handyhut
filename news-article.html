@@ -94,7 +94,7 @@
             summaryHtmlDiv.style.display = 'none'; // Hide HTML div initially
             summaryDiv.textContent = 'Loading summary...';
 
-            const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
+            const GEMINI_API_KEY = 'AIzaSyBfL02fCov6TNa3fkOI81RsZGWhg3j1rxg'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
             const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
             try {
@@ -106,7 +106,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `Summarize this news article: ${articleText}`
+                                text: `summarize this news article. dont miss out on any important points or messages or topics . also provide key terms and phrases, difficult words along with their meanings, synonyms and antonyms, idioms, sentence usage: ${articleText}`
                             }]
                         }]
                     })
