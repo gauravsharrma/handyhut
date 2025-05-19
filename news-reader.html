@@ -47,8 +47,8 @@
             });
 
             // Add event listener after the buttons are created
-            container.addEventListener('click', async function(event) {
-                if (event.target.tagName === 'BUTTON' && event.target.textContent === 'AI Summary & Audio') {
+            container.addEventListener('click', function(event) {
+                if (event.target.tagName === 'BUTTON' && event.target.textContent.trim() === 'AI Summary & Audio') {
                     const articleLink = decodeURIComponent(event.target.dataset.articleLink);
                     openArticleInNewTab(articleLink);
                 }
