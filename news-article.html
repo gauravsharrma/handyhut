@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extracted Article Text1</title>
+    <title>Extracted Article Text</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -85,7 +85,7 @@
             const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
             const fullArticleUrl = proxyUrl + encodeURIComponent(articleUrl);
             const articleDiv = document.getElementById('article-text');
-            let extractedArticleText = "";
+            let extractedArticleText = ""; // Declare it here
 
             try {
                 const response = await fetch(fullArticleUrl);
@@ -126,7 +126,7 @@
                 articleDiv.style.textAlign = 'center';
 
                 // Fetch the summary after extracting the article text
-                if (articleText) { // Check if we have extracted text
+                if (extractedArticleText) { // Use the correctly scoped variable
                     fetchArticleSummary(extractedArticleText);
                 } else {
                     document.getElementById('article-summary').textContent = 'Could not extract article text for summary.';
