@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extracted Article Text</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #4B0082; }
+    </style>
+</head>
+<body>
+    <div id="article-text">
+        Loading article text...
+    </div>
+
+    <script>
+        async function fetchAndExtractArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleUrl = urlParams.get('url');
+            const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
+            const fullArticleUrl = proxyUrl + encodeURIComponent(articleUrl);
+            const articleDiv = document.getElementById('article-text');
+
+            try {
+                const response = await fetch(fullArticleUrl);
+                if (!response.ok) {
+                    articleDiv.textContent = `Failed to fetch article: ${response.status}`;
+                    return;
+                }
+                const articleHTML = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(articleHTML, 'text/html');
+
+                // Attempt to extract the main article content
+                const mainDiv = doc.querySelector("div._s30J.clearfix");
+                if (mainDiv) {
+                    articleDiv.innerHTML = mainDiv.innerHTML; // Or .textContent, depending on what you need
+                } else {
+                    // If the specific selector doesn't work, show the whole body or a warning
+                    console.warn("Main article content selector not found. Displaying full article.");
+                    articleDiv.innerHTML = doc.body.innerHTML;
+                    // Or
+                    // articleDiv.textContent = "Could not extract main article content.";
+                }
+
+            } catch (error) {
+                console.error("Error fetching and extracting article:", error);
+                articleDiv.textContent = "Error fetching article.";
+            }
+        }
+
+        fetchAndExtractArticle();
+    </script>
+</body>
+</html>
