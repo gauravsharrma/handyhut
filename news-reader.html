@@ -1,59 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI News Feed Summary</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-    .news-item { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    button { background: #6b46c1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
-    h2 { color: #4B0082; }
-  </style>
+    <meta charset="UTF-8">
+    <title>AI News Feed Summary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .news-item { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        button { background: #6b46c1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        h2 { color: #4B0082; }
+    </style>
 </head>
 <body>
-  <h2>📰 Times of India - Top Stories</h2>
-  <div id="news-container">Loading...</div>
+    <h2>📰 Times of India - Top Stories</h2>
+    <div id="news-container">Loading...</div>
 
-  <script>
-    async function loadRSS() {
-      const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
-      const feedUrl = "http://timesofindia.indiatimes.com/rssfeedstopstories.cms";
-      const fullUrl = proxyUrl + encodeURIComponent(feedUrl);
+    <script>
+        async function loadRSS() {
+            const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
+            const feedUrl = "http://timesofindia.indiatimes.com/rssfeedstopstories.cms";
+            const fullUrl = proxyUrl + encodeURIComponent(feedUrl);
 
-      const response = await fetch(fullUrl);
-      const text = await response.text();
-      const xml = new window.DOMParser().parseFromString(text, "text/xml");
-      const items = xml.querySelectorAll("item");
+            const response = await fetch(fullUrl);
+            const text = await response.text();
+            const xml = new window.DOMParser().parseFromString(text, "text/xml");
+            const items = xml.querySelectorAll("item");
 
-      const container = document.getElementById("news-container");
-      container.innerHTML = "";
+            const container = document.getElementById("news-container");
+            container.innerHTML = "";
 
-      items.forEach(item => {
-        const title = item.querySelector("title").textContent;
-        const description = item.querySelector("description").textContent;
-        const link = item.querySelector("link").textContent;
+            items.forEach(async item => {
+                const title = item.querySelector("title").textContent;
+                const description = item.querySelector("description").textContent;
+                const link = item.querySelector("link").textContent;
 
-        const div = document.createElement("div");
-        div.className = "news-item";
-        div.innerHTML = `
-          <strong>${title}</strong>
-          <p>${description}</p>
-          <button onclick="openAISummary('${encodeURIComponent(link)}', \`${encodeURIComponent(description)}\`)">
-            AI Summary & Audio
-          </button>
-        `;
-        container.appendChild(div);
-      });
-    }
+                const div = document.createElement("div");
+                div.className = "news-item";
+                div.innerHTML = `
+                    <strong>${title}</strong>
+                    <p>${description}</p>
+                    <button data-article-link="${encodeURIComponent(link)}">
+                        AI Summary & Audio
+                    </button>
+                `;
+                container.appendChild(div);
+            });
 
-    function openAISummary(link, description) {
-      localStorage.setItem('articleLink', decodeURIComponent(link));
-      localStorage.setItem('articleText', decodeURIComponent(description));
-      window.open('ai-summary.html', '_blank');
-    }
+            // Add event listener after the buttons are created
+            container.addEventListener('click', async function(event) {
+                if (event.target.tagName === 'BUTTON' && event.target.textContent === 'AI Summary & Audio') {
+                    const articleLink = decodeURIComponent(event.target.dataset.articleLink);
+                    openArticleInNewTab(articleLink);
+                }
+            });
+        }
 
-    loadRSS();
-  </script>
+        async function openArticleInNewTab(articleLink) {
+            try {
+                const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
+                const fullArticleUrl = proxyUrl + encodeURIComponent(articleLink);
+                const response = await fetch(fullArticleUrl);
+                if (!response.ok) {
+                    console.error(`Failed to fetch article: ${response.status}`);
+                    return;
+                }
+                const articleHTML = await response.text();
+
+                const newTab = window.open('', '_blank');
+                if (newTab) {
+                    newTab.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>News Article</title>
+                            <style>
+                                body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+                                h1, h2, h3 { color: #4B0082; }
+                            </style>
+                        </head>
+                        <body>
+                            ${articleHTML}
+                        </body>
+                        </html>
+                    `);
+                    newTab.document.close();
+                }
+            } catch (error) {
+                console.error("Error fetching or displaying the article:", error);
+            }
+        }
+
+        loadRSS();
+    </script>
 </body>
 </html>
