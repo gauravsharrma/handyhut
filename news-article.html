@@ -11,63 +11,10 @@
             font-family: 'Merriweather', serif;
             /* A good serif font for reading */
         }
-
-        /* Basic styling for the converted HTML */
-        #article-summary-html h1 {
-            font-size: 1.5em;
-            color: #4B0082;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        #article-summary-html h2 {
-            font-size: 1.3em;
-            color: #6b46c1;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        #article-summary-html h3 {
-            font-size: 1.1em;
-            color: #7e57c2;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        #article-summary-html p {
-            margin-bottom: 0.75em;
-            line-height: 1.6;
-            text-align: left;
-            /* Reset centering for text */
-        }
-
-        #article-summary-html ul,
-        #article-summary-html ol {
-            margin-left: 1.5em;
-            margin-bottom: 0.75em;
-            text-align: left;
-            /* Reset centering for lists */
-        }
-
-        #article-summary-html li {
-            margin-bottom: 0.25em;
-        }
-
-        #article-summary-html strong {
-            font-weight: bold;
-        }
-
-        #article-summary-html em {
-            font-style: italic;
-        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.7/marked.min.js"></script>
 </head>
 
 <body class="bg-gray-100 py-10">
@@ -77,7 +24,7 @@
             <div id="article-summary" class="text-gray-700 leading-relaxed text-center" style="display: block;">
                 Loading summary...
             </div>
-            <div id="article-summary-html" style="display: none;"></div>
+            <div id="article-summary-raw" style="display: none;"></div>
         </section>
 
         <section>
@@ -91,9 +38,9 @@
     <script>
         async function fetchArticleSummary(articleText) {
             const summaryDiv = document.getElementById('article-summary');
-            const summaryHtmlDiv = document.getElementById('article-summary-html');
+            const summaryRawDiv = document.getElementById('article-summary-raw');
             summaryDiv.style.display = 'block';
-            summaryHtmlDiv.style.display = 'none';
+            summaryRawDiv.style.display = 'none';
             summaryDiv.textContent = 'Loading summary...';
 
             const COHERE_API_KEY = '7bcOXDRsiwTWtOUBbEW30jYUkxYjBa7cJYgWiDs0'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
@@ -124,11 +71,10 @@
 
                 const data = await response.json();
                 try {
-                    const markdownSummary = data.summary;
-                    const htmlSummary = marked.parse(markdownSummary);
-                    summaryHtmlDiv.innerHTML = htmlSummary;
+                    const rawSummary = data.summary;
+                    summaryRawDiv.textContent = rawSummary;
                     summaryDiv.style.display = 'none';
-                    summaryHtmlDiv.style.display = 'block';
+                    summaryRawDiv.style.display = 'block';
                 } catch (error) {
                     console.error('Error parsing Cohere response:', error, data);
                     summaryDiv.textContent = 'Error processing summary.';
