@@ -24,7 +24,7 @@
             <div id="article-summary" class="text-gray-700 leading-relaxed text-center" style="display: block;">
                 Loading summary...
             </div>
-            <div id="article-summary-raw" style="display: none;"></div>
+            <div id="article-summary-raw" style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; display: none;"></div>
         </section>
 
         <section>
@@ -46,12 +46,25 @@
             const COHERE_API_KEY = '7bcOXDRsiwTWtOUBbEW30jYUkxYjBa7cJYgWiDs0'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
             const cohereApiUrl = 'https://api.cohere.ai/v1/summarize';
 
-            const fullPrompt = `Summarize this news article. Don't miss out on any important points or messages or topics. Also, provide:
-- Key terms and phrases
-- Difficult words along with their meanings, synonyms, and antonyms
-- Idioms
-- Sentence usage:
-${articleText}`;
+            const fullPrompt = `
+You are a smart news assistant. Read the following article and perform ALL of the following tasks:
+
+1. **Summary**: Provide a clear, concise summary in 3–5 sentences. Don't miss any important events or people mentioned.
+2. **Key Terms & Phrases**: List at least 5 important terms, acronyms, or proper nouns with short explanations.
+3. **Difficult Words**: Identify at least 5 tough or uncommon words. For each, provide:
+    - Meaning
+    - Synonym
+    - Antonym
+    - Example sentence
+4. **Idioms or Phrases (if any)**: Extract and explain any idioms or figurative phrases.
+5. **Sentence Usage Examples**: Pick 3 complex or important sentences and rewrite them in simpler words.
+
+Return the full result as a structured markdown report.
+Article:
+"""
+${articleText}
+"""
+`;
 
             try {
                 const response = await fetch(cohereApiUrl, {
