@@ -11,10 +11,61 @@
             font-family: 'Merriweather', serif;
             /* A good serif font for reading */
         }
+
+        /* Basic styling for the converted HTML */
+        #article-summary-html h1 {
+            font-size: 1.5em;
+            color: #4B0082;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        #article-summary-html h2 {
+            font-size: 1.3em;
+            color: #6b46c1;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        #article-summary-html h3 {
+            font-size: 1.1em;
+            color: #7e57c2;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        #article-summary-html p {
+            margin-bottom: 0.75em;
+            line-height: 1.6;
+            text-align: left; /* Reset centering for text */
+        }
+
+        #article-summary-html ul,
+        #article-summary-html ol {
+            margin-left: 1.5em;
+            margin-bottom: 0.75em;
+            text-align: left; /* Reset centering for lists */
+        }
+
+        #article-summary-html li {
+            margin-bottom: 0.25em;
+        }
+
+        #article-summary-html strong {
+            font-weight: bold;
+        }
+
+        #article-summary-html em {
+            font-style: italic;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.7/marked.min.js"></script>
 </head>
 
 <body class="bg-gray-100 py-10">
@@ -24,6 +75,7 @@
             <div id="article-summary" class="text-gray-700 leading-relaxed text-center">
                 Loading summary...
             </div>
+            <div id="article-summary-html"></div>
         </section>
 
         <section>
@@ -37,9 +89,12 @@
     <script>
         async function fetchArticleSummary(articleText) {
             const summaryDiv = document.getElementById('article-summary');
+            const summaryHtmlDiv = document.getElementById('article-summary-html');
+            summaryDiv.style.display = 'block'; // Show loading message
+            summaryHtmlDiv.style.display = 'none'; // Hide HTML div initially
             summaryDiv.textContent = 'Loading summary...';
 
-            const GEMINI_API_KEY = 'AIzaSyBfL02fCov6TNa3fkOI81RsZGWhg3j1rxg'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
+            const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // **SECURITY WARNING: DO NOT HARDCODE IN PRODUCTION!**
             const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
             try {
@@ -51,7 +106,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `summarize this news article. dont miss out on any important points or messages or topics . also provide key terms and phrases, difficult words along with their meanings, synonyms and antonyms, idioms, sentence usage:  ${articleText}`
+                                text: `Summarize this news article: ${articleText}`
                             }]
                         }]
                     })
@@ -64,10 +119,12 @@
                 }
 
                 const data = await response.json();
-                // **IMPORTANT:** Adjust this based on the actual Gemini API response structure.
                 try {
-                    const summary = data.candidates[0].content.parts[0].text;
-                    summaryDiv.textContent = summary;
+                    const markdownSummary = data.candidates[0].content.parts[0].text;
+                    const htmlSummary = marked.parse(markdownSummary);
+                    summaryHtmlDiv.innerHTML = htmlSummary;
+                    summaryDiv.style.display = 'none'; // Hide loading message
+                    summaryHtmlDiv.style.display = 'block'; // Show HTML summary
                 } catch (error) {
                     console.error('Error parsing Gemini response:', error, data);
                     summaryDiv.textContent = 'Error processing summary.';
@@ -85,7 +142,7 @@
             const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=";
             const fullArticleUrl = proxyUrl + encodeURIComponent(articleUrl);
             const articleDiv = document.getElementById('article-text');
-            let extractedArticleText = ""; // Declare it here
+            let extractedArticleText = "";
 
             try {
                 const response = await fetch(fullArticleUrl);
@@ -126,7 +183,7 @@
                 articleDiv.style.textAlign = 'center';
 
                 // Fetch the summary after extracting the article text
-                if (extractedArticleText) { // Use the correctly scoped variable
+                if (extractedArticleText) {
                     fetchArticleSummary(extractedArticleText);
                 } else {
                     document.getElementById('article-summary').textContent = 'Could not extract article text for summary.';
