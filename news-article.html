@@ -40,14 +40,16 @@
         #article-summary-html p {
             margin-bottom: 0.75em;
             line-height: 1.6;
-            text-align: left; /* Reset centering for text */
+            text-align: left;
+            /* Reset centering for text */
         }
 
         #article-summary-html ul,
         #article-summary-html ol {
             margin-left: 1.5em;
             margin-bottom: 0.75em;
-            text-align: left; /* Reset centering for lists */
+            text-align: left;
+            /* Reset centering for lists */
         }
 
         #article-summary-html li {
@@ -106,7 +108,7 @@
                     },
                     body: JSON.stringify({
                         text: articleText,
-                        model: 'command-r-plus',
+                        model: 'command-r-plus', // Using the command-r-plus model
                         length: 'auto',
                         format: 'auto',
                         additional_command: '',
