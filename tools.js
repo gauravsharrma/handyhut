@@ -1,5 +1,12 @@
 const tools = [
     {
+      name: "LLM Prompt Builder",
+      description: "Craft optimized prompts for large language models using parameter presets.",
+      url: "llm-prompt-builder.html",
+      category: "AI",
+      tags: ["llm", "prompt", "ai", "builder"]
+    },
+    {
         name: "BMI Calculator",
         url: "bmi-calculator.html",
         description: "Calculate your Body Mass Index (BMI) and find out your weight status.",
