@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Prompt Builder6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer>
+    const parameters = [
+  {
+    "Parameter": "temperature",
+    "Target": "Low (0.0)",
+    "Prompt Style": "Give a fact-based, precise, and to-the-point explanation of [INPUT]. No analogies or opinions."
+  },
+  {
+    "Parameter": "temperature",
+    "Target": "Medium (0.7)",
+    "Prompt Style": "Explain [INPUT] in simple language. Use analogies to help a non-technical person understand."
+  },
+  {
+    "Parameter": "temperature",
+    "Target": "High (1.2)",
+    "Prompt Style": "Describe [INPUT] as if you're writing a sci-fi scene or children's story. Be expressive and use metaphor."
+  },
+  {
+    "Parameter": "top_p",
+    "Target": "Low (0.1)",
+    "Prompt Style": "Use only the most common and direct words to explain [INPUT]."
+  },
+  {
+    "Parameter": "top_p",
+    "Target": "Medium (0.5)",
+    "Prompt Style": "Explain [INPUT] in a balanced tone using clear and varied expressions."
+  },
+  {
+    "Parameter": "top_p",
+    "Target": "High (1.0)",
+    "Prompt Style": "Describe [INPUT] with expressive, poetic, or unexpected word choices. Surprise me."
+  },
+  {
+    "Parameter": "top_k",
+    "Target": "Low (10)",
+    "Prompt Style": "Keep the language extremely simple and predictable when explaining [INPUT]."
+  },
+  {
+    "Parameter": "top_k",
+    "Target": "Medium (100)",
+    "Prompt Style": "Use clear language to explain [INPUT] but allow for some creative freedom."
+  },
+  {
+    "Parameter": "top_k",
+    "Target": "High (1000)",
+    "Prompt Style": "Use rich, diverse vocabulary and unexpected phrases to describe [INPUT]."
+  },
+  {
+    "Parameter": "max_tokens",
+    "Target": "Low (10–30)",
+    "Prompt Style": "Respond with a one-line summary of [INPUT]. Keep it under 10 words."
+  },
+  {
+    "Parameter": "max_tokens",
+    "Target": "Medium (100–300)",
+    "Prompt Style": "Provide a brief explanation of [INPUT] in 2–3 short paragraphs."
+  },
+  {
+    "Parameter": "max_tokens",
+    "Target": "High (1000+)",
+    "Prompt Style": "Write a detailed and comprehensive guide covering all aspects of [INPUT], including examples and context."
+  },
+  {
+    "Parameter": "frequency_penalty",
+    "Target": "Low (0.0)",
+    "Prompt Style": "Explain [INPUT] clearly, even if it means repeating key points for emphasis."
+  },
+  {
+    "Parameter": "frequency_penalty",
+    "Target": "Medium (0.5)",
+    "Prompt Style": "Explain [INPUT] in a natural way, but try not to repeat phrases or wording unnecessarily."
+  },
+  {
+    "Parameter": "frequency_penalty",
+    "Target": "High (1.5)",
+    "Prompt Style": "Describe [INPUT] using fresh, varied language throughout. Avoid repeating any words or phrases."
+  },
+  {
+    "Parameter": "presence_penalty",
+    "Target": "Low (0.0)",
+    "Prompt Style": "Stick closely to the main topic of [INPUT] without introducing any unrelated ideas."
+  },
+  {
+    "Parameter": "presence_penalty",
+    "Target": "Medium (0.5)",
+    "Prompt Style": "Explain [INPUT] clearly, and feel free to introduce one or two related subtopics."
+  },
+  {
+    "Parameter": "presence_penalty",
+    "Target": "High (1.5)",
+    "Prompt Style": "Explore [INPUT] by branching into fresh, creative, or unexpected perspectives and comparisons."
+  },
+  {
+    "Parameter": "stop",
+    "Target": "Single Stop (###)",
+    "Prompt Style": "Explain [INPUT] in a single paragraph. End the response with '###' and stop there."
+  },
+  {
+    "Parameter": "stop",
+    "Target": "Dialogue Stop (User:)",
+    "Prompt Style": "Respond as an assistant discussing [INPUT]. Stop when you reach the user's next turn (e.g., \"User:\")."
+  },
+  {
+    "Parameter": "stop",
+    "Target": "Multi-format Stop (\n\n, ###)",
+    "Prompt Style": "Discuss [INPUT] using a formatted response. Stop the output after the first section break or custom delimiter."
+  },
+  {
+    "Parameter": "logprobs",
+    "Target": "1 (basic confidence)",
+    "Prompt Style": "Explain [INPUT] and show which word choices were most likely at each step. I want to understand your confidence."
+  },
+  {
+    "Parameter": "logprobs",
+    "Target": "3 (top alternatives)",
+    "Prompt Style": "Explain [INPUT], but also list 2–3 alternative words you almost used for each key part of the explanation."
+  },
+  {
+    "Parameter": "logprobs",
+    "Target": "5 (detailed token scoring)",
+    "Prompt Style": "Provide a breakdown of [INPUT] with a confidence score for every word, and show which other words you considered."
+  },
+  {
+    "Parameter": "stream",
+    "Target": "Disabled (false)",
+    "Prompt Style": "Explain [INPUT] completely, and return the entire response at once."
+  },
+  {
+    "Parameter": "stream",
+    "Target": "Enabled (true)",
+    "Prompt Style": "Explain [INPUT] as if you're thinking aloud, revealing your thoughts word by word like a live conversation."
+  },
+  {
+    "Parameter": "stream",
+    "Target": "Live Response (voice/chat UX)",
+    "Prompt Style": "Begin explaining [INPUT] immediately, responding in a way that feels like you're typing or speaking in real time."
+  },
+  {
+    "Parameter": "echo",
+    "Target": "Disabled (false)",
+    "Prompt Style": "Just answer the question about [INPUT] without repeating it."
+  },
+  {
+    "Parameter": "echo",
+    "Target": "Enabled (true)",
+    "Prompt Style": "Repeat the question about [INPUT] first, then provide your answer."
+  },
+  {
+    "Parameter": "echo",
+    "Target": "Debug Mode",
+    "Prompt Style": "Include the full prompt related to [INPUT] along with your response so I can compare both together."
+  },
+  {
+    "Parameter": "seed",
+    "Target": "No Seed (random)",
+    "Prompt Style": "Each time I ask about [INPUT], respond differently to showcase various perspectives."
+  },
+  {
+    "Parameter": "seed",
+    "Target": "Fixed Seed (42)",
+    "Prompt Style": "Respond to [INPUT] in a consistent way, using the same style and wording every time this prompt is given."
+  },
+  {
+    "Parameter": "seed",
+    "Target": "Multi-Seed Sampling",
+    "Prompt Style": "Run three versions of the answer to [INPUT], each slightly different as if generated with different randomness settings."
+  },
+  {
+    "Parameter": "user",
+    "Target": "Anonymous (no ID)",
+    "Prompt Style": "Explain [INPUT] normally, without any personalization or tracking."
+  },
+  {
+    "Parameter": "user",
+    "Target": "Personalized ID (\"user_001\")",
+    "Prompt Style": "Explain [INPUT] in a way that could be logged or attributed to a specific user for analytics or moderation."
+  },
+  {
+    "Parameter": "user",
+    "Target": "Multi-user System",
+    "Prompt Style": "Assume multiple users are asking about [INPUT]. Treat each response as belonging to a unique individual for traceability."
+  },
+  {
+    "Parameter": "tool_calls",
+    "Target": "No Tool (text-only)",
+    "Prompt Style": "Explain [INPUT] using only your existing knowledge. Do not consult any external tools or functions."
+  },
+  {
+    "Parameter": "tool_calls",
+    "Target": "Auto Tool Use",
+    "Prompt Style": "If needed, use a tool to retrieve or calculate information about [INPUT] before answering."
+  },
+  {
+    "Parameter": "tool_calls",
+    "Target": "Explicit Tool Trigger",
+    "Prompt Style": "For [INPUT], call a tool or function like `getInfo()` to fetch the latest or most accurate data before you respond."
+  }
+];
+
+    let grouped = {};
+
+    window.onload = () => {
+      grouped = parameters.reduce((acc, obj) => {
+        acc[obj.Parameter] = acc[obj.Parameter] || [];
+        acc[obj.Parameter].push(obj);
+        return acc;
+      }, {});
+      populateParameterSelectors();
+    }
+
+    function populateParameterSelectors() {
+      const container = document.getElementById('param-selectors');
+      container.innerHTML = '';
+      for (const param in grouped) {
+        const div = document.createElement('div');
+        div.className = 'mb-6';
+
+        const label = document.createElement('label');
+        label.className = 'block font-semibold mb-1';
+        label.textContent = param;
+
+        const select = document.createElement('select');
+        select.className = 'w-full p-2 border rounded mb-2';
+        select.name = param;
+        grouped[param].forEach(opt => {
+          const option = document.createElement('option');
+          option.value = opt['Prompt Style'];
+          option.textContent = opt.Target;
+          select.appendChild(option);
+        });
+
+        const table = document.createElement('table');
+        table.className = 'text-sm w-full table-auto border-collapse border border-gray-300';
+
+        const thead = document.createElement('thead');
+        thead.innerHTML = '<tr class="bg-gray-100"><th class="border px-2 py-1 text-left">Target</th><th class="border px-2 py-1 text-left">Prompt Style</th></tr>';
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        grouped[param].forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class='border px-2 py-1'>${row.Target}</td><td class='border px-2 py-1'>${row['Prompt Style']}</td>`;
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+
+        div.appendChild(label);
+        div.appendChild(select);
+        div.appendChild(table);
+        container.appendChild(div);
+      }
+    }
+
+    function generatePrompt() {
+      const inputTopic = document.getElementById('inputTopic').value.trim();
+      const selects = document.querySelectorAll('#param-selectors select');
+      const promptParts = [];
+      selects.forEach(select => {
+        const selectedValue = select.value;
+        if (selectedValue && inputTopic) {
+          promptParts.push(selectedValue.replace('[INPUT]', inputTopic));
+        }
+      });
+      document.getElementById('outputPrompt').value = promptParts.join(' ');
+    }
+  </script>
+</head>
+<body class="bg-gray-50 p-6 font-sans">
+  <div class="max-w-3xl mx-auto bg-white shadow-md rounded p-6">
+    <h1 class="text-2xl font-bold mb-4">🔧 LLM Prompt Builder</h1>
+    <label class="block mb-2 font-medium">🧠 What do you want to know?</label>
+    <input id="inputTopic" class="w-full mb-4 p-2 border rounded" placeholder="e.g. How ChatGPT works" />
+
+    <div id="param-selectors" class="mb-6"></div>
+
+    <button onclick="generatePrompt()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Prompt</button>
+
+    <div class="mt-6">
+      <label class="block font-medium mb-2">📝 Generated Prompt:</label>
+      <textarea id="outputPrompt" rows="6" class="w-full p-2 border rounded"></textarea>
+    </div>
+  </div>
+</body>
+</html>
