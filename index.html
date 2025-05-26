@@ -2,119 +2,68 @@
 <html class="dark" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HandyHut - Your One-Stop Shop for Online Tools</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandyHut - Your One-Stop Shop for Online Tools</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="bg-gray-900 text-gray-100 font-sans">
-    <script src="tools.js"></script>
-    <div id="header-container"></div>
-    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <section class="mb-10">
-            <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your
-                One-Stop Shop for Handy Online Tools</h1>
-            <p class="text-lg text-gray-300 mb-4">HandyHut provides a collection
-                of useful tools right at your fingertips. Explore our growing
-                library and simplify your daily tasks.</p>
-            <div class="mb-4">
-                <input type="text" id="searchInput" placeholder="Search tools..."
-                    class="bg-gray-800 text-gray-100 border border-gray-700 rounded py-2 px-4 w-full focus:outline-none focus:border-indigo-500">
-            </div>
-        </section>
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="tool-grid">
-        </section>
-    </main>
-    <div id="footer-container"></div>
+  <div id="header-container"></div>
+  <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <section class="mb-10">
+      <h1 class="text-3xl font-bold text-indigo-500 mb-4">Your One-Stop Shop for Handy Online Tools</h1>
+      <p class="text-lg text-gray-300 mb-4">HandyHut provides a collection of useful tools right at your fingertips. Explore our growing library and simplify your daily tasks.</p>
+      <div class="mb-4">
+        <input type="text" id="searchInput" placeholder="Search tools..."
+          class="bg-gray-800 text-gray-100 border border-gray-700 rounded py-2 px-4 w-full focus:outline-none focus:border-indigo-500">
+      </div>
+    </section>
 
-    <script>
-        async function loadHeader() {
-            const response = await fetch('header.html');
-            const text = await response.text();
-            document.getElementById('header-container').innerHTML = text;
-            initializeMenu();
+    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <a href="llm-prompt-builder.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-blue-400 mb-2">LLM Prompt Builder</h2><p class="text-gray-400">Craft optimized prompts for large language models using parameter presets.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-blue-400 bg-blue-900">AI</span></div></div></a>
+      <a href="bmi-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-purple-400 mb-2">BMI Calculator</h2><p class="text-gray-400">Calculate your Body Mass Index (BMI) and find out your weight status.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-purple-400 bg-purple-900">Health</span></div></div></a>
+      <a href="emi-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">EMI Calculator</h2><p class="text-gray-400">Calculate your Equated Monthly Installment (EMI) for loans.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+      <a href="currency-converter.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Currency Converter</h2><p class="text-gray-400">Convert currencies quickly and easily.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+      <a href="unit-converter.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Unit Converter</h2><p class="text-gray-400">Convert between various units of measurement.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+      <a href="income-tax-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">Income Tax Calculator</h2><p class="text-gray-400">Calculate your income tax liability.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+      <a href="sip-calculator.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-green-400 mb-2">SIP Calculator</h2><p class="text-gray-400">Calculate returns on your Systematic Investment Plan (SIP).</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-green-400 bg-green-900">Finance</span></div></div></a>
+      <a href="date-difference.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Age & Date Difference</h2><p class="text-gray-400">Calculate the difference between dates.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+      <a href="timer-stopwatch-countdown.html" class="tool-card"><div class="p-6"><h2 class="text-xl font-semibold text-yellow-400 mb-2">Timer, Stopwatch & Countdown</h2><p class="text-gray-400">Versatile timer, stopwatch, and countdown tool.</p><div class="tag"><span class="inline-block px-2 py-1 text-xs font-semibold rounded text-yellow-400 bg-yellow-900">Utility</span></div></div></a>
+      <!-- Add other tools as needed -->
+    </section>
+  </main>
+  <div id="footer-container"></div>
+
+  <script>
+    async function loadHeader() {
+      const response = await fetch('header.html');
+      const text = await response.text();
+      document.getElementById('header-container').innerHTML = text;
+      initializeMenu();
+    }
+    async function loadFooter() {
+      const response = await fetch('footer.html');
+      const text = await response.text();
+      document.getElementById('footer-container').innerHTML = text;
+    }
+
+    function initializeMenu() {
+      const menuGroups = document.querySelectorAll('.relative.group');
+      menuGroups.forEach(menuGroup => {
+        const button = menuGroup.querySelector('button');
+        const dropdown = menuGroup.querySelector('.absolute');
+        if (button && dropdown) {
+          button.addEventListener('mouseenter', () => dropdown.classList.remove('hidden'));
+          menuGroup.addEventListener('mouseleave', () => dropdown.classList.add('hidden'));
         }
-        async function loadFooter() {
-            const response = await fetch('footer.html');
-            const text = await response.text();
-            document.getElementById('footer-container').innerHTML = text;
-        }
+      });
+    }
 
-        loadHeader();
-        loadFooter();
-
-        function initializeMenu() {
-            const menuGroups = document.querySelectorAll('.relative.group');
-            menuGroups.forEach(menuGroup => {
-                const button = menuGroup.querySelector('button');
-                const dropdown = menuGroup.querySelector('.absolute');
-                if (button && dropdown) {
-                    button.addEventListener('mouseenter', () => {
-                        dropdown.classList.remove('hidden');
-                    });
-                    menuGroup.addEventListener('mouseleave', () => {
-                        dropdown.classList.add('hidden');
-                    });
-                }
-            });
-        }
-
-        const toolGrid = document.getElementById('tool-grid');
-        const searchInput = document.getElementById('searchInput');
-
-        function displayTools(toolsToDisplay) {
-            toolGrid.innerHTML = ''; // Clear previous cards
-            toolsToDisplay.forEach(tool => {
-                const card = document.createElement('a');
-                card.href = tool.url;
-                card.classList.add('tool-card');
-                card.innerHTML = `
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold text-${getCategoryColor(tool.category)}-400 mb-2">${tool.name}</h2>
-                        <p class="text-gray-400">${tool.description}</p>
-                        <div class="tag">
-                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded text-${getCategoryColor(tool.category)}-400 bg-${getCategoryColor(tool.category)}-900">${tool.category}</span>
-                        </div>
-                    </div>
-                `;
-                toolGrid.appendChild(card);
-            });
-        }
-
-        // Initial display of tools
-        if (toolGrid && typeof tools !== 'undefined' && Array.isArray(tools)) {
-            displayTools(tools);
-
-            // Add event listener for search
-            searchInput.addEventListener('input', function () {
-                const searchTerm = searchInput.value.toLowerCase();
-                const filteredTools = tools.filter(tool =>
-                    tool.name.toLowerCase().includes(searchTerm) ||
-                    tool.description.toLowerCase().includes(searchTerm) ||
-                    tool.category.toLowerCase().includes(searchTerm) ||
-                    (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-                );
-                displayTools(filteredTools);
-            });
-        } else {
-            console.error("Could not load tools or tool grid not found.");
-        }
-
-
-        // Helper function to get category color (you can customize these)
-        function getCategoryColor(category) {
-            switch (category) {
-                case "Finance": return "green";
-                case "Utility": return "yellow";
-                case "AI": return "blue";
-                case "Health": return "purple";
-                case "Information": return "teal";
-                default: return "gray"; // Default color
-            }
-        }
-    </script>
+    loadHeader();
+    loadFooter();
+  </script>
 </body>
 
 </html>
